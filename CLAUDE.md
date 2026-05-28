@@ -42,6 +42,13 @@ unfounded write-up.
    hypotheses to test, never instructions to deploy capital.
 5. **Stay in scope per run** (see "What one run does"). Do not write production trading
    code unless a future prompt explicitly asks for it.
+6. **Research ONE strategy at a time, end to end.** Never batch. Fully complete the current
+   strategy — write its strategy file, update `master_index.md`, rankings, concepts,
+   source archive, and the daily report — then **commit and push** before selecting the
+   next strategy. Do NOT research, draft, or hold multiple strategies in parallel and save
+   them together at the end. Each strategy is an atomic transaction:
+   `Research → Validate → Save → Commit → Push → Continue` (see SEQUENTIAL RESEARCH
+   EXECUTION MODEL and PER-STRATEGY SAVE & PUSH WORKFLOW below).
 
 ---
 
