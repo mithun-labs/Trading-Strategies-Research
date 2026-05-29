@@ -1,10 +1,9 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-28
+Last updated: 2026-05-29
 
 ## Pending
 
-- Beat the Market: Intraday Momentum for SPY — SSRN 4824172 (Zarattini, Aziz, Barbon) — extension of ORB-SIP to SPY ETF
 - Interpretable Hypothesis-Driven Trading — arxiv 2512.12924 (Deep, Deep, Lamptey) — walk-forward framework, Sharpe 0.33 (methodology paper)
 
 ## Researching
@@ -17,6 +16,7 @@ _(none)_
 - `catching-crypto-trends-donchian-ensemble` — score 64 (Worth Researching) — 2026-05-28
 - `london-breakout-forex` — score 47 (Experimental) — 2026-05-28
 - `adaptivetrend-crypto` — score 41 (Experimental) — 2026-05-28
+- `intraday-momentum-spy` — score 50 (Experimental) — 2026-05-29
 
 ## Rejected
 
