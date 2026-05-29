@@ -54,31 +54,70 @@ unfounded write-up.
 
 ## START-OF-RUN PROCEDURE (execute in order, every run)
 
-1. **Run START-OF-RUN GIT PROCEDURE** (see the `# START-OF-RUN GIT PROCEDURE` section below).
-   Sync from remote, restore any stash, switch to today's branch — before touching
-   any local file.
-2. Determine today's date from the environment. Do not guess it. Run:
+1. **Acquire the run lock** (see RUN LOCK PROTECTION below). If `research/.run.lock` already
+   exists, STOP — another run may still be active. Otherwise create it before touching any file.
+2. **Run START-OF-RUN GIT PROCEDURE** (see the `# START-OF-RUN GIT PROCEDURE` section below).
+   Sync `main` from remote and restore any stash — before touching any local file.
+3. Determine today's date from the environment. Do not guess it. Run:
    ```bash
    date +%Y-%m-%d
    ```
-   Use this output as `YYYY-MM-DD` in all filenames, branch names, and PR titles this run.
-3. Read `research/master_index.md`. If it does not exist, create the full directory
-   structure (see DIRECTORY STRUCTURE) and an empty index; note in today's report
-   that this is the first run.
-4. Skim recent files under `research/daily/` to avoid repeating last few days' work.
-5. Only then begin searching.
+   Use this output as `YYYY-MM-DD` in all filenames this run.
+4. Read `research/master_index.md` and `research/queue.md`. If they do not exist, create the
+   full directory structure (see DIRECTORY STRUCTURE) and empty versions; note in today's
+   report that this is the first run.
+5. Skim recent files under `research/daily/` to avoid repeating last few days' work.
+6. Only then begin searching.
 
 ---
 
-## WHAT ONE RUN DOES (bounded scope)
+## RUN LOCK PROTECTION (concurrency safety)
 
-Depth over breadth:
+Never allow two research runs to operate on the repository simultaneously.
 
-- Investigate **2–5 strategies thoroughly**, not 20 shallowly. A thin entry is a failure.
-- **Finding nothing worth recording is an acceptable outcome.** If today's sources are
-  hype, scams, or rehashes, say so in the daily report and stop. Do not pad.
-- Stop cleanly well before any context/usage limit; a half-written entry is worse than
-  one fewer entry. Finish and save what you've completed.
+**Before starting research,** check for the lock file:
+
+```bash
+ls research/.run.lock
+```
+
+- If `research/.run.lock` **exists**: another run may still be active. STOP immediately. Do
+  not continue.
+- If it does **not** exist: create it, then proceed.
+
+```bash
+echo "run started $(date -u +%Y-%m-%dT%H:%M:%SZ) pid=$$" > research/.run.lock
+```
+
+**Remove the lock** in every exit path:
+- at successful completion,
+- during a controlled shutdown,
+- after unrecoverable-failure cleanup.
+
+```bash
+rm -f research/.run.lock
+```
+
+The lock is a **local working-tree file only** — it is listed in `.gitignore` and must never
+be committed or pushed, so `git add research/` will not stage it.
+
+---
+
+## WHAT ONE RUN DOES (continuous scope)
+
+Depth over breadth, but no fixed strategy count:
+
+- **Research strategies continuously** until one of these limits is reached:
+  - available context approaches exhaustion, or
+  - token budget approaches exhaustion, or
+  - execution time budget expires, or
+  - repository errors occur.
+- **Always complete and persist the current strategy before stopping. Never stop
+  mid-strategy.** A half-written entry is worse than one fewer entry.
+- The quality bar still applies: a thin entry is a failure, and **finding nothing worth
+  recording is an acceptable outcome.** If today's sources are hype, scams, or rehashes,
+  say so in the daily report and stop. Do not pad.
+- See PER-STRATEGY RESEARCH BUDGET for the per-strategy effort cap.
 
 ---
 
@@ -157,6 +196,36 @@ timeframe | market`. Before saving a new entry:
 
 ---
 
+## STRATEGY QUEUE TRACKING
+
+Candidate strategies are tracked in `research/queue.md` so runs never lose the backlog and
+never duplicate work.
+
+`research/queue.md` structure:
+
+```markdown
+# Candidate Strategy Queue
+
+## Pending
+
+## Researching
+
+## Completed
+
+## Rejected
+```
+
+Rules:
+- **Before researching:** check the queue; skip anything already in Completed/Rejected, and
+  cross-check `master_index.md` fingerprints for duplicates.
+- Move a strategy **Pending → Researching** when you start it, and **Researching → Completed**
+  (or **→ Rejected**) when you finish.
+- Add newly discovered candidates to **Pending** as you encounter them.
+- Update the queue continuously and **persist queue changes after every strategy** (it is part
+  of the PER-STRATEGY SAVE & PUSH WORKFLOW file list).
+
+---
+
 ## DIRECTORY STRUCTURE
 
 ```
@@ -168,6 +237,8 @@ research/
 ├── scams/
 ├── implementation_candidates/
 ├── source_archive/             # one .md per run: raw URLs + retrieval timestamp
+├── queue.md                    # candidate strategy queue (Pending/Researching/Completed/Rejected)
+├── .run.lock                   # concurrency lock; local-only, gitignored, present only while a run is active
 └── master_index.md             # fingerprints + scores + last-updated
 ```
 
@@ -246,10 +317,11 @@ Add/refresh the fingerprint, score, and last-updated date for every strategy tou
 - [ ] Today's daily report written.
 - [ ] Every strategy file saved with `NOT REPORTED` in any unsourced field.
 - [ ] `master_index.md` updated (fingerprints + scores + dates).
+- [ ] `research/queue.md` updated (strategies moved between states).
 - [ ] Source URLs preserved in `source_archive/` with retrieval date.
 - [ ] No fabricated numbers; all performance claims tagged.
-- [ ] All commits pushed to today's research branch on remote.
-- [ ] Pull request opened: `research-YYYY-MM-DD` → `main` (see END-OF-RUN GIT PROCEDURE).
+- [ ] All commits pushed directly to `main`, and each push verified (see END-OF-RUN GIT PROCEDURE).
+- [ ] `research/.run.lock` removed.
 
 ---
 
@@ -367,6 +439,9 @@ Thumbs.db
 .claude/
 *.tmp
 *.log
+
+# Concurrency lock — local only, never committed
+research/.run.lock
 ```
 
 ## 4. Scheduling (Claude Code Desktop)
@@ -414,26 +489,28 @@ Then add a single cron entry pointing at the script:
 
 ---
 
-# BRANCHING MODEL (MANDATORY)
+# DIRECT-TO-MAIN MODEL (MANDATORY)
 
-**DO NOT push directly to `main`.**
+`main` is the canonical production branch and the single source of truth. All completed
+research is committed and pushed **directly to `main`**.
 
-Every research run operates on an isolated daily branch:
+- Do **not** create daily research branches (`research-YYYY-MM-DD`).
+- Do **not** create feature branches for research.
+- Do **not** open pull requests.
+- There is **no human review gate** — pushes to `main` are the permanent record.
 
-```
-research-YYYY-MM-DD
-```
+The only branches ever created are **crash-recovery branches** (`recovery-YYYY-MM-DD-HHMM`),
+used solely to preserve unfinished work during start-of-run recovery (see START-OF-RUN GIT
+PROCEDURE). They are not part of the normal research flow.
 
 Workflow:
-1. Pull latest `main`
-2. Create or switch to today's research branch
-3. Research incrementally
-4. Commit after EACH completed strategy
-5. Push continuously throughout the run
-6. Never modify `main` directly
-7. Open a pull request at end of run — leave for human review
+1. Sync `main` from remote.
+2. Research one strategy at a time (see SEQUENTIAL RESEARCH EXECUTION MODEL).
+3. Commit after EACH completed strategy.
+4. Push directly to `main` after EACH completed strategy, then verify the push.
+5. Never continue research after a failed or unverified push.
 
-The `main` branch must remain stable, recoverable, and human-reviewable.
+Repository integrity and recoverability are higher priority than research speed.
 
 ---
 
@@ -445,39 +522,36 @@ The `main` branch must remain stable, recoverable, and human-reviewable.
 git status
 ```
 
-Check: current branch, uncommitted changes, untracked files, merge conflicts, detached HEAD.
+Check for: merge conflicts, detached HEAD, a dirty workspace, and general repository health
+(current branch, uncommitted changes, untracked files).
 
 ## Step 2 — Handle Dirty Working Tree
 
-If workspace is dirty, **do not** `git reset --hard` (destroys unfinished research).
-Stash instead, then continue immediately to Step 3:
+If the workspace is dirty, **do not** `git reset --hard` (it destroys unfinished research).
+Stash instead:
 
 ```bash
 git stash push -u -m "auto-recovery-before-sync"
 ```
 
-> **Note:** Do NOT create the recovery branch here. Continue to Steps 3 and 4 first.
-> Stash pop (Step 4) and optional recovery branch creation (Step 2a) happen later.
-> Popping the stash before `git checkout main` (Step 3) can fail when files exist in both branches.
+## Step 2a — Preserve Valuable Unfinished Research (only if needed)
 
-## Step 2a — Recover Stashed Work (deferred: run this AFTER Step 4 completes, only if needed)
-
-If a stash was created in Step 2 and the work appears worth preserving, promote it to a named branch **after Step 4 has switched to the research branch**. Use `git stash branch` — it creates the branch, applies the stash onto it, and drops the stash entry in one step. Do not use `git checkout -b` — that leaves the files still held in the stash with nothing to commit:
+If the stashed work appears valuable, promote it to a crash-recovery branch. `git stash branch`
+creates the branch, applies the stash onto it, and drops the stash entry in one step:
 
 ```bash
 git stash branch recovery-YYYY-MM-DD-HHMM
 git add research/
 git commit -m "recovery: preserve unfinished research state"
-git push -u origin HEAD
-# Then switch back to today's research branch to continue:
-git checkout research-YYYY-MM-DD
+git push origin HEAD
 ```
 
-If you used `git stash branch` above, the stash entry is consumed — **skip `git stash pop` in Step 4**.
+If you used `git stash branch` here, the stash entry is consumed — **skip `git stash pop` in
+Step 3**. If the stashed work is not worth keeping, leave it stashed and restore it with
+`git stash pop` after Step 3 instead (popping before `git checkout main` can fail when files
+exist in both states).
 
-If the stashed work is not worth keeping, restore it normally in Step 4 with `git stash pop`.
-
-## Step 3 — Synchronize Repository
+## Step 3 — Synchronize `main`
 
 ```bash
 git fetch origin
@@ -485,56 +559,50 @@ git checkout main
 git pull --rebase origin main
 ```
 
-## Step 4 — Create or Switch to Daily Research Branch
-
-```bash
-# -b with fallback avoids resetting an existing branch mid-day
-git checkout research-YYYY-MM-DD 2>/dev/null || git checkout -b research-YYYY-MM-DD
-```
-
-If a stash was created in Step 2 **and** you did not use `git stash branch` in Step 2a, restore it now:
+If a stash was created in Step 2 **and** you did not use `git stash branch` in Step 2a,
+restore it now:
 
 ```bash
 git stash pop
 ```
 
-If you ran `git stash branch` in Step 2a, the stash is already applied — skip this.
-
-Confirm branch state:
+Confirm state:
 
 ```bash
 git status
 ```
 
-## Step 5 — Load Repository State
+## Step 4 — Load Repository State
 
-Read: `research/master_index.md`, recent daily reports, existing strategy files,
-rankings, concepts, implementation candidates, scam archive, source archive.
+Read: `research/master_index.md`, `research/queue.md`, recent daily reports, existing strategy
+files, rankings, concepts, implementation candidates, scam archive, source archive.
 
 Detect: existing fingerprints, recently researched strategies, duplicate concepts,
 incomplete entries, ranking changes, strategy evolution.
 
-**Only begin research AFTER repository synchronization succeeds.**
-If synchronization fails: STOP, report clearly, do not continue with stale state.
+**Only begin research AFTER synchronization succeeds.**
+If synchronization fails: STOP immediately, report the failure clearly, and do not continue
+with stale state.
 
 ---
 
 # SEQUENTIAL RESEARCH EXECUTION MODEL (MANDATORY)
 
-Research EXACTLY ONE strategy at a time. Each strategy is an **atomic transaction**:
+Research EXACTLY ONE strategy at a time. No batching. No parallel strategy research. No
+delayed persistence. Each strategy is an **atomic transaction**:
 
-1. Select ONE strategy
+1. Select ONE strategy (from `research/queue.md`)
 2. Complete all research
 3. Verify evidence
 4. Score confidence
 5. Perform duplicate detection
 6. Update strategy files
-7. Update rankings/indexes
+7. Update rankings/indexes and `research/queue.md`
 8. Save source references
 9. Validate repository consistency
 10. Commit changes
-11. Push changes
-12. Confirm push succeeded
+11. Push directly to `main`
+12. Verify the push (`HEAD == origin/main`)
 13. ONLY THEN continue to the next strategy
 
 **Research → Validate → Save → Commit → Push → Continue**
@@ -553,8 +621,9 @@ store temporary findings only in memory, or leave the repository in a partial st
 3. `research/rankings/`
 4. `research/concepts/`
 5. `research/implementation_candidates/` (if score ≥ 60)
-6. `research/source_archive/YYYY-MM-DD.md` — append new rows for sources used this strategy
-7. `research/daily/YYYY-MM-DD.md`
+6. `research/queue.md` — move the strategy to its new state (Completed / Rejected)
+7. `research/source_archive/YYYY-MM-DD.md` — append new rows for sources used this strategy
+8. `research/daily/YYYY-MM-DD.md`
 
 ## 2. Validate Repository Consistency
 
@@ -577,6 +646,9 @@ git add research/
 git commit -m "research: <strategy-name> analysis"
 ```
 
+If `git commit` returns `nothing to commit`, do **NOT** treat this as a failure — there was
+simply nothing new to persist at this step. Continue execution.
+
 Commit message examples:
 ```bash
 git commit -m "research: add london breakout analysis"
@@ -588,51 +660,86 @@ git commit -m "research: flag scam strategy fake AI martingale"
 Messages must clearly describe: what changed, which strategy, and whether it is
 new research / update / correction / scam classification / ranking change / evolution.
 
-## 4. Push
+## 4. Push Directly to `main`
 
 ```bash
-# -u sets upstream tracking on first push of a new branch;
-# subsequent pushes on the same branch work without extra flags
-git push -u origin HEAD
+git push origin HEAD:main
 ```
 
-Confirm push succeeds before continuing. Never accumulate large amounts of unpushed research.
+## 5. Verify the Push (mandatory)
+
+Immediately confirm the remote received the commit:
+
+```bash
+git fetch origin
+git rev-parse HEAD
+git rev-parse origin/main
+```
+
+`HEAD` and `origin/main` MUST be identical. If verification fails:
+
+- STOP research immediately.
+- Report a repository synchronization failure.
+- Do NOT continue to the next strategy.
+
+Persistence is mandatory before selecting the next strategy. Treat every verified push as a
+permanent recovery checkpoint, and never accumulate large amounts of unpushed research.
+
+---
+
+# DIRECT-TO-MAIN SAFETY RULES
+
+- Commit after every completed strategy.
+- Push after every completed strategy.
+- Verify every push (`HEAD == origin/main`).
+- Never continue research if a push fails.
+- Never continue research if verification fails.
+- Validate repository consistency before every commit.
+- Treat every push as a permanent recovery checkpoint.
+- Never accumulate large amounts of uncommitted work.
+- Repository integrity is more important than research speed.
+
+---
+
+# PER-STRATEGY RESEARCH BUDGET
+
+Cap the effort spent on any single strategy to avoid infinite investigation loops.
+
+**Maximum effort per strategy:**
+- 10 source documents, OR
+- 30 minutes of investigation.
+
+When the limit is reached:
+- **If confidence is still below 40:** mark it `LOW CONFIDENCE`, persist findings, update
+  rankings and `research/queue.md`, and move on.
+- **If confidence is above 60:** the strategy is promising — invest more time before moving on.
+
+Always complete and persist the current strategy before stopping. Never stop mid-strategy.
 
 ---
 
 # END-OF-RUN GIT PROCEDURE (MANDATORY)
 
-## Step 1 — Final Push
+## Step 1 — Final Push to `main`
 
 ```bash
-git push -u origin HEAD
+git push origin HEAD:main
 git status
 # Expected: "nothing to commit, working tree clean"
 ```
 
-## Step 2 — Open Pull Request
+(If every strategy was pushed and verified during the run, this is usually a no-op.)
 
-**Via GitHub CLI (preferred — install at https://cli.github.com if not present):**
+## Step 2 — Release the Run Lock
+
+Remove the concurrency lock and confirm cleanup succeeded:
 
 ```bash
-TODAY=$(date +%Y-%m-%d)
-
-gh pr create \
-  --base main \
-  --head "research-${TODAY}" \
-  --title "Research pass ${TODAY}" \
-  --body "Automated research pass. See research/daily/${TODAY}.md for summary."
+rm -f research/.run.lock
+ls research/.run.lock 2>/dev/null && echo "LOCK STILL PRESENT — investigate" || echo "lock released"
 ```
 
-**Manually** (replace `YYYY-MM-DD` with today's actual date):
-`https://github.com/<org>/<repo>/compare/main...research-YYYY-MM-DD`
-
-The PR title must include the actual date. The body must link to the actual daily report file.
-
-## Step 3 — Do Not Merge
-
-Do NOT merge the PR. Leave it for human review.
-`main` is protected and human-reviewable by design.
+No pull request is created. No human review gate exists. `main` is the permanent record.
 
 ---
 

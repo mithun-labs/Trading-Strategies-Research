@@ -1,0 +1,18 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Credentials — never commit
+.env
+*.pem
+*.key
+
+# Claude Code working files
+.claude/
+*.tmp
+*.log
+
+# Concurrency lock — local only, never committed
+research/.run.lock
