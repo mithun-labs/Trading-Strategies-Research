@@ -1,15 +1,14 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 10)
+Last updated: 2026-05-29 (run 11)
 
 ## Pending
 
-- `hmm-rl-regime-taa` — HMM+RL Regime Tactical Asset Allocation (arXiv:2605.27848, Verma/Putri/Lesupi, May 2026); three-state HMM + RL policy allocating SPY/TLT/GLD; 2004–2025 daily data; preprint only
 - `bitcoin-max-min-trendrev` — Bitcoin MAX/MIN Trend-Following & Mean-Reversion (SSRN 4955617, Beluška/Vojtko, Sep 2024); lookback-based MAX (trend) and MIN (mean reversion) strategies on BTC; Nov 2015–Aug 2024 with OOS stress test 2022–2024; Quantpedia working paper
 
 ## Researching
 
-_(none)_
+- `hmm-rl-regime-taa` — HMM+RL Regime Tactical Asset Allocation (arXiv:2605.27848, Verma/Putri/Lesupi, May 2026); three-state HMM + RL policy allocating SPY/TLT/GLD; 2004–2025 daily data; preprint only; STARTED
 
 ## Completed
 
@@ -32,6 +31,7 @@ _(none)_
 - `sector-rotation-tsx60` — score 54 (Experimental) — 2026-05-29 — Peer-reviewed MDPI JRFM (Jan 2026); open code (GitHub); Sharpe 0.922 vs 0.624 B&H; median+quarterly rotation; OOS 2020–2025; TSX 60 Canadian equities; multiple testing over 72 variants; max DD paywalled
 - `graph-clustering-pairs-trading` — score 49 (Experimental) — 2026-05-29 — arXiv:2406.10695 + SSRN:4849095; graph clustering + ML classifier (top 10% filter) + Kelly criterion; 17-year OOS (2006–2022) survivorship-corrected; IR > SPY at 1% significance; specific Sharpe/max DD NOT REPORTED
 - `vix-cmf-ml-walkforward` — score 45 (Experimental) — 2026-05-29 — PLOS One April 2024 (peer-reviewed); 7 ML models on VIX CMF term structure; μt + Δroll features; C-MVO IR 0.623; 11-year walk-forward; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed; daily costs unknown
+- `hmm-rl-regime-taa` — score 44 (Experimental) — 2026-05-29 — arXiv:2605.27848 preprint (May 2026) + related practitioner open code (2-state HMM); SPY/TLT/GLD ETF rotation; Sharpe 1.22 / CAGR 19.41% / Max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled; no OOS
 
 ## Rejected
 
