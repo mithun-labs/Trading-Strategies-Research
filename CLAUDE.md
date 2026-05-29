@@ -408,6 +408,21 @@ single question.** Always check, and record explicitly:
 - Does the edge plausibly survive realistic costs, or is the gross edge smaller than the round-trip cost?
 - Capacity: does it depend on illiquid instruments or tiny size? Does slippage eat it when sized up?
 
+#### Quantitative Metric Validation
+
+Beyond asking whether costs were modeled, assess whether reported performance metrics are
+internally consistent given the strategy's market, timeframe, and turnover:
+- A high-frequency or high-turnover strategy on FX/crypto with zero-cost assumptions and Sharpe > 2
+  is presumptively invalid — say so explicitly.
+- Compare Sharpe, CAGR, and maximum drawdown to known benchmarks for the asset class (e.g. typical
+  CTA per-market Sharpe: 0.15–0.20; multi-year drawdowns for trend strategies: 10–30%).
+- A maximum drawdown < 5% over a multi-year period on a strategy without explicit position limits
+  and explicit stop-management warrants mandatory explanation in `## Why This Might Be Nothing`.
+- A Sortino > 4 on a strategy with no defined stop-loss almost certainly reflects a look-back
+  period that excluded large losses, not genuine downside control.
+- Check whether CAGR and reported volatility imply a Sharpe that the source did not claim directly
+  — if the implied Sharpe is extreme, flag it in `## Why This Might Be Nothing` as ANALYSIS.
+
 ### Scrutinize, never select for
 High win rate (demand the loss distribution); "consistent monthly profitability" (too-smooth
 returns are statistically suspicious); headline Sharpe/drawdown with no auditable basis.
@@ -418,6 +433,87 @@ martingale; uncontrolled grid/recovery; "no-loss"/"100% win"; binary options; sc
 proof; paywalled-only; no risk management; returns driven by extreme leverage; signal-selling
 funnels; curve-fitting (many params, suspiciously clean curve, no OOS); **costs omitted on a
 high-turnover strategy; rationale that cannot be falsified.**
+
+---
+
+## PERFORMANCE METRICS REQUIREMENTS (MANDATORY)
+
+For every strategy, actively search for, extract, and record all available performance metrics.
+Collect them from every accessible source — papers, blogs, forum posts, code repositories, video
+descriptions — and record each one in the `## Performance Metrics` table of the strategy file.
+
+### Metrics to collect
+
+| Metric | Notes |
+|---|---|
+| Sharpe Ratio | Annualized; note leverage and risk-free rate if stated |
+| Sortino Ratio | Confirm which downside threshold is used |
+| Calmar Ratio | CAGR ÷ Maximum Drawdown |
+| Profit Factor | Gross profit ÷ Gross loss |
+| Win Rate | % of trades closing profitable |
+| Expectancy per Trade | Average (win × win-rate) − (loss × loss-rate) |
+| Maximum Drawdown | Peak-to-trough loss; note if EOD vs. intraday measurement |
+| CAGR | Compound Annual Growth Rate over the reported period |
+| Annual Return | Period-specific return for a named year or window |
+| Number of Trades | Total count in the reported window |
+| Average Trade Duration | Mean holding period |
+| Recovery Factor | Net profit ÷ Maximum Drawdown |
+| Risk-Reward Ratio | Average win ÷ Average loss |
+| Exposure Percentage | % of calendar time with an open position |
+
+### Tagging policy (anti-fabrication)
+
+Every metric value in the table must carry exactly one status tag:
+
+- **`NOT REPORTED`** — metric not explicitly stated in any source. **Never estimate, infer, or
+  calculate it.** If it is not in a source verbatim, write `NOT REPORTED`.
+- **`CLAIMED, UNVERIFIED`** — stated by a vendor, blogger, TradingView author, forum user,
+  YouTube creator, EA seller, signal provider, or any source whose methodology and data cannot
+  be independently verified. This is the correct tag for virtually all retail and many academic
+  sources. A thorough-looking write-up does **not** promote this tag.
+- **`AUDITABLE`** — the metric comes from an independently auditable source, meaning **both**:
+  (a) the source is a peer-reviewed paper **with a documented, reproducible methodology**, or
+  open-source code you have actually read line-by-line, **AND** (b) the Evidence auditability
+  dimension for this strategy scores ≥ 8. Conference proceedings, unreproducible notebooks, and
+  paywalled results all remain `CLAIMED, UNVERIFIED` regardless of how rigorous they appear.
+
+**Hard rules for the metrics table:**
+- Never estimate or infer a missing metric. Write `NOT REPORTED`.
+- Never calculate Sharpe, Sortino, Calmar, CAGR, or any other figure from partial information
+  and enter the result in the table.
+- Never derive a metric from other reported metrics and enter it in the table unless the source
+  explicitly states the derived value.
+- A high reported Sharpe or low drawdown does **not** promote `CLAIMED, UNVERIFIED` to `AUDITABLE`.
+
+**Derivations and stress-tests outside the table are permitted and expected:**
+In `## Why This Might Be Nothing` and `## Analyst Notes`, you may — and should — perform labeled
+ANALYSIS calculations: leverage-adjusting a Sharpe, comparing implied volatility to stated metrics,
+sanity-checking a CAGR against benchmarks. Always label these clearly as `ANALYSIS`. The
+prohibition above applies only to what goes in the `## Performance Metrics` table.
+
+### Automatic scrutiny triggers
+
+When any of the following appears in reported metrics, it **must** be explicitly discussed in
+`## Why This Might Be Nothing`. Extreme values are almost always explained by overfitting,
+regime luck, survivorship bias, omitted transaction costs, leverage, small-sample issues, or
+fabrication. Sub-threshold values do not imply the metrics are clean — judgment always applies.
+
+| Trigger | Threshold | Mandatory discussion topic |
+|---|---|---|
+| Sharpe Ratio | > 3 | Leverage? Costs omitted? Curve-fit? ~14–20× typical CTA per-market Sharpe |
+| Sortino Ratio | > 4 | Near-absence of downside vol — what excluded the tail losses? |
+| Profit Factor | > 2.5 | Over-optimized parameters or look-back cherry-pick? |
+| Win Rate | > 80% | Demand the full loss distribution; often masks large catastrophic losers |
+| Maximum Drawdown | < 5% | Multi-year period without explicit position limits — statistically implausible |
+| CAGR | > 50% | Exceeds audited CTA track records; suspect leverage, data-mining, or regime luck |
+
+### Reported metrics do not improve the confidence score
+
+The **Evidence auditability** dimension scores the *quality of the evidence methodology*, not
+the attractiveness of headline numbers. A strategy reporting Sharpe 5 and 90% win rate is not
+more auditable than one reporting Sharpe 0.8 — both are `CLAIMED, UNVERIFIED` unless the
+underlying methodology and data are independently verifiable. Do not raise Evidence Auditability
+because reported metrics look compelling.
 
 ---
 
@@ -603,7 +699,24 @@ Source links · Verification level · Analyst note
 ## Transaction Costs & Capacity  (spread/slippage/commission/swap modeled? survives costs? capacity limits?)
 ## Backtest Evidence             (auditable / claimed / NOT REPORTED)
 ## Forward-Test Evidence         (auditable / claimed / NOT REPORTED)
-## Reported Metrics              (each tagged CLAIMED/UNVERIFIED/NOT REPORTED)
+## Performance Metrics           (structured table — see PERFORMANCE METRICS REQUIREMENTS)
+
+| Metric | Value | Status | Source |
+|--------|-------|--------|--------|
+| Sharpe Ratio | | | |
+| Sortino Ratio | | | |
+| Calmar Ratio | | | |
+| Profit Factor | | | |
+| Win Rate | | | |
+| Expectancy per Trade | | | |
+| Maximum Drawdown | | | |
+| CAGR | | | |
+| Annual Return | | | |
+| Number of Trades | | | |
+| Average Trade Duration | | | |
+| Recovery Factor | | | |
+| Risk-Reward Ratio | | | |
+| Exposure Percentage | | | |
 ## Community Sentiment           (include the criticism, with links)
 ## Why This Might Be Nothing     (MANDATORY skeptic steelman — benign explanation, cost case, regime dependence, overfitting, the one piece of evidence that would change your mind)
 ## Strengths / Weaknesses
