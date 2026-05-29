@@ -5,7 +5,7 @@ Last updated: 2026-05-29 (run 3)
 ## Pending
 
 _(see Completed below for network-momentum-trend-following)_
-- `omega-model-intraday-nasdaq` — PLOS One 10.1371/journal.pone.0291119 (Yu et al., Sep 2023) — S&P 500 + NASDAQ-100 component stocks; Omega model with momentum/reversal; peer-reviewed; net positive returns; Sharpe only outperforms BH in volatile periods (2020–2021)
+_(see Completed below for omega-model-intraday-nasdaq)_
 - `quantevolve-multi-agent-strategy` — arxiv 2510.18569 (Oct 2025) — Multi-agent evolutionary framework generating diverse strategies; NOTE: primarily a methodology framework paper, not a single deployable strategy; lower priority
 
 ## Researching
@@ -24,6 +24,7 @@ _(none)_
 - `small-cap-multipattern-poudel` — score 53 (Experimental) — 2026-05-29 — 6 strategy families; OOS Sharpe 0.7–0.9 credible but requires independent replication
 - `regime-switching-jump-model-equity` — score 68 (Worth Researching) — 2026-05-29 — Peer-reviewed (Journal of Asset Management 2024); open code (jumpmodels PyPI); implementation candidate
 - `network-momentum-trend-following` — score 52 (Experimental) — 2026-05-29 — Pre-print; lead-lag network signal; 28 futures OOS 2005-2024; net Sharpe > MACD; no peer review; no code
+- `omega-model-intraday-nasdaq` — score 55 (Experimental) — 2026-05-29 — Peer-reviewed PLOS One; NASDAQ-100 outperforms all 3 periods; S&P 500 only COVID; authors: not suitable long-term
 
 ## Rejected
 
