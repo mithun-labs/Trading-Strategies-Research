@@ -1,12 +1,12 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 3)
+Last updated: 2026-05-29 (run 4)
 
 ## Pending
 
 _(see Completed below for network-momentum-trend-following)_
 _(see Completed below for omega-model-intraday-nasdaq)_
-- `quantevolve-multi-agent-strategy` — arxiv 2510.18569 (Oct 2025) — Multi-agent evolutionary framework generating diverse strategies; NOTE: primarily a methodology framework paper, not a single deployable strategy; lower priority
+- `attention-factors-statistical-arbitrage` — arxiv 2510.11616 / ACM ICAIF 2025 (Oct 2025) — Epstein, Wang, Choi, Pelger (Stanford); joint factor + arbitrage trading policy; OOS Sharpe >4 gross, 2.3 net of costs over 24 years on 500 largest US equities; peer-reviewed; HIGH PRIORITY
 
 ## Researching
 
@@ -26,6 +26,7 @@ _(none)_
 - `network-momentum-trend-following` — score 52 (Experimental) — 2026-05-29 — Pre-print; lead-lag network signal; 28 futures OOS 2005-2024; net Sharpe > MACD; no peer review; no code
 - `omega-model-intraday-nasdaq` — score 55 (Experimental) — 2026-05-29 — Peer-reviewed PLOS One; NASDAQ-100 outperforms all 3 periods; S&P 500 only COVID; authors: not suitable long-term
 - `fx-mean-reversion-futures-monthly` — score 46 (Experimental) — 2026-05-29 — Linear Sharpe 0.12 = null result; exponential better but unverified; SSRN working paper (Quantpedia)
+- `quantevolve-multi-agent-strategy` — score 24 (Low Confidence) — 2026-05-29 — FRAMEWORK PAPER: data mining by design; 6+2 asset evaluation; workshop paper; no specific deployable strategy
 
 ## Rejected
 
