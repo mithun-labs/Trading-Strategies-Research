@@ -623,19 +623,30 @@ Add/refresh the fingerprint, score, and last-updated date for every strategy tou
 
 ---
 
-## BRANCHING MODEL: DIRECT-TO-MAIN (MANDATORY)
+## BRANCHING MODEL: AUTO-MERGE TO MAIN (MANDATORY)
 
-`main` is the canonical production branch and the single source of truth. All completed
-research is committed and pushed **directly to `main`**.
+`main` is the canonical production branch and the single source of truth. Every completed,
+validated strategy must land on `main` **automatically**, with **no human review gate**.
+Merging is the agent's own responsibility — it never waits for human approval.
+
+Two environments are supported; detect which applies from the START-OF-RUN GIT PROCEDURE:
+
+- **Direct-push environment** — if the agent can push to `main`, commit and push completed
+  research **directly to `main`** (the historical default).
+- **Branch + PR environment** (e.g. Claude Code on the web) — the agent is assigned a
+  designated working branch and cannot push to `main` directly. Commit and push each completed
+  strategy to the **working branch**, then **automatically merge it into `main`** using the
+  GitHub merge tooling (merge the working branch's pull request; open one first if none
+  exists). Perform the merge as soon as the strategy is complete and validated.
+
+Either way the invariant is identical: **a completed, validated strategy is on `main` before
+the next strategy begins.** Never leave completed research stranded on a working branch.
 
 - Do **not** create daily research branches (`research-YYYY-MM-DD`).
-- Do **not** create feature branches for research.
-- Do **not** open pull requests.
-- There is **no human review gate** — pushes to `main` are the permanent record.
-
-The only branches ever created are **crash-recovery branches** (`recovery-YYYY-MM-DD-HHMM`),
-used solely to preserve unfinished work during start-of-run recovery (see START-OF-RUN GIT
-PROCEDURE). They are not part of the normal research flow.
+- Do **not** create extra feature branches beyond the assigned working branch.
+- The only other branches ever created are **crash-recovery branches**
+  (`recovery-YYYY-MM-DD-HHMM`), used solely to preserve unfinished work during start-of-run
+  recovery (see START-OF-RUN GIT PROCEDURE). They are not part of the normal research flow.
 
 ---
 
@@ -668,9 +679,10 @@ leave the repository in a partial state. Each strategy is an **atomic transactio
    8. `research/daily/YYYY-MM-DD.md`
 9. **Validate repository consistency** (below).
 10. **Commit** (below).
-11. **Push directly to `main`** (below).
-12. **Verify the push** (`HEAD == origin/main`) (below).
-13. ONLY THEN continue to the next strategy.
+11. **Push** the commit — to the working branch, or directly to `main` where allowed (below).
+12. **Auto-merge to `main`** — no human review gate (below).
+13. **Verify** the completed strategy is on `main` (below).
+14. ONLY THEN continue to the next strategy.
 
 ### Validate repository consistency (before committing)
 
@@ -707,30 +719,53 @@ git commit -m "research: add evolved variant of mean reversion scalping"
 git commit -m "research: flag scam strategy fake AI martingale"
 ```
 
-### Push directly to `main`
+### Push, then auto-merge to `main`
+
+**Direct-push environment** (agent can push to `main`):
 
 ```bash
 git push origin HEAD:main
 ```
 
-### Verify the push (mandatory)
+**Branch + PR environment** (agent has a designated working branch): push the checkpoint to
+the working branch, then merge it into `main` automatically — no human review gate.
 
-Immediately confirm the remote received the commit:
+```bash
+git push -u origin <working-branch>
+```
+
+Then merge into `main` with the GitHub merge tooling (merge the open PR for the working
+branch; open a PR first if none exists). The agent performs the merge itself and does not wait
+for human approval. If `git commit` reported `nothing to commit`, there is nothing to merge —
+skip the merge and continue.
+
+### Verify (mandatory)
+
+Immediately confirm the work is safe on the remote **and has reached `main`**:
 
 ```bash
 git fetch origin
 git rev-parse HEAD
-git rev-parse origin/main
+git rev-parse origin/<working-branch>   # checkpoint (branch + PR environment)
+git rev-parse origin/main               # main after the merge
 ```
 
-`HEAD` and `origin/main` MUST be identical. If verification fails:
+- The commit MUST be present on the remote — `HEAD == origin/<working-branch>`, or
+  `HEAD == origin/main` in a direct-push environment.
+- After the auto-merge, `origin/main` MUST contain the completed strategy. A squash or merge
+  commit gives `main` a **different SHA** from `HEAD`, so confirm by the merged-PR status and
+  by checking the strategy's files are present on `main` (e.g.
+  `git show origin/main:research/master_index.md`) — **not** by SHA equality.
+
+If verification fails:
 
 - STOP research immediately.
-- Report a repository synchronization failure.
+- Report a repository synchronization / merge failure.
 - Do NOT continue to the next strategy.
 
 Persistence is mandatory before selecting the next strategy. Treat every verified push as a
-permanent recovery checkpoint, and never accumulate large amounts of unpushed research.
+permanent recovery checkpoint, treat every merge to `main` as the canonical record, and never
+accumulate large amounts of unpushed or unmerged research.
 
 ---
 
@@ -753,16 +788,18 @@ Always complete and persist the current strategy before stopping. Never stop mid
 
 ## END-OF-RUN PROCEDURE
 
-### Step 1 — Final push to `main`
+### Step 1 — Final push and merge to `main`
 
 ```bash
-git push origin HEAD:main
+git push -u origin <working-branch>   # or: git push origin HEAD:main where direct push is allowed
 git status
 # Expected: "nothing to commit, working tree clean"
 ```
 
-(If every strategy was pushed and verified during the run, this is usually a no-op.)
-No pull request is created. No human review gate exists. `main` is the permanent record.
+Then ensure `main` contains **every** completed strategy: if any commits remain unmerged,
+merge the working branch's PR now. (If every strategy was already pushed and auto-merged
+during the run, this is usually a no-op.) No human review gate exists — the agent merges to
+`main` itself. `main` is the permanent record.
 
 ### Step 2 — Release the run lock
 
@@ -782,7 +819,7 @@ ls research/.run.lock 2>/dev/null && echo "LOCK STILL PRESENT — investigate" |
 - [ ] `research/queue.md` updated (strategies moved between states).
 - [ ] Source URLs preserved in `source_archive/` with retrieval date.
 - [ ] No fabricated numbers; all performance claims tagged; no rationale left unfalsifiable.
-- [ ] All commits pushed directly to `main`, and each push verified.
+- [ ] Every completed strategy pushed and auto-merged to `main`, and each merge verified present on `main`.
 - [ ] `research/.run.lock` removed.
 
 ---
@@ -793,9 +830,9 @@ Sessions can terminate at any time: API failure, context limit, network drop, po
 Because each completed strategy is committed and pushed before the next begins (PER-STRATEGY
 EXECUTION & SAVE WORKFLOW), interruption is safe:
 
-- **After every completed strategy:** persist immediately (commit + push), never postpone
-  saves, and never rely on in-memory state. A fully completed high-quality strategy is more
-  valuable than multiple unfinished entries.
+- **After every completed strategy:** persist immediately (commit + push + auto-merge to
+  `main`), never postpone saves, and never rely on in-memory state. A fully completed
+  high-quality strategy is more valuable than multiple unfinished entries.
 - **If interrupted mid-strategy:** the partial work is lost — acceptable, because all
   completed strategies are already safe on `main`.
 - **The next run resumes from GitHub state:** it reads `master_index.md`, sees what was
