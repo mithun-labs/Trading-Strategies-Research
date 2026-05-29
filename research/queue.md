@@ -1,10 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 8)
+Last updated: 2026-05-29 (run 9)
 
 ## Pending
 
-- `graph-clustering-pairs-trading` — arXiv:2406.10695 (Jun 2024); US equities; graph clustering + ML classifier + Kelly criterion; all approaches outperform benchmark
+_(none)_
 
 ## Researching
 
@@ -29,6 +29,7 @@ _(none)_
 - `options-wheel-llm-bayesian` — score 24 (Low Confidence) — 2026-05-29 — arXiv preprint; LLM-Bayesian hybrid wheel strategy; 0% assignment rate implausible; probable lookahead bias; max DD -8.2% through 2008/2020 understated; no open code; no peer review
 - `causal-inference-directional-trading` — score 15 (Low Confidence) — 2026-05-29 — REJECTED: 2-month backtest (Jun–Aug 2023) on 3 stocks; 100% win rate = overfitting on tiny sample; no OOS; no costs
 - `sector-rotation-tsx60` — score 54 (Experimental) — 2026-05-29 — Peer-reviewed MDPI JRFM (Jan 2026); open code (GitHub); Sharpe 0.922 vs 0.624 B&H; median+quarterly rotation; OOS 2020–2025; TSX 60 Canadian equities; multiple testing over 72 variants; max DD paywalled
+- `graph-clustering-pairs-trading` — score 49 (Experimental) — 2026-05-29 — arXiv:2406.10695 + SSRN:4849095; graph clustering + ML classifier (top 10% filter) + Kelly criterion; 17-year OOS (2006–2022) survivorship-corrected; IR > SPY at 1% significance; specific Sharpe/max DD NOT REPORTED
 
 ## Rejected
 
