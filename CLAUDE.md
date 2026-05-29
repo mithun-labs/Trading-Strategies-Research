@@ -10,8 +10,12 @@ native filesystem access and web search/fetch tools. You may be invoked in three
 | **Interactive** | Terminal session | Debugging, recovery, first-time setup |
 
 There is **no memory between runs** — every bit of continuity must come from files in this
-directory and from the GitHub repository. Read state from disk at the start; write state
-to disk before you finish.
+directory and from the GitHub repository. The GitHub repository is the **PRIMARY persistent
+storage and canonical long-term memory** (long-term memory · research database · version
+control · historical archive · recovery system · audit trail · strategy evolution tracker ·
+checkpointing mechanism). Local filesystem storage is **TEMPORARY** — treat it as a working
+directory only and never assume it persists between runs. Read state from disk at the start;
+write, commit, and push state before you finish.
 
 ---
 
@@ -40,24 +44,177 @@ unfounded write-up.
    (flagged as such)** in every write-up.
 4. **This is research/education, not investment advice.** Strategies recorded here are
    hypotheses to test, never instructions to deploy capital.
-5. **Stay in scope per run** (see "What one run does"). Do not write production trading
+5. **Stay in scope per run** (see WHAT ONE RUN DOES). Do not write production trading
    code unless a future prompt explicitly asks for it.
-6. **Research ONE strategy at a time, end to end.** Never batch. Fully complete the current
-   strategy — write its strategy file, update `master_index.md`, rankings, concepts,
-   source archive, and the daily report — then **commit and push** before selecting the
-   next strategy. Do NOT research, draft, or hold multiple strategies in parallel and save
-   them together at the end. Each strategy is an atomic transaction:
-   `Research → Validate → Save → Commit → Push → Continue` (see SEQUENTIAL RESEARCH
-   EXECUTION MODEL and PER-STRATEGY SAVE & PUSH WORKFLOW below).
+6. **Research ONE strategy at a time, end to end.** Never batch. Each strategy is an atomic
+   transaction — `Research → Validate → Save → Commit → Push → Continue`. Do NOT research,
+   draft, or hold multiple strategies in parallel and save them together at the end. See
+   PER-STRATEGY EXECUTION & SAVE WORKFLOW.
+7. **Repository integrity and recoverability outrank research speed and quantity.** A
+   smaller but fully recoverable and consistent research database is more valuable than a
+   larger but corrupted one. Priority order: (1) repository integrity, (2) successful
+   persistence, (3) recoverability, (4) research accuracy, (5) evidence quality,
+   (6) research quantity.
+
+---
+
+## ONE-TIME SETUP (run once on the host before the first scheduled run)
+
+This section assumes the repo has been initialized and has **at least one commit** (auth
+verification and `git push` both require an existing commit). The START-OF-RUN procedure
+handles a repo whose `research/` tree is empty by creating the structure on first run.
+
+### 1. Authentication
+
+Choose one method. Headless `git push` requires credentials.
+
+**Option A — SSH deploy key (recommended for scheduled/CI runs)**
+
+```bash
+# Generate key pair
+ssh-keygen -t ed25519 -C "claude-research-agent" -f ~/.ssh/claude_research_agent
+
+# Add the public key as a deploy key with Write access:
+# GitHub repo → Settings → Deploy keys → Add deploy key
+cat ~/.ssh/claude_research_agent.pub
+
+# Register the custom key name in SSH config so git uses it automatically.
+# Without this, SSH ignores the deploy key and uses ~/.ssh/id_ed25519 instead.
+cat >> ~/.ssh/config << 'EOF'
+Host github.com
+  IdentityFile ~/.ssh/claude_research_agent
+  IdentitiesOnly yes
+EOF
+chmod 600 ~/.ssh/config
+
+# Set remote to SSH
+git remote set-url origin git@github.com:<org>/<repo>.git
+
+# Verify
+ssh -T git@github.com
+```
+
+**Option B — Personal Access Token (PAT)**
+
+```bash
+# Create a fine-grained PAT with Contents: read+write at
+# https://github.com/settings/personal-access-tokens
+
+# Embed in remote URL (stored in git credential store, not in tracked files)
+git remote set-url origin https://<PAT>@github.com/<org>/<repo>.git
+
+# Verify
+git ls-remote origin
+```
+
+Do not store credentials in any file tracked by git. Confirm auth works before the first
+scheduled run:
+
+```bash
+git push --dry-run origin HEAD
+# Should print: Everything up-to-date (or a push plan), not an auth error
+```
+
+### 2. Git Identity
+
+```bash
+git config user.name "Claude Research Agent"
+git config user.email "claude-agent@your-org.com"
+
+# Verify (empty output means git commit will fail)
+git config user.name
+git config user.email
+```
+
+Use `--global` on a dedicated machine; omit on shared hosts.
+
+### 3. .gitignore
+
+Ensure `.gitignore` exists at repo root with at minimum:
+
+```
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Credentials — never commit
+.env
+*.pem
+*.key
+
+# Claude Code working files
+.claude/
+*.tmp
+*.log
+
+# Concurrency lock — local only, never committed
+research/.run.lock
+```
+
+### 4. Scheduling (Claude Code Desktop)
+
+Claude Code Desktop supports native scheduled tasks (macOS and Windows).
+Use the Scheduled Tasks sidebar to create a recurring job with this prompt:
+
+```
+Run today's research pass
+```
+
+Set to your preferred cadence (daily recommended). The task fires automatically
+when your machine is awake. Each run is a full Claude Code session with access to
+your local git setup.
+
+> **Headless permission note:** When running unattended (scheduled tasks or cron),
+> Claude Code may pause waiting for tool-use approval if your permissions are set to
+> `prompt`. To let it run fully autonomously, either configure auto-approve in
+> Claude Code settings, or pass `--dangerously-skip-permissions` on the CLI. Only do
+> this in a controlled environment where you trust the run scope.
+
+**Linux alternative:** Cron runs with a bare `PATH` and no environment variables — use a
+wrapper script so that both `PATH` and `ANTHROPIC_API_KEY` are available to the `claude`
+binary:
+
+```bash
+#!/bin/bash
+# /usr/local/bin/run-research.sh  (chmod +x this file)
+# Source the login profile to load PATH and env vars.
+# .bash_profile is used on macOS/RHEL; Ubuntu/Debian use .profile instead.
+# .bashrc has an interactive-shell guard and exits early when sourced from a script.
+for f in ~/.bash_profile ~/.profile; do [ -f "$f" ] && source "$f" && break; done
+# Or set the key explicitly if profile-based loading is unreliable:
+# export ANTHROPIC_API_KEY="your-key-here"
+cd /path/to/repo
+claude -p "Run today's research pass" --max-turns 50 2>&1 | tee /var/log/research-agent.log
+```
+
+Then add a single cron entry pointing at the script:
+
+```
+# /etc/cron.d/research-agent
+0 7 * * * youruser /usr/local/bin/run-research.sh
+```
+
+> **Why a script and not inline?** Cron's per-command `VAR=val cmd` syntax only sets the
+> variable for that one command. Chained commands after `&&` do not inherit it, so
+> `ANTHROPIC_API_KEY=val cd /repo && claude` would run `claude` without the key set. The
+> wrapper script avoids this entirely.
+
+> **`--max-turns` sizing:** a single strategy end-to-end (search, fetch, score, update
+> ~8 files, commit, push, verify) consumes many tool calls. If runs regularly stop
+> mid-strategy, raise `--max-turns` — truncating mid-strategy is the worst outcome (see
+> WHAT ONE RUN DOES).
 
 ---
 
 ## START-OF-RUN PROCEDURE (execute in order, every run)
 
-1. **Acquire the run lock** (see RUN LOCK PROTECTION below). If `research/.run.lock` already
-   exists, STOP — another run may still be active. Otherwise create it before touching any file.
-2. **Run START-OF-RUN GIT PROCEDURE** (see the `# START-OF-RUN GIT PROCEDURE` section below).
-   Sync `main` from remote and restore any stash — before touching any local file.
+1. **Acquire the run lock** (see RUN LOCK PROTECTION). If `research/.run.lock` exists and is
+   not stale, STOP — another run may still be active. Otherwise create it before touching any
+   file.
+2. **Run the START-OF-RUN GIT PROCEDURE** (below): sync `main` from remote and restore any
+   stash — before touching any local file.
 3. Determine today's date from the environment. Do not guess it. Run:
    ```bash
    date +%Y-%m-%d
@@ -66,12 +223,10 @@ unfounded write-up.
 4. Read `research/master_index.md` and `research/queue.md`. If they do not exist, create the
    full directory structure (see DIRECTORY STRUCTURE) and empty versions; note in today's
    report that this is the first run.
-5. Skim recent files under `research/daily/` to avoid repeating last few days' work.
+5. Skim recent files under `research/daily/` to avoid repeating the last few days' work.
 6. Only then begin searching.
 
----
-
-## RUN LOCK PROTECTION (concurrency safety)
+### RUN LOCK PROTECTION (concurrency safety)
 
 Never allow two research runs to operate on the repository simultaneously.
 
@@ -81,18 +236,19 @@ Never allow two research runs to operate on the repository simultaneously.
 ls research/.run.lock
 ```
 
-- If `research/.run.lock` **exists**: another run may still be active. STOP immediately. Do
-  not continue.
-- If it does **not** exist: create it, then proceed.
+- If `research/.run.lock` **exists and is fresh**: another run may still be active. STOP
+  immediately. Do not continue.
+- If it **does not exist**: create it, then proceed.
+- **Stale-lock recovery:** the lock records a UTC start time. If that timestamp is older than
+  6 hours, a previous run almost certainly died without cleanup. Log that you are overriding a
+  stale lock (note it in today's report), then overwrite it and proceed.
 
 ```bash
 echo "run started $(date -u +%Y-%m-%dT%H:%M:%SZ) pid=$$" > research/.run.lock
 ```
 
-**Remove the lock** in every exit path:
-- at successful completion,
-- during a controlled shutdown,
-- after unrecoverable-failure cleanup.
+**Remove the lock** in every exit path — successful completion, controlled shutdown, and
+after unrecoverable-failure cleanup:
 
 ```bash
 rm -f research/.run.lock
@@ -101,11 +257,80 @@ rm -f research/.run.lock
 The lock is a **local working-tree file only** — it is listed in `.gitignore` and must never
 be committed or pushed, so `git add research/` will not stage it.
 
+### START-OF-RUN GIT PROCEDURE (MANDATORY)
+
+**Step 1 — Verify repository state**
+
+```bash
+git status
+```
+
+Check for: merge conflicts, detached HEAD, a dirty workspace, and general repository health
+(current branch, uncommitted changes, untracked files).
+
+**Step 2 — Handle a dirty working tree**
+
+If the workspace is dirty, **do not** `git reset --hard` (it destroys unfinished research).
+Stash instead:
+
+```bash
+git stash push -u -m "auto-recovery-before-sync"
+```
+
+**Step 2a — Preserve valuable unfinished research (only if needed)**
+
+If the stashed work appears valuable, promote it to a crash-recovery branch. `git stash branch`
+creates the branch, applies the stash onto it, and drops the stash entry in one step:
+
+```bash
+git stash branch recovery-YYYY-MM-DD-HHMM
+git add research/
+git commit -m "recovery: preserve unfinished research state"
+git push origin HEAD
+```
+
+If you used `git stash branch` here, the stash entry is consumed — **skip `git stash pop` in
+Step 3**. If the stashed work is not worth keeping, leave it stashed and restore it with
+`git stash pop` after Step 3 instead (popping before `git checkout main` can fail when files
+exist in both states).
+
+**Step 3 — Synchronize `main`**
+
+```bash
+git fetch origin
+git checkout main
+git pull --rebase origin main
+```
+
+If a stash was created in Step 2 **and** you did not use `git stash branch` in Step 2a,
+restore it now:
+
+```bash
+git stash pop
+```
+
+Confirm state:
+
+```bash
+git status
+```
+
+**Step 4 — Load repository state**
+
+Read: `research/master_index.md`, `research/queue.md`, recent daily reports, existing strategy
+files, rankings, concepts, implementation candidates, scam archive, source archive.
+
+Detect: existing fingerprints, recently researched strategies, duplicate concepts,
+incomplete entries, ranking changes, strategy evolution.
+
+**Only begin research AFTER synchronization succeeds.** If synchronization fails: STOP
+immediately, report the failure clearly, and do not continue with stale state.
+
 ---
 
 ## WHAT ONE RUN DOES (continuous scope)
 
-Depth over breadth, but no fixed strategy count:
+Depth over breadth, but no fixed strategy count.
 
 - **Research strategies continuously** until one of these limits is reached:
   - available context approaches exhaustion, or
@@ -141,47 +366,131 @@ paywalled content.
 
 ## EVALUATION
 
-**Reward (genuine quality signals):**
-- Economic rationale for *why* an edge could exist (structure, flow, risk premium, behavior).
+### What you are actually doing
+
+You **cannot run a backtest, cannot verify an equity curve, and cannot detect a doctored
+screenshot** (HARD RULE 2). Your instrument is not validation — it is **critical reasoning
+about claims you cannot test.** Score a strategy's *logic, transparency, and the auditability
+of its evidence*; never score the truth of a performance result, because you cannot establish it.
+
+For you, evidence reaches the **"auditable"** tier in essentially only two cases:
+1. A peer-reviewed / pre-print paper with a documented, reproducible methodology, or
+2. Open-source code you have actually read and reasoned through line by line.
+
+Everything else — blog backtests, posted notebooks you cannot execute, TradingView curves,
+"I've traded this for years" — is `CLAIMED, UNVERIFIED`, no matter how detailed. Do not let a
+thorough-looking writeup promote claimed evidence to auditable.
+
+### Reward (genuine quality signals)
+- Economic rationale for *why* an edge could exist (structure, flow, risk premium, behavior)
+  **that also predicts when the edge should be absent** (see Falsifiability below).
 - Transparent, reproducible rules; ideally open code.
 - Honest reporting of losing periods, drawdowns, and failure regimes.
 - Out-of-sample / walk-forward / forward-test discussion.
 - Risk management defined before entry logic.
+- **Realistic transaction costs and honest capacity** (see below).
 - Survived critical scrutiny from a knowledgeable community.
 
-**Scrutinize, never select for:** high win rate (demand the loss distribution); "consistent
-monthly profitability" (too-smooth returns are statistically suspicious); headline
-Sharpe/drawdown with no auditable basis.
+### Falsifiability test (gate on the rationale)
+An LLM can manufacture a plausible economic story for *any* pattern — this is a known failure
+mode and a direct fabrication risk. Defend against it: a real rationale **states the
+conditions under which the edge should disappear** (which regime, which participants, what
+would arbitrage it away). A fake rationale explains everything after the fact and predicts
+nothing. **If you cannot state when the mechanism should fail, the rationale scores 0–2 — treat
+it as pattern-only, not an economic edge.**
 
-**Red flags → downrank or reject, tag** `LOW CONFIDENCE` / `POSSIBLE SCAM` /
-`INSUFFICIENT VERIFICATION` with a one-line reason: martingale; uncontrolled grid/recovery;
-"no-loss"/"100% win"; binary options; screenshot-only proof; paywalled-only; no risk
-management; returns driven by extreme leverage; signal-selling funnels; curve-fitting
-(many params, suspiciously clean curve, no OOS).
+### Transaction-cost & capacity realism (the thing that kills real edges)
+Most "profitable" retail strategies are actually negative after costs. For the in-scope markets
+(FX, crypto, indices, scalping on M5–M15 especially), this is often the **highest-information
+single question.** Always check, and record explicitly:
+- Are spread, slippage, commission, and swap/financing modeled? A backtest with **zero costs on
+  a short-timeframe or high-turnover strategy is presumptively invalid** — say so.
+- Does the edge plausibly survive realistic costs, or is the gross edge smaller than the round-trip cost?
+- Capacity: does it depend on illiquid instruments or tiny size? Does slippage eat it when sized up?
+
+### Scrutinize, never select for
+High win rate (demand the loss distribution); "consistent monthly profitability" (too-smooth
+returns are statistically suspicious); headline Sharpe/drawdown with no auditable basis.
+
+### Red flags → downrank or reject
+Tag `LOW CONFIDENCE` / `POSSIBLE SCAM` / `INSUFFICIENT VERIFICATION` with a one-line reason:
+martingale; uncontrolled grid/recovery; "no-loss"/"100% win"; binary options; screenshot-only
+proof; paywalled-only; no risk management; returns driven by extreme leverage; signal-selling
+funnels; curve-fitting (many params, suspiciously clean curve, no OOS); **costs omitted on a
+high-turnover strategy; rationale that cannot be falsified.**
 
 ---
 
-## CONFIDENCE SCORE (0–100, weighted, auditable)
+## MANDATORY: STEELMAN THE SKEPTIC (before scoring)
 
-Score each dimension 0–10, multiply by weight, sum, normalize.
+Before you assign any score, write the strongest case that **this strategy is nothing** — this
+is the single most important step and the operational core of "skeptical analyst." Populate the
+`## Why This Might Be Nothing` section of the strategy file with all that apply:
 
-| Dimension | Weight |
-|---|---|
-| Logical / economic soundness | 3 |
-| Transparency & reproducibility | 2 |
-| Evidence quality (auditable > claimed > none) | 2 |
-| Risk management quality | 2 |
-| Honest treatment of drawdowns / failure regimes | 1.5 |
-| Robustness evidence (OOS, walk-forward, multi-market) | 1.5 |
-| Simplicity / low overfitting risk | 1 |
-| Survived independent scrutiny | 1 |
+1. **Most likely benign explanation** for the apparent edge: data-mining / multiple-testing,
+   survivorship bias, lookahead/in-sample fitting, regime luck (e.g. one bull market), or an
+   edge that is really just uncompensated risk-taking.
+2. **The cost case:** could realistic spread/slippage/commission/swap erase the gross edge?
+3. **Regime dependence:** what market conditions is this implicitly long? When does it blow up?
+4. **Sample / overfitting concerns:** parameter count, period length, suspiciously clean curve,
+   absence of out-of-sample or walk-forward.
+5. **What single piece of evidence would most change your mind** (e.g. an independent
+   cost-inclusive walk-forward), and note that you do not have it.
 
-`score = (weighted_sum / 140) * 100`  *(weights sum to 14; max_possible = 14 × 10 = 140)*. **Always show per-dimension breakdown.**
+If the skeptic's case is decisively stronger than the supporting case, the verdict is
+"probably no edge" — and that is a **successful, valuable** outcome, not a failed one. Record it
+plainly and move on.
 
-Bands: 90–100 Exceptional · 75–89 High potential · 60–74 Worth researching ·
-40–59 Experimental · 0–39 Low confidence.
+---
 
-Scores above ~75 should be **rare** and require auditable evidence. Be stingy.
+## CONFIDENCE SCORE (0–100, weighted, anchored, honesty-capped)
+
+Score each dimension 0–10 using the anchors, multiply by weight, sum, normalize, **then apply
+the verification cap.** Always show the full per-dimension breakdown and both score numbers.
+
+| Dimension | Wt | Anchors (0 / 5 / 10) |
+|---|---|---|
+| Logical / economic soundness **(falsifiable)** | 3 | 0 = no rationale, or rationale that can't be falsified (pattern-only) · 5 = plausible mechanism, partly specified · 10 = clear mechanism that *names the conditions under which the edge disappears* |
+| Transparency & reproducibility | 2 | 0 = vague/secret rules · 5 = rules fully described in prose · 10 = open code or fully reproducible spec |
+| Evidence auditability *(not result truth)* | 2 | 0 = results-claim/screenshot only · 5 = described methodology, not reproducible · 10 = peer-reviewed methodology OR open code you read line-by-line |
+| Risk management quality | 2 | 0 = none, or martingale/grid · 5 = stop defined · 10 = sizing + stop + max-loss + regime exit all specified before entry logic |
+| Cost & capacity realism | 2 | 0 = costs ignored on a high-turnover strategy · 5 = costs mentioned, not rigorously applied · 10 = realistic costs applied and edge survives, capacity discussed |
+| Honest treatment of drawdowns / failure | 1.5 | 0 = hides losses / "no-loss" · 5 = shows drawdowns · 10 = shows DD *and* explicit failure regimes / losing periods |
+| Robustness evidence (OOS / walk-forward / multi-market) | 1.5 | 0 = single in-sample run · 5 = one OOS split or second market · 10 = walk-forward across regimes and markets |
+| Survived independent scrutiny | 1 | 0 = none / only promotional · 5 = some neutral discussion · 10 = withstood informed criticism from a knowledgeable community |
+
+Weights sum to **15** → `max_possible = 15 × 10 = 150`.
+`latent_score = round( weighted_sum / 150 * 100 )`
+
+### Verification cap (enforces HARD RULE 2)
+This is the mechanical teeth of "never overstate." Compute the cap from the **Evidence
+auditability** score. The cap values are deliberately set to the **top of a confidence band**
+(below), so each verification tier maps cleanly onto one band ceiling instead of stranding a
+strategy a point below a boundary:
+
+- Evidence auditability ≤ 4 (performance is `CLAIMED, UNVERIFIED` — the common case)
+  → **`confidence = min(latent_score, 59)`**  (tops out at *Experimental*)
+- Evidence auditability 5–7 (reproducible methodology, not independently confirmed)
+  → **`confidence = min(latent_score, 74)`**  (tops out at *Worth researching*)
+- Evidence auditability ≥ 8 (peer-reviewed methodology, or open code you verified)
+  → **no cap; `confidence = latent_score`**  (can reach *High potential* / *Exceptional*)
+
+### Which number is canonical
+- **`confidence` (the capped number) is the ONLY score that appears in `master_index.md`, in
+  `rankings/`, and in the daily report.** It is the number anyone acts on.
+- **`latent_score` lives ONLY inside the strategy file's reasoning** (Confidence Score section),
+  recorded as: `latent N (capped to M pending verification: <one-line reason>)`. Its sole purpose
+  is to preserve the quality ordering among unverified ideas so future passes know which are
+  worth deeper work. **Never surface `latent_score` as the headline anywhere, and never rank by
+  it.** If verification later arrives, the cap lifts and `confidence` rises on its own.
+
+### Bands (apply to the capped `confidence`)
+90–100 Exceptional · 75–89 High potential · 60–74 Worth researching · 40–59 Experimental ·
+0–39 Low confidence.
+
+A score above ~75 is therefore **structurally rare** — it requires auditable evidence to clear
+the cap at all. Be stingy. If two strategies tie on the capped score, the one with the higher
+`latent_score` is the better research candidate — note that in the queue, not in the rankings.
 
 ---
 
@@ -222,7 +531,7 @@ Rules:
   (or **→ Rejected**) when you finish.
 - Add newly discovered candidates to **Pending** as you encounter them.
 - Update the queue continuously and **persist queue changes after every strategy** (it is part
-  of the PER-STRATEGY SAVE & PUSH WORKFLOW file list).
+  of the PER-STRATEGY EXECUTION & SAVE WORKFLOW file list).
 
 ---
 
@@ -276,7 +585,7 @@ Source links · Verification level · Analyst note
 
 ## Emerging Patterns
 ## Red Flags Detected
-## Implementation Candidates   (only score ≥60 with inspectable logic; note MQL5/Python/Pine feasibility)
+## Implementation Candidates   (latent_score ≥60 AND inspectable/codeable logic — NOT gated on the verification cap, since open readable logic is exactly what's implementable; note MQL5/Python/Pine feasibility and that performance is still unverified)
 ```
 
 ### 2. Per-strategy file → `research/strategies/<slug>.md`
@@ -286,17 +595,19 @@ Source links · Verification level · Analyst note
 ## Overview
 ## Asset Class / Timeframes
 ## Core Logic
-## Economic Rationale            (or: "pattern-only, no clear rationale")
+## Economic Rationale            (must state WHEN the edge should disappear; else "pattern-only, no clear rationale")
 ## Entry Conditions
 ## Exit Conditions
 ## Risk Management
 ## Indicators Used
+## Transaction Costs & Capacity  (spread/slippage/commission/swap modeled? survives costs? capacity limits?)
 ## Backtest Evidence             (auditable / claimed / NOT REPORTED)
 ## Forward-Test Evidence         (auditable / claimed / NOT REPORTED)
 ## Reported Metrics              (each tagged CLAIMED/UNVERIFIED/NOT REPORTED)
 ## Community Sentiment           (include the criticism, with links)
+## Why This Might Be Nothing     (MANDATORY skeptic steelman — benign explanation, cost case, regime dependence, overfitting, the one piece of evidence that would change your mind)
 ## Strengths / Weaknesses
-## Confidence Score              (with per-dimension breakdown)
+## Confidence Score              (per-dimension breakdown + "latent N (capped to M pending verification: <reason>)")
 ## Complexity / Scalability / Automation feasibility
 ## MQL5 / Python / Pine feasibility
 ## Similar Strategies            (cross-links)
@@ -312,184 +623,7 @@ Add/refresh the fingerprint, score, and last-updated date for every strategy tou
 
 ---
 
-## END-OF-RUN CHECKLIST
-
-- [ ] Today's daily report written.
-- [ ] Every strategy file saved with `NOT REPORTED` in any unsourced field.
-- [ ] `master_index.md` updated (fingerprints + scores + dates).
-- [ ] `research/queue.md` updated (strategies moved between states).
-- [ ] Source URLs preserved in `source_archive/` with retrieval date.
-- [ ] No fabricated numbers; all performance claims tagged.
-- [ ] All commits pushed directly to `main`, and each push verified (see END-OF-RUN GIT PROCEDURE).
-- [ ] `research/.run.lock` removed.
-
----
-
-## CHECKPOINTING RULE
-
-After every completed strategy:
-- Persist findings immediately (commit + push).
-- Ensure no research is lost if the session ends unexpectedly.
-- Never postpone saves or rely on in-memory state.
-- A fully completed high-quality strategy is more valuable than multiple unfinished entries.
-
-Session execution priority during long runs:
-1. Complete and save the current strategy.
-2. Maintain database consistency.
-3. Preserve high-quality evidence.
-4. Continue research only after persistence succeeds.
-
----
-
-# ENTERPRISE GITHUB PERSISTENCE & RECOVERY MODEL (CRITICAL)
-
-The GitHub repository is the **PRIMARY persistent storage and canonical long-term memory**.
-Local filesystem storage is TEMPORARY — treat it as a working directory only.
-
-All persistent continuity MUST live inside the GitHub repository:
-long-term memory · research database · version control · historical archive ·
-recovery system · audit trail · strategy evolution tracker · checkpointing mechanism.
-
-Never assume local filesystem state persists between runs.
-
----
-
-# ONE-TIME SETUP (run once on the host before the first scheduled run)
-
-## 1. Authentication
-
-Choose one method. Headless `git push` requires credentials.
-
-**Option A — SSH deploy key (recommended for scheduled/CI runs)**
-
-```bash
-# Generate key pair
-ssh-keygen -t ed25519 -C "claude-research-agent" -f ~/.ssh/claude_research_agent
-
-# Add the public key as a deploy key with Write access:
-# GitHub repo → Settings → Deploy keys → Add deploy key
-cat ~/.ssh/claude_research_agent.pub
-
-# Register the custom key name in SSH config so git uses it automatically.
-# Without this, SSH ignores the deploy key and uses ~/.ssh/id_ed25519 instead.
-cat >> ~/.ssh/config << 'EOF'
-Host github.com
-  IdentityFile ~/.ssh/claude_research_agent
-  IdentitiesOnly yes
-EOF
-chmod 600 ~/.ssh/config
-
-# Set remote to SSH
-git remote set-url origin git@github.com:<org>/<repo>.git
-
-# Verify
-ssh -T git@github.com
-```
-
-**Option B — Personal Access Token (PAT)**
-
-```bash
-# Create a fine-grained PAT with Contents: read+write at
-# https://github.com/settings/personal-access-tokens
-
-# Embed in remote URL (stored in git credential store, not in tracked files)
-git remote set-url origin https://<PAT>@github.com/<org>/<repo>.git
-
-# Verify
-git ls-remote origin
-```
-
-Do not store credentials in any file tracked by git. Confirm auth works before the first scheduled run (requires at least one commit to exist in the repo):
-
-```bash
-git push --dry-run origin HEAD
-# Should print: Everything up-to-date (or a push plan), not an auth error
-```
-
-## 2. Git Identity
-
-```bash
-git config user.name "Claude Research Agent"
-git config user.email "claude-agent@your-org.com"
-
-# Verify (empty output means git commit will fail)
-git config user.name
-git config user.email
-```
-
-Use `--global` on a dedicated machine; omit on shared hosts.
-
-## 3. .gitignore
-
-Ensure `.gitignore` exists at repo root with at minimum:
-
-```
-# OS / editor noise
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-
-# Credentials — never commit
-.env
-*.pem
-*.key
-
-# Claude Code working files
-.claude/
-*.tmp
-*.log
-
-# Concurrency lock — local only, never committed
-research/.run.lock
-```
-
-## 4. Scheduling (Claude Code Desktop)
-
-Claude Code Desktop supports native scheduled tasks (macOS and Windows).
-Use the Scheduled Tasks sidebar to create a recurring job with this prompt:
-
-```
-Run today's research pass
-```
-
-Set to your preferred cadence (daily recommended). The task fires automatically
-when your machine is awake. Each run is a full Claude Code session with access to
-your local git setup.
-
-> **Headless permission note:** When running unattended (scheduled tasks or cron),
-> Claude Code may pause waiting for tool-use approval if your permissions are set to
-> `prompt`. To let it run fully autonomously, either configure auto-approve in
-> Claude Code settings, or pass `--dangerously-skip-permissions` on the CLI. Only do
-> this in a controlled environment where you trust the run scope.
-
-**Linux alternative:** Cron runs with a bare `PATH` and no environment variables — use a wrapper script so that both `PATH` and `ANTHROPIC_API_KEY` are available to the `claude` binary:
-
-```bash
-#!/bin/bash
-# /usr/local/bin/run-research.sh  (chmod +x this file)
-# Source the login profile to load PATH and env vars.
-# .bash_profile is used on macOS/RHEL; Ubuntu/Debian use .profile instead.
-# .bashrc has an interactive-shell guard and exits early when sourced from a script.
-for f in ~/.bash_profile ~/.profile; do [ -f "$f" ] && source "$f" && break; done
-# Or set the key explicitly if profile-based loading is unreliable:
-# export ANTHROPIC_API_KEY="your-key-here"
-cd /path/to/repo
-claude -p "Run today's research pass" --max-turns 50 2>&1 | tee /var/log/research-agent.log
-```
-
-Then add a single cron entry pointing at the script:
-
-```
-# /etc/cron.d/research-agent
-0 7 * * * youruser /usr/local/bin/run-research.sh
-```
-
-> **Why a script and not inline?** Cron's per-command `VAR=val cmd` syntax only sets the variable for that one command. Chained commands after `&&` do not inherit it, so `ANTHROPIC_API_KEY=val cd /repo && claude` would run `claude` without the key set. The wrapper script avoids this entirely.
-
----
-
-# DIRECT-TO-MAIN MODEL (MANDATORY)
+## BRANCHING MODEL: DIRECT-TO-MAIN (MANDATORY)
 
 `main` is the canonical production branch and the single source of truth. All completed
 research is committed and pushed **directly to `main`**.
@@ -503,142 +637,55 @@ The only branches ever created are **crash-recovery branches** (`recovery-YYYY-M
 used solely to preserve unfinished work during start-of-run recovery (see START-OF-RUN GIT
 PROCEDURE). They are not part of the normal research flow.
 
-Workflow:
-1. Sync `main` from remote.
-2. Research one strategy at a time (see SEQUENTIAL RESEARCH EXECUTION MODEL).
-3. Commit after EACH completed strategy.
-4. Push directly to `main` after EACH completed strategy, then verify the push.
-5. Never continue research after a failed or unverified push.
-
-Repository integrity and recoverability are higher priority than research speed.
-
 ---
 
-# START-OF-RUN GIT PROCEDURE (MANDATORY)
+## PER-STRATEGY EXECUTION & SAVE WORKFLOW (MANDATORY)
 
-## Step 1 — Verify Repository State
+Research EXACTLY ONE strategy at a time. No batching. No parallel research. No delayed
+persistence. Do NOT queue unfinished research, store temporary findings only in memory, or
+leave the repository in a partial state. Each strategy is an **atomic transaction**:
 
-```bash
-git status
-```
+**`Research → Validate → Save → Commit → Push → Continue`**
 
-Check for: merge conflicts, detached HEAD, a dirty workspace, and general repository health
-(current branch, uncommitted changes, untracked files).
+### Sequence
 
-## Step 2 — Handle Dirty Working Tree
+1. Select ONE strategy (from `research/queue.md`).
+2. Complete all research.
+3. Verify evidence — assign the **Evidence auditability** level honestly (claimed vs. reproducible vs. auditable).
+4. Apply the **Falsifiability test** and the **Transaction-cost & capacity** check.
+5. **Steelman the skeptic** — write `## Why This Might Be Nothing` *before* scoring.
+6. Score confidence — compute `latent_score`, apply the **verification cap**, record both as
+   `latent N (capped to M pending verification: <reason>)`.
+7. Perform duplicate detection.
+8. **Update files, in this order:**
+   1. `research/strategies/<slug>.md`
+   2. `research/master_index.md` — record the **capped `confidence`** only (never `latent_score`)
+   3. `research/rankings/` — rank by **capped `confidence`** only
+   4. `research/concepts/`
+   5. `research/implementation_candidates/` (only if **`latent_score` ≥ 60 AND logic is inspectable/codeable** — implementability depends on readable logic, not on independent verification; see note in OUTPUTS)
+   6. `research/queue.md` — move the strategy to its new state (Completed / Rejected); if capped-score ties exist, note the higher `latent_score` here as the better research candidate
+   7. `research/source_archive/YYYY-MM-DD.md` — append new rows for sources used this strategy
+   8. `research/daily/YYYY-MM-DD.md`
+9. **Validate repository consistency** (below).
+10. **Commit** (below).
+11. **Push directly to `main`** (below).
+12. **Verify the push** (`HEAD == origin/main`) (below).
+13. ONLY THEN continue to the next strategy.
 
-If the workspace is dirty, **do not** `git reset --hard` (it destroys unfinished research).
-Stash instead:
+### Validate repository consistency (before committing)
 
-```bash
-git stash push -u -m "auto-recovery-before-sync"
-```
-
-## Step 2a — Preserve Valuable Unfinished Research (only if needed)
-
-If the stashed work appears valuable, promote it to a crash-recovery branch. `git stash branch`
-creates the branch, applies the stash onto it, and drops the stash entry in one step:
-
-```bash
-git stash branch recovery-YYYY-MM-DD-HHMM
-git add research/
-git commit -m "recovery: preserve unfinished research state"
-git push origin HEAD
-```
-
-If you used `git stash branch` here, the stash entry is consumed — **skip `git stash pop` in
-Step 3**. If the stashed work is not worth keeping, leave it stashed and restore it with
-`git stash pop` after Step 3 instead (popping before `git checkout main` can fail when files
-exist in both states).
-
-## Step 3 — Synchronize `main`
-
-```bash
-git fetch origin
-git checkout main
-git pull --rebase origin main
-```
-
-If a stash was created in Step 2 **and** you did not use `git stash branch` in Step 2a,
-restore it now:
-
-```bash
-git stash pop
-```
-
-Confirm state:
-
-```bash
-git status
-```
-
-## Step 4 — Load Repository State
-
-Read: `research/master_index.md`, `research/queue.md`, recent daily reports, existing strategy
-files, rankings, concepts, implementation candidates, scam archive, source archive.
-
-Detect: existing fingerprints, recently researched strategies, duplicate concepts,
-incomplete entries, ranking changes, strategy evolution.
-
-**Only begin research AFTER synchronization succeeds.**
-If synchronization fails: STOP immediately, report the failure clearly, and do not continue
-with stale state.
-
----
-
-# SEQUENTIAL RESEARCH EXECUTION MODEL (MANDATORY)
-
-Research EXACTLY ONE strategy at a time. No batching. No parallel strategy research. No
-delayed persistence. Each strategy is an **atomic transaction**:
-
-1. Select ONE strategy (from `research/queue.md`)
-2. Complete all research
-3. Verify evidence
-4. Score confidence
-5. Perform duplicate detection
-6. Update strategy files
-7. Update rankings/indexes and `research/queue.md`
-8. Save source references
-9. Validate repository consistency
-10. Commit changes
-11. Push directly to `main`
-12. Verify the push (`HEAD == origin/main`)
-13. ONLY THEN continue to the next strategy
-
-**Research → Validate → Save → Commit → Push → Continue**
-
-Do NOT queue unfinished research, delay persistence, batch incomplete strategies,
-store temporary findings only in memory, or leave the repository in a partial state.
-
----
-
-# PER-STRATEGY SAVE & PUSH WORKFLOW
-
-## 1. Update Files (in this order)
-
-1. `research/strategies/<strategy>.md`
-2. `research/master_index.md`
-3. `research/rankings/`
-4. `research/concepts/`
-5. `research/implementation_candidates/` (if score ≥ 60)
-6. `research/queue.md` — move the strategy to its new state (Completed / Rejected)
-7. `research/source_archive/YYYY-MM-DD.md` — append new rows for sources used this strategy
-8. `research/daily/YYYY-MM-DD.md`
-
-## 2. Validate Repository Consistency
-
-Before committing, verify:
+Verify:
 - Markdown links remain valid
 - Cross-references work
-- Rankings match scores
+- Rankings match the **capped `confidence`** (never `latent_score`)
 - Index entries match strategy files
 - Duplicate references are correct
 - No corrupted markdown, accidental deletions, or malformed files
 
-If validation fails: fix before committing. Do not continue research until consistency
-is restored.
+If validation fails: fix before committing. Do not continue research until consistency is
+restored.
 
-## 3. Commit
+### Commit
 
 ```bash
 # Scope to research/ only — avoids staging temp files, logs, or accidental files
@@ -649,7 +696,10 @@ git commit -m "research: <strategy-name> analysis"
 If `git commit` returns `nothing to commit`, do **NOT** treat this as a failure — there was
 simply nothing new to persist at this step. Continue execution.
 
-Commit message examples:
+Commit messages must clearly describe what changed, which strategy, and whether it is
+new research / update / correction / scam classification / ranking change / evolution.
+Examples:
+
 ```bash
 git commit -m "research: add london breakout analysis"
 git commit -m "research: update ranking for volatility compression breakout"
@@ -657,16 +707,13 @@ git commit -m "research: add evolved variant of mean reversion scalping"
 git commit -m "research: flag scam strategy fake AI martingale"
 ```
 
-Messages must clearly describe: what changed, which strategy, and whether it is
-new research / update / correction / scam classification / ranking change / evolution.
-
-## 4. Push Directly to `main`
+### Push directly to `main`
 
 ```bash
 git push origin HEAD:main
 ```
 
-## 5. Verify the Push (mandatory)
+### Verify the push (mandatory)
 
 Immediately confirm the remote received the commit:
 
@@ -687,40 +734,26 @@ permanent recovery checkpoint, and never accumulate large amounts of unpushed re
 
 ---
 
-# DIRECT-TO-MAIN SAFETY RULES
-
-- Commit after every completed strategy.
-- Push after every completed strategy.
-- Verify every push (`HEAD == origin/main`).
-- Never continue research if a push fails.
-- Never continue research if verification fails.
-- Validate repository consistency before every commit.
-- Treat every push as a permanent recovery checkpoint.
-- Never accumulate large amounts of uncommitted work.
-- Repository integrity is more important than research speed.
-
----
-
-# PER-STRATEGY RESEARCH BUDGET
+## PER-STRATEGY RESEARCH BUDGET
 
 Cap the effort spent on any single strategy to avoid infinite investigation loops.
 
-**Maximum effort per strategy:**
-- 10 source documents, OR
-- 30 minutes of investigation.
+**Maximum effort per strategy:** 10 source documents, OR 30 minutes of investigation.
 
-When the limit is reached:
-- **If confidence is still below 40:** mark it `LOW CONFIDENCE`, persist findings, update
+When the limit is reached, judge by **`latent_score`** (the uncapped quality signal — the cap
+would otherwise make the deep-dive trigger nearly unreachable for unverified strategies):
+- **If `latent_score` is still below 40:** mark it `LOW CONFIDENCE`, persist findings, update
   rankings and `research/queue.md`, and move on.
-- **If confidence is above 60:** the strategy is promising — invest more time before moving on.
+- **If `latent_score` is above 60:** the idea is promising regardless of current verification —
+  invest more time, especially hunting for the auditable evidence that would lift the cap.
 
 Always complete and persist the current strategy before stopping. Never stop mid-strategy.
 
 ---
 
-# END-OF-RUN GIT PROCEDURE (MANDATORY)
+## END-OF-RUN PROCEDURE
 
-## Step 1 — Final Push to `main`
+### Step 1 — Final push to `main`
 
 ```bash
 git push origin HEAD:main
@@ -729,34 +762,55 @@ git status
 ```
 
 (If every strategy was pushed and verified during the run, this is usually a no-op.)
+No pull request is created. No human review gate exists. `main` is the permanent record.
 
-## Step 2 — Release the Run Lock
-
-Remove the concurrency lock and confirm cleanup succeeded:
+### Step 2 — Release the run lock
 
 ```bash
 rm -f research/.run.lock
 ls research/.run.lock 2>/dev/null && echo "LOCK STILL PRESENT — investigate" || echo "lock released"
 ```
 
-No pull request is created. No human review gate exists. `main` is the permanent record.
+### End-of-run checklist
+
+- [ ] Today's daily report written.
+- [ ] Every strategy file saved with `NOT REPORTED` in any unsourced field.
+- [ ] Every strategy has a non-empty `## Why This Might Be Nothing` written before its score.
+- [ ] Every strategy records transaction-cost/capacity realism (or flags costs as unmodeled).
+- [ ] Every score recorded as `latent N (capped to M ...)`; index & rankings show the **capped** number only.
+- [ ] `master_index.md` updated (fingerprints + capped scores + dates).
+- [ ] `research/queue.md` updated (strategies moved between states).
+- [ ] Source URLs preserved in `source_archive/` with retrieval date.
+- [ ] No fabricated numbers; all performance claims tagged; no rationale left unfalsifiable.
+- [ ] All commits pushed directly to `main`, and each push verified.
+- [ ] `research/.run.lock` removed.
 
 ---
 
-# CHECKPOINTING & FAILURE RECOVERY
+## CHECKPOINTING & FAILURE RECOVERY
 
 Sessions can terminate at any time: API failure, context limit, network drop, power loss.
-Each completed strategy must already be committed and pushed before moving to the next
-(enforced by SEQUENTIAL RESEARCH EXECUTION MODEL above). If interrupted mid-strategy:
+Because each completed strategy is committed and pushed before the next begins (PER-STRATEGY
+EXECUTION & SAVE WORKFLOW), interruption is safe:
 
-- The partial work is lost — acceptable, because all completed strategies are already safe.
-- The next run resumes from GitHub state: reads `master_index.md`, sees what was completed,
-  and picks up from the next unresearched strategy.
-- Never attempt to reconstruct or guess what the interrupted run was doing from memory.
+- **After every completed strategy:** persist immediately (commit + push), never postpone
+  saves, and never rely on in-memory state. A fully completed high-quality strategy is more
+  valuable than multiple unfinished entries.
+- **If interrupted mid-strategy:** the partial work is lost — acceptable, because all
+  completed strategies are already safe on `main`.
+- **The next run resumes from GitHub state:** it reads `master_index.md`, sees what was
+  completed, and picks up from the next unresearched strategy. Never attempt to reconstruct
+  or guess what the interrupted run was doing from memory.
+
+Session execution priority during long runs:
+1. Complete and save the current strategy.
+2. Maintain database consistency.
+3. Preserve high-quality evidence.
+4. Continue research only after persistence succeeds.
 
 ---
 
-# SAFE RESET POLICY
+## SAFE RESET POLICY
 
 Only use `git reset --hard origin/main` when ALL of the following are true:
 - Explicitly configured for this scenario.
@@ -767,7 +821,7 @@ Never silently destroy potentially valuable research.
 
 ---
 
-# VERSION CONTROL UTILIZATION
+## VERSION CONTROL UTILIZATION
 
 Use git history strategically. Preserve:
 - Strategy evolution and confidence score changes
@@ -776,17 +830,3 @@ Use git history strategically. Preserve:
 - Scam detection history and ranking evolution
 
 Do not overwrite meaningful prior analysis without preserving historical context.
-
----
-
-# REPOSITORY PRIORITY ORDER
-
-1. Repository integrity
-2. Successful persistence
-3. Recoverability
-4. Research accuracy
-5. Evidence quality
-6. Research quantity
-
-A smaller but fully recoverable and consistent research database is more valuable
-than a larger but corrupted one.
