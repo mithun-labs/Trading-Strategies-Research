@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 2)
+Last updated: 2026-05-29 (run 3)
 
 ## About This Index
 
@@ -25,6 +25,10 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `interpretable-hypothesis-driven-microstructure` | Walk-forward RL framework testing 5 microstructure pattern families (accumulation, flow momentum, mean reversion, breakout, range-value) \| Daily OHLCV + RL execution \| Daily \| US Equities (100-stock universe) | 52 | Experimental | 2026-05-29 | Methodology paper; NO EDGE demonstrated (p=0.34, Sharpe 0.33); value is the validation framework, not the signals |
 | `forecast-to-fill-gold-futures` | Trend + momentum regime signal → vol-targeted fractional Kelly position sizing + ATR exits \| Trend indicator + momentum indicator (formulas NOT REPORTED) + ATR \| Daily \| Gold Futures (GC/XAUUSD) | 37 | Low Confidence | 2026-05-29 | SUSPICIOUS METRICS: Sharpe 2.88 and max DD 0.52% implausible; no peer review; no live trading; no independent replication |
 | `small-cap-multipattern-poudel` | Six strategy families: volatility-momentum, gap-and-go ORB, mean reversion, breakout-retest, event-driven vol, regime-filtered composite \| OHLCV + volume + catalyst events + regime classifier \| Intraday \| US Small-Cap Equities ($300M–$2B) | 53 | Experimental | 2026-05-29 | Credible claims (OOS Sharpe 0.7–0.9, CAGR ~14%, max DD <17%); good bias control; retail author, no independent replication |
+| `regime-switching-jump-model-equity` | Binary 0/1 equity index timing via Statistical Jump Model regime identification \| Daily return + risk features (3 total) + jump penalty λ \| Daily \| Major Equity Indices (US, Germany, Japan; NAS100 example) | 68 | Worth Researching | 2026-05-29 | Peer-reviewed (Journal of Asset Management 2024); open code (GitHub/PyPI); OOS 1990–2023; specific metrics paywalled |
+| `network-momentum-trend-following` | Cross-market lead-lag network signal (Lévy area + DTW) augmenting MACD trend on 28 futures \| MACD + Lévy area + DTW graph-adjacency network signal \| Daily \| 28 Futures (agriculture, energy, metals, equity indices) | 52 | Experimental | 2026-05-29 | Pre-print; no peer review; net Sharpe > MACD baseline confirmed; overfitting risk from 28×28 parameter matrix |
+| `omega-model-intraday-nasdaq` | Omega ratio portfolio optimization on daily-ranked top/bottom 15 S&P 500 or NASDAQ-100 stocks \| Intraday return ranking (15–60 min momentum / 60–300 min reversal) + Omega ratio weights \| Intraday \| US Equities (S&P 500, NASDAQ-100 components) | 55 | Experimental | 2026-05-29 | Peer-reviewed (PLOS One 2023); NASDAQ-100 outperforms all 3 periods; S&P 500 only during COVID volatility; authors say not suitable long-term |
+| `fx-mean-reversion-futures-monthly` | Monthly long/short FX futures sorted by deviation from historical mean \| Historical mean deviation + linear/exponential sizing \| Monthly \| Forex FX futures (G10) | 46 | Experimental | 2026-05-29 | Linear variant Sharpe 0.12 = null result; exponential better but unverified; not peer-reviewed; SSRN working paper |
 
 ---
 

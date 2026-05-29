@@ -1,10 +1,12 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 2)
+Last updated: 2026-05-29 (run 3)
 
 ## Pending
 
-_(none)_
+_(see Completed below for network-momentum-trend-following)_
+_(see Completed below for omega-model-intraday-nasdaq)_
+- `quantevolve-multi-agent-strategy` — arxiv 2510.18569 (Oct 2025) — Multi-agent evolutionary framework generating diverse strategies; NOTE: primarily a methodology framework paper, not a single deployable strategy; lower priority
 
 ## Researching
 
@@ -20,6 +22,10 @@ _(none)_
 - `interpretable-hypothesis-driven-microstructure` — score 52 (Experimental) — 2026-05-29 — METHODOLOGY PAPER: no edge demonstrated (p=0.34)
 - `forecast-to-fill-gold-futures` — score 37 (Low Confidence) — 2026-05-29 — SUSPICIOUS METRICS: Sharpe 2.88 and max DD 0.52% implausible
 - `small-cap-multipattern-poudel` — score 53 (Experimental) — 2026-05-29 — 6 strategy families; OOS Sharpe 0.7–0.9 credible but requires independent replication
+- `regime-switching-jump-model-equity` — score 68 (Worth Researching) — 2026-05-29 — Peer-reviewed (Journal of Asset Management 2024); open code (jumpmodels PyPI); implementation candidate
+- `network-momentum-trend-following` — score 52 (Experimental) — 2026-05-29 — Pre-print; lead-lag network signal; 28 futures OOS 2005-2024; net Sharpe > MACD; no peer review; no code
+- `omega-model-intraday-nasdaq` — score 55 (Experimental) — 2026-05-29 — Peer-reviewed PLOS One; NASDAQ-100 outperforms all 3 periods; S&P 500 only COVID; authors: not suitable long-term
+- `fx-mean-reversion-futures-monthly` — score 46 (Experimental) — 2026-05-29 — Linear Sharpe 0.12 = null result; exponential better but unverified; SSRN working paper (Quantpedia)
 
 ## Rejected
 
