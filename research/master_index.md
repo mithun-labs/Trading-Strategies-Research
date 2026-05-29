@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 5)
+Last updated: 2026-05-29 (run 6)
 
 ## About This Index
 
@@ -31,6 +31,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `fx-mean-reversion-futures-monthly` | Monthly long/short FX futures sorted by deviation from historical mean \| Historical mean deviation + linear/exponential sizing \| Monthly \| Forex FX futures (G10) | 46 | Experimental | 2026-05-29 | Linear variant Sharpe 0.12 = null result; exponential better but unverified; not peer-reviewed; SSRN working paper |
 | `quantevolve-multi-agent-strategy` | LLM multi-agent evolutionary framework generating diverse strategies via quality-diversity optimization \| QD feature map (Sharpe, MDD, Sortino, turnover, category) + LLM hypothesis generation \| NOT REPORTED \| 6 equities + 2 futures (NOT REPORTED) | 24 | Low Confidence | 2026-05-29 | FRAMEWORK PAPER: data mining by design; 6+2 asset evaluation; workshop paper only; no open code; no specific deployable strategy |
 | `attention-factors-statistical-arbitrage` | Cross-attention characteristics-driven factor structure + LongConv residual signal; jointly optimized for net-of-cost performance \| 39 firm characteristics + 30 attention factors + 32 LongConv convolutions (30-day residual lookback) \| Daily \| US Equities (500 largest) | 66 | Worth Researching | 2026-05-29 | Full ICAIF 2025 conference paper; Pelger (Stanford) group; OOS Sharpe 2.28 net / >4 gross over 24 years; OOS ends Dec 2021 (2022–2025 gap); no open code yet |
+| `options-wheel-llm-bayesian` | Options wheel (cash-secured put → covered call) decisions guided by LLM-constructed Bayesian network with historical analogue selection \| Implied vol + market conditions + news (exact features NOT REPORTED) \| Options-expiry driven (weekly/monthly assumed) \| US Equities Options (underlying NOT REPORTED) | 24 | Low Confidence | 2026-05-29 | arXiv preprint only; probable lookahead bias; 0% assignment rate implausible through 2008/2020; -8.2% max DD through 2008 understated; no open code; no peer review |
 
 ---
 

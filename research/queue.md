@@ -1,12 +1,13 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 5)
+Last updated: 2026-05-29 (run 6)
 
 ## Pending
 
-_(see Completed below for network-momentum-trend-following)_
-_(see Completed below for omega-model-intraday-nasdaq)_
-_(none active)_
+- `sector-rotation-tsx60` — MDPI Journal of Risk and Financial Management (Jan 2026); Sharpe 0.922 vs 0.624 buy-and-hold; quarterly rebalancing median-performer; OOS 2020–2025; Canadian equities
+- `follow-the-leader-network-momentum` — arXiv:2501.07135 (Jan 2025); commodity futures; network lead-lag signal + univariate trend; different paper from existing `network-momentum-trend-following`
+- `graph-clustering-pairs-trading` — arXiv:2406.10695 (Jun 2024); US equities; graph clustering + ML classifier + Kelly criterion; all approaches outperform benchmark
+- `causal-inference-directional-trading` — arXiv:2507.09347 (Jul 2025); equities; GMM clustering + Granger/PCMCI causal pipeline; 100% win rate on 3 stocks = MAJOR RED FLAG; quick reject candidate
 
 ## Researching
 
@@ -28,6 +29,7 @@ _(none)_
 - `fx-mean-reversion-futures-monthly` — score 46 (Experimental) — 2026-05-29 — Linear Sharpe 0.12 = null result; exponential better but unverified; SSRN working paper (Quantpedia)
 - `quantevolve-multi-agent-strategy` — score 24 (Low Confidence) — 2026-05-29 — FRAMEWORK PAPER: data mining by design; 6+2 asset evaluation; workshop paper; no specific deployable strategy
 - `attention-factors-statistical-arbitrage` — score 66 (Worth Researching) — 2026-05-29 — Full ICAIF 2025 paper; Pelger (Stanford) group; OOS Sharpe 2.28 net / >4 gross over 24 yrs on 500 large-caps; OOS ends Dec 2021; momentum-dependent (net Sharpe→0.59 w/o past returns); implementation candidate pending code release
+- `options-wheel-llm-bayesian` — score 24 (Low Confidence) — 2026-05-29 — arXiv preprint; LLM-Bayesian hybrid wheel strategy; 0% assignment rate implausible; probable lookahead bias; max DD -8.2% through 2008/2020 understated; no open code; no peer review
 
 ## Rejected
 
