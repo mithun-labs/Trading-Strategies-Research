@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 9)
+Last updated: 2026-05-29 (run 10)
 
 ## About This Index
 
@@ -35,6 +35,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `causal-inference-directional-trading` | Multi-stage causal inference pipeline (GMM + GCT + PCMCI + ETE) on clustered equity pairs + DTW/KNN trade timing \| GMM volatility clusters + Granger causality + PCMCI + Effective Transfer Entropy + DTW + KNN \| Intraday \| US Equities (QCOM, TSLA, AMZN — 3 stocks) | 15 | Low Confidence | 2026-05-29 | 2-month backtest only (Jun–Aug 2023); 100% win rate = curve-fitting on tiny sample; no OOS; no costs; no peer review; REJECT |
 | `sector-rotation-tsx60` | Systematic sector rotation via median-performer selection on S&P/TSX 60 \| Recent sector return ranking \| Quarterly rebalancing \| Canadian Large-Cap Equities (S&P/TSX 60, 11 GICS sectors) | 54 | Experimental | 2026-05-29 | Peer-reviewed MDPI JRFM (Jan 2026); open code (GitHub); Sharpe 0.922 vs 0.624 B&H; OOS 2020–2025; max DD paywalled; multiple testing over 72 variants; TSX 60 market-specific |
 | `graph-clustering-pairs-trading` | Multi-pair stat arb via return-correlation graph clustering + ensemble ML classifier top-10% filter + Kelly criterion sizing \| Return correlation graph + ensemble ML + Kelly criterion \| Daily (10-day rebalancing) \| US Equities (S&P 500 historical components) | 49 | Experimental | 2026-05-29 | arXiv preprint + SSRN + WNE Working Paper; no peer review; 17-year OOS (2006–2022) survivorship-corrected; IR > SPY at 1% significance; specific metrics (Sharpe, max DD) NOT REPORTED |
+| `vix-cmf-ml-walkforward` | Daily ML prediction of VIX CMF next-day returns via term structure features (μt + Δroll) + C-MVO portfolio \| μt (VIX CMF mean level) + Δroll (roll yield change) + 7 ML models \| Daily \| VIX Constant Maturity Futures (CBOE) | 45 | Experimental | 2026-05-29 | PLOS One 2024 (peer-reviewed, open access); 11-year walk-forward; C-MVO IR 0.623; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed in accessible summaries |
 
 ---
 
