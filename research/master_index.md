@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 7)
+Last updated: 2026-05-29 (run 8)
 
 ## About This Index
 
@@ -33,6 +33,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `attention-factors-statistical-arbitrage` | Cross-attention characteristics-driven factor structure + LongConv residual signal; jointly optimized for net-of-cost performance \| 39 firm characteristics + 30 attention factors + 32 LongConv convolutions (30-day residual lookback) \| Daily \| US Equities (500 largest) | 66 | Worth Researching | 2026-05-29 | Full ICAIF 2025 conference paper; Pelger (Stanford) group; OOS Sharpe 2.28 net / >4 gross over 24 years; OOS ends Dec 2021 (2022–2025 gap); no open code yet |
 | `options-wheel-llm-bayesian` | Options wheel (cash-secured put → covered call) decisions guided by LLM-constructed Bayesian network with historical analogue selection \| Implied vol + market conditions + news (exact features NOT REPORTED) \| Options-expiry driven (weekly/monthly assumed) \| US Equities Options (underlying NOT REPORTED) | 24 | Low Confidence | 2026-05-29 | arXiv preprint only; probable lookahead bias; 0% assignment rate implausible through 2008/2020; -8.2% max DD through 2008 understated; no open code; no peer review |
 | `causal-inference-directional-trading` | Multi-stage causal inference pipeline (GMM + GCT + PCMCI + ETE) on clustered equity pairs + DTW/KNN trade timing \| GMM volatility clusters + Granger causality + PCMCI + Effective Transfer Entropy + DTW + KNN \| Intraday \| US Equities (QCOM, TSLA, AMZN — 3 stocks) | 15 | Low Confidence | 2026-05-29 | 2-month backtest only (Jun–Aug 2023); 100% win rate = curve-fitting on tiny sample; no OOS; no costs; no peer review; REJECT |
+| `sector-rotation-tsx60` | Systematic sector rotation via median-performer selection on S&P/TSX 60 \| Recent sector return ranking \| Quarterly rebalancing \| Canadian Large-Cap Equities (S&P/TSX 60, 11 GICS sectors) | 54 | Experimental | 2026-05-29 | Peer-reviewed MDPI JRFM (Jan 2026); open code (GitHub); Sharpe 0.922 vs 0.624 B&H; OOS 2020–2025; max DD paywalled; multiple testing over 72 variants; TSX 60 market-specific |
 
 ---
 
