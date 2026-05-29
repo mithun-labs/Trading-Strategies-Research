@@ -1,365 +1,351 @@
-# Bitcoin MAX/MIN Trend-Following and Mean-Reversion
+# Bitcoin MAX/MIN Trend-Following & Mean-Reversion
 
 ## Overview
 
-A pair of complementary strategies applied to Bitcoin (BTC) based on whether price is at a
-recent n-day high (MAX strategy, trend-following) or a recent n-day low (MIN strategy,
-mean-reversion). Originally documented by Padysak & Vojtko (2022, SSRN 4081000); updated
-and extended by Beluška & Vojtko (2024, SSRN 4955617) with data through August 2024.
-Published and promoted by Quantpedia.
-
-The core finding: when BTC is at a local maximum (n-day high), it tends to continue trending
-upward in the following days (trend-following edge). When BTC is at a local minimum (n-day
-low), it tends to bounce back (mean-reversion edge). Both strategies substantially reduce
-maximum drawdown compared to buy-and-hold Bitcoin.
+Two complementary long-only timing strategies for Bitcoin developed by Quantpedia
+researchers. The **MAX strategy** buys BTC when today's price sets a new N-day rolling
+maximum (trend-continuation bet). The **MIN strategy** buys BTC when today's price sets a
+new N-day rolling minimum (mean-reversion bet). A **combined strategy** buys BTC when
+either condition is met, staying in cash otherwise. Original paper published 2022; revised
+and extended through August 2024 in SSRN 4955617.
 
 ## Asset Class / Timeframes
 
-- **Asset:** Bitcoin (BTC) — spot or perpetual futures; predominantly tested on spot (BTC/USD)
-- **Timeframe:** Daily (signal generated at end of day)
-- **Lookback periods tested:** 10, 20, 30, 40, 50 calendar/trading days; shorter lookbacks
-  outperform longer ones; 10-day period generally best
-- **Market:** Crypto
+- **Asset:** Bitcoin (BTC/USD)
+- **Timeframe:** Daily
+- **Sample period (full):** November 2015 – August 2024
+- **In-sample period (original 2022 study):** November 2015 – February 2022
+- **Out-of-sample (OOS) / stress-test period:** February 4, 2022 – August 20, 2024
+- **Lookback periods tested:** 10, 20, 30, 40, 50 days
 
 ## Core Logic
 
-### MAX Strategy (Trend-Following)
+On each trading day, calculate:
+- **N-day MAX:** rolling maximum closing price over the previous N days
+- **N-day MIN:** rolling minimum closing price over the previous N days
 
-1. **Signal:** Each day, check if BTC closing price equals the highest close over the last
-   n days (n = 10–50; 10 preferred).
-2. **Entry:** Go long (buy) BTC when signal is triggered — price is at a new n-day high.
-3. **Hold period:** ANALYSIS: "Next few days" language in search summaries suggests a short
-   hold of approximately 1–5 days; exact exit conditions NOT CONFIRMED from accessible sources.
-4. **Rationale:** At local maxima, demand pressure and momentum-chasing behavior continue
-   to push BTC higher in the short term. This is a breakout continuation pattern.
+**MAX strategy rule:** If today's closing price = the N-day maximum (i.e., BTC just set
+a new N-day high), enter long. Exit when BTC is no longer at the N-day high.
 
-### MIN Strategy (Mean-Reversion)
+**MIN strategy rule:** If today's closing price = the N-day minimum (i.e., BTC just set
+a new N-day low), enter long. Exit when BTC is no longer at the N-day low.
 
-1. **Signal:** Each day, check if BTC closing price equals the lowest close over the last
-   n days (n = 10–50; 10 preferred).
-2. **Entry:** Go long (buy) BTC when signal is triggered — price is at a new n-day low.
-3. **Hold period:** Same short-term window as MAX (ANALYSIS: 1–5 days; NOT CONFIRMED).
-4. **Rationale:** At local minima, panic selling is exhausted; the market has overshot to
-   the downside. BTC tends to bounce back from n-day lows on a short-term basis.
+**Combined rule:** Long BTC if either MAX or MIN condition is met; otherwise hold cash.
 
-### MAX+MIN Combined
-
-Both strategies run simultaneously. The portfolio holds BTC when either signal is active
-and is otherwise in cash (or the position is flat). The combination achieves returns "close
-to the all-time high watermark" of BTC with substantially lower drawdowns.
-
-**Position sizing:** NOT REPORTED in accessible summaries. ANALYSIS: likely 100% of capital
-when signal fires (binary long/flat), based on the research style of Quantpedia working papers.
+All three variants are long-only. No short selling.
 
 ## Economic Rationale
 
-**MAX (trend-following):** Crypto markets are driven by retail momentum-chasing. When BTC
-reaches a new n-day high, it becomes a news event, attracting new buyers. Network effects
-and crypto media amplify momentum at local maxima. This is the behavioral mechanism behind
-momentum: extrapolation bias and FOMO (Fear of Missing Out) cause continuation.
+**MAX strategy:** When BTC breaks above its prior N-day high, overhead resistance has been
+cleared. Buyers were willing to pay a new record price, suggesting demand exceeds supply at
+prior levels. This is the canonical Donchian channel / price breakout momentum rationale.
+The mechanism should FAIL during range-bound, choppy sideways markets where prices oscillate
+near the N-day high without genuine directional momentum, generating whipsaw entries.
 
-**MIN (mean-reversion):** At n-day lows, fear and forced liquidations (leveraged long
-positions) create overshoot below fundamental value. Once the forced selling is exhausted,
-the price bounces. This is the classic panic-selling / capitulation recovery pattern.
+**MIN strategy:** When BTC falls to a new N-day low, it has become "oversold" relative to
+its recent range. Historically the asset rebounds. However, this logic BREAKS DOWN in
+extended trending bear markets (2018 crash: -84%; 2022 crash: -77%), when new N-day lows
+accumulate continuously for weeks. The fact that MIN produces 80%+ drawdowns confirms the
+mechanism is unreliable in bear regimes.
 
-**When the edge should fail (falsifiability):**
-- MAX edge disappears when: (1) BTC becomes a mature, institutionally-arbitraged market where
-  breakout continuation is quickly priced out; (2) breakout patterns become systematically
-  front-run as retail algorithmic adoption grows; (3) sustained bear markets where every
-  breakout is a bull trap followed by reversal.
-- MIN edge disappears when: (1) sustained bear markets with cascading capitulation (each new
-  low is followed by further decline rather than bounce); (2) exchange hacks, regulatory bans,
-  or structural failures trigger panic selling that does not bounce; (3) crypto winter lasting
-  longer than the mean-reversion window.
-- **Critical note:** The MIN strategy is conceptually at odds with the Donchian ensemble
-  approach (see Similar Strategies). Donchian would SHORT BTC at n-day lows (trend-following);
-  the MIN paper goes LONG at n-day lows (mean-reversion). Both cannot be simultaneously correct
-  — this is an unresolved empirical question about Bitcoin's short-term dynamics at new lows.
+**Overall falsifiability:** The MAX mechanism fails when trend strength is absent (sideways
+consolidation, choppy markets). The MIN mechanism fails in sustained bear trends.
 
 ## Entry Conditions
 
-**MAX:** Long BTC when today's closing price = highest close over previous n days (n=10, preferred)
-**MIN:** Long BTC when today's closing price = lowest close over previous n days (n=10, preferred)
-
-Both: enter at close of signal day or open of following day (NOT CONFIRMED which execution timing)
+- **MAX:** `Close[t] >= MAX(Close, N, t-1)` — today's close equals or exceeds the prior
+  N-day rolling maximum. For 10-day lookback, buy if today's BTC price is the highest in
+  the last 10 days.
+- **MIN:** `Close[t] <= MIN(Close, N, t-1)` — today's close equals or falls below the
+  prior N-day rolling minimum.
+- **Best lookback:** 10-day period found to outperform 20, 30, 40, 50-day variants.
 
 ## Exit Conditions
 
-NOT CONFIRMED from accessible search summaries. ANALYSIS: Given the "next few days"
-description, likely one of:
-- Fixed hold period (e.g., exit after k days)
-- Opposite signal (MAX exits when price falls below n-day high condition; MIN exits when
-  price stops meeting n-day low condition)
-- The combined MAX+MIN may continuously rotate signals so positions are rarely flat
+- Exit long when the condition that triggered entry no longer holds (BTC is no longer at
+  the N-day extreme). Exact implementation details (e.g., hold for one day, or exit when
+  condition fails next day) NOT REPORTED in accessible summaries.
 
 ## Risk Management
 
-NOT REPORTED in accessible sources.
+- **Stop-loss:** NOT REPORTED. No stop-loss mechanism mentioned.
+- **Position sizing:** NOT REPORTED. Implied: fully invested (100% BTC) when long, 100%
+  cash otherwise.
+- **Leverage:** NOT REPORTED. Implied: 1× unlevered.
+- **Regime filter:** None documented. Strategy exits naturally to cash when BTC is not at
+  extremes.
 
-ANALYSIS: The implicit risk control in this strategy is its selectivity — it is in BTC only
-at n-day extremes and in cash otherwise. However:
-- No explicit stop-loss is described
-- The MIN strategy is structurally vulnerable to momentum crashes: if BTC makes a new n-day
-  low and continues declining (e.g., 2022 when BTC went 60k → 30k → 20k → 16k in a sequence
-  of new lows), the strategy would repeatedly buy into declining prices with no stop
-- Position sizing of 100% on each signal is binary and unhedged
+**Assessment:** Minimal risk management. Relies entirely on the signal's filtering property
+to avoid bear markets (which works for MAX but not MIN).
 
 ## Indicators Used
 
-- **n-day rolling maximum price** (MAX signal — n = 10, 20, 30, 40, 50 days; 10 preferred)
-- **n-day rolling minimum price** (MIN signal — same lookbacks)
-- No additional indicators documented
+- N-day rolling maximum price
+- N-day rolling minimum price
+- No additional indicators
 
 ## Transaction Costs & Capacity
 
-**Transaction costs:** NOT EXPLICITLY MODELED in accessible summaries.
+**Transaction costs:** NOT REPORTED in accessible summaries. Quantpedia working papers
+sometimes include and sometimes exclude costs. Given this is a daily strategy that trades
+only when new N-day extremes are set (lower turnover than a daily-rebalance strategy),
+the number of trades per year is moderate, not extreme. However:
+- Crypto exchange fees: 0.1–0.5% round-trip (Binance, Coinbase)
+- Slippage on BTC: minimal at retail size given BTC's depth, but non-negligible at scale
+- **CONCLUSION:** Costs likely do not annihilate the gross edge given infrequent trading, but
+  the net-of-cost return is unknown and the accessible evidence does not confirm cost modeling.
 
-ANALYSIS: For daily Bitcoin trading, costs are low relative to other markets:
-- BTC spot bid-ask spread: typically 0.01–0.05% on major exchanges (Coinbase, Binance)
-- Futures funding rate: ~0.01% per 8h for perpetual futures (relevant if using perpetuals)
-- Exchange commission: typically 0.1% per side (total ~0.2% round-trip)
-
-At a 10-day lookback, MAX signals may fire 5–15 times per month during trending markets
-and rarely during ranging markets. At 0.2% round-trip cost, a 10-times-per-month frequency
-would cost ~2% per month in costs — significant. If hold period is longer (5+ days per
-signal), cost impact is reduced. Without knowing the signal frequency and hold period
-precisely, cost impact is uncertain.
-
-**Capacity:** Bitcoin is sufficiently liquid for retail and small institutional use.
-The strategy has no capacity constraints at typical retail sizes (up to $10M).
+**Capacity:** BTC spot market is highly liquid ($20–50B+ daily volume in 2023–2024). This
+is a simple long/flat strategy. Capacity is not a binding constraint at reasonable sizes.
 
 ## Backtest Evidence
 
-**Claimed.** Full period: November 2015 – August 2024 (approximately 9 years).
-OOS period (stress test): February 2022 – August 2024 (~2.5 years).
+CLAIMED, UNVERIFIED — Quantpedia working paper, no independent peer review. All
+accessible evidence via search engine summaries; primary source URLs returned HTTP 403.
 
-The OOS period includes: the 2022 crypto bear market (BTC fell from ~$40k to ~$16k, −60%),
-the 2022-2023 market bottom, and the 2023-2024 recovery and new all-time-high cycle.
+**Full sample (Nov 2015 – Aug 2024), Combined 10-day strategy:**
 
-All primary sources returned HTTP 403. Evidence from search engine summaries only.
+| Metric | Value | Status | Source |
+|--------|-------|--------|--------|
+| Annualized Return | 98.43% | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
+| Annualized Volatility | 47.75% | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
+| Maximum Drawdown | -37.67% | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
+| Return/Volatility Ratio | 2.06 | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
 
-The 2024 paper (SSRN 4955617) extends the 2022 paper's data period and explicitly frames
-Feb 2022 – Aug 2024 as an OOS stress test — this is methodologically sound (the strategy
-was described before this period, and the update evaluates it on new data).
+**BTC Buy-and-Hold comparison (same period):**
+
+| Metric | Value | Status | Source |
+|--------|-------|--------|--------|
+| Annualized Volatility (BTC B&H) | 74.35% | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
+| Maximum Drawdown (BTC B&H) | -83.65% | CLAIMED, UNVERIFIED | SSRN 4955617 / Quantpedia |
+
+**OOS period (Feb 2022 – Aug 2024):**
+
+| Metric | Value | Status | Source |
+|--------|-------|--------|--------|
+| Return (OOS, combined strategy) | >35% | CLAIMED, UNVERIFIED | Quantpedia |
+| Maximum Drawdown (OOS, combined) | ~-12% | CLAIMED, UNVERIFIED | Quantpedia |
 
 ## Forward-Test Evidence
 
-NOT REPORTED.
+NOT REPORTED. No live-trading forward test documented.
 
 ## Performance Metrics
 
 | Metric | Value | Status | Source |
 |--------|-------|--------|--------|
-| Sharpe Ratio (full period) | NOT REPORTED | NOT REPORTED | — |
-| Sharpe Ratio (OOS, MAX strategy) | NOT REPORTED | NOT REPORTED | — |
+| Sharpe Ratio | NOT REPORTED | NOT REPORTED | — |
 | Sortino Ratio | NOT REPORTED | NOT REPORTED | — |
 | Calmar Ratio | NOT REPORTED | NOT REPORTED | — |
 | Profit Factor | NOT REPORTED | NOT REPORTED | — |
 | Win Rate | NOT REPORTED | NOT REPORTED | — |
 | Expectancy per Trade | NOT REPORTED | NOT REPORTED | — |
-| Maximum Drawdown (OOS, MAX) | approximately −12% | CLAIMED, UNVERIFIED | Quantpedia search summary (OOS Feb 2022–Aug 2024) |
-| Maximum Drawdown (Bitcoin B&H) | −83.65% | CLAIMED, UNVERIFIED | Quantpedia search summary |
-| CAGR (full period) | NOT REPORTED | NOT REPORTED | — |
-| OOS Return (MAX, Feb 2022–Aug 2024) | >35% | CLAIMED, UNVERIFIED | Quantpedia search summary |
-| Annual Volatility (BTC B&H) | 74.35% | CLAIMED, UNVERIFIED | Quantpedia search summary |
+| Maximum Drawdown | -37.67% (combined, full) / ~-12% (OOS) | CLAIMED, UNVERIFIED | SSRN 4955617 |
+| CAGR | ~98.43% (return/vol; implied ≈CAGR) | CLAIMED, UNVERIFIED | SSRN 4955617 |
+| Annual Return | NOT REPORTED (year-by-year) | NOT REPORTED | — |
 | Number of Trades | NOT REPORTED | NOT REPORTED | — |
-| Average Trade Duration | NOT REPORTED (ANALYSIS: likely 1–5 days) | NOT REPORTED | — |
+| Average Trade Duration | NOT REPORTED | NOT REPORTED | — |
 | Recovery Factor | NOT REPORTED | NOT REPORTED | — |
 | Risk-Reward Ratio | NOT REPORTED | NOT REPORTED | — |
 | Exposure Percentage | NOT REPORTED | NOT REPORTED | — |
 
-**Note on OOS MAX drawdown:** The claim that MAX strategy achieved >35% return with
-approximately −12% max drawdown during Feb 2022 – Aug 2024 is significant. The BTC
-buy-and-hold likely achieved comparable or slightly lower returns over the same period
-(BTC went from ~$40k to ~$16k in 2022, then recovered to ~$65k by Aug 2024 — net positive),
-but with a massive intermediate drawdown of ~60%. If the MAX strategy avoided the 2022
-crash and captured the 2023-2024 recovery, its risk-adjusted performance is genuinely
-impressive. However, without knowing the entry/exit mechanics exactly, I cannot independently
-verify this claim.
-
-**No automatic scrutiny triggers apply:** OOS max DD −12% is above the −5% trigger threshold
-for "multi-year period without explicit position limits" (OOS is 2.5 years, not multi-year+,
-and the strategy is inherently non-positioned much of the time). The >35% return over 2.5
-years does not reach the CAGR >50% trigger.
+**Note on "Sharpe Ratio":** The paper reports a Return/Volatility ratio of 2.06 for the
+combined strategy. This is effectively a Sharpe ratio with zero risk-free rate. Using the
+reported annualized return (98.43%) and volatility (47.75%), the implied Sharpe ≈ 2.06.
+[ANALYSIS — derived from reported figures, NOT a table value] This is high by CTA
+standards (~14–19× the typical per-market CTA Sharpe of 0.15–0.20) but Bitcoin itself had
+a Ret/Vol ≈ 1.07 (80%/74.35% estimated B&H) over this period, so the strategy's 2.06 is
+~1.9× better risk-adjusted than B&H — a more plausible edge claim.
 
 ## Community Sentiment
 
-Quantpedia has been tracking this strategy family (MAX/MIN on Bitcoin) since 2022. It has
-been featured in multiple Quantpedia publications and a YouTube video. No substantial
-community criticism or replication found on forums (ForexFactory, r/algotrading, MQL5).
+Limited accessible discussion. Quantpedia published both the original 2022 paper and the
+2024 update as house research. LinkedIn discussion noted (David Forino post). No forum
+or adversarial community criticism found in accessible sources. The Quantpedia brand
+promotes this strategy research as part of its subscription service — commercial motivation
+is present.
 
-The strategy is primarily known within Quantpedia's audience and has not been subjected
-to academic peer review or broad community scrutiny.
+No independent replication by an unaffiliated researcher found.
 
 ## Why This Might Be Nothing
 
-**1. The MIN strategy may be catching a falling knife in bear markets.** The MIN strategy
-buys when BTC hits an n-day low. In 2022, BTC dropped from $60k to $16k in a sequence of
-cascading new lows — each new low would have triggered a new long position, accumulating
-losses as the decline continued. The OOS claim (combined MIN+MAX achieves "high returns
-close to all-time high watermark") suggests the combined strategy performed well, but the
-MIN component during 2022 may have significantly detracted from performance, with the MAX
-component (cash when not at n-day highs during bear market) providing the protection.
+### 1. Long-only BTC beta dressed as timing (most likely benign explanation)
 
-**2. Survivorship/sample bias in Bitcoin.** The entire backtest period (Nov 2015 – Aug 2024)
-is dominated by one of history's greatest bull markets in any asset class. Bitcoin rose from
-~$400 to ~$65,000 over this period (+16,000%). Any long-BTC strategy that avoids the very
-worst drawdowns will look impressive on paper. The "lower drawdown than B&H" bar is set
-against B&H Bitcoin's −83.65% drawdown — beating that threshold is not difficult. The real
-test is whether the strategy adds value over a passive risk-adjusted Bitcoin allocation (e.g.,
-10% BTC / 90% cash would also dramatically reduce drawdown).
+The combined MAX+MIN strategy spends a significant fraction of time long BTC. In a
+secular bull market (2015–2021: BTC ~$300 → ~$65,000), almost any long-only timing
+strategy with partial cash exposure will show strong absolute returns. The 98.43%
+annualized return may primarily reflect uncompensated BTC bull-market risk-taking with
+selective cash-hedging, not a genuine timing edge. The risk-adjusted improvement over B&H
+(Ret/Vol 2.06 vs. ~1.07) is more meaningful, but remains a single in-sample figure.
 
-**3. Transaction costs not modeled.** Daily lookback signals may generate frequent entries
-in volatile markets. Without explicit cost modeling, the net performance is unknown.
+### 2. The cost case
 
-**4. Exit condition ambiguity.** The key rules that determine the actual P&L distribution
-(how long to hold after an entry, when to stop-loss) are NOT CONFIRMED in accessible sources.
-The "next few days" duration and the exact hold/exit logic are essential for any replication.
-Without them, this strategy cannot be reproduced.
+Transaction costs NOT REPORTED in accessible summaries. If the strategy trades ~30–50
+times per year (rough estimate for a 10-day MAX/MIN signal), round-trip costs of 0.1–0.5%
+would reduce returns by 3–25 bps × 30–50 = 0.9–12.5% annually. Given the claimed
+98.43% annualized return, this is not strategy-killing at typical retail fees, but it is
+not zero and the paper does not address it.
 
-**5. The MAX strategy's edge may be the same as Donchian breakout.** The `catching-crypto-
-trends-donchian-ensemble` (score 64) already in the database uses n-day high/low breakouts
-on BTC with multiple lookback periods. If the MAX strategy is economically identical to a
-long-only Donchian breakout, the 2024 paper is a restatement of a known concept rather than
-a novel finding. The MIN (mean-reversion at new lows) is genuinely distinct, but its edge
-is more contestable.
+### 3. MIN strategy is a "catch falling knives" rule
 
-**6. What would change this assessment:** Full strategy specification (exact exit conditions,
-position sizing, cost model) plus Sharpe ratio for the full 2015–2024 period. If the
-Sharpe is above 1.0 after realistic costs, this is a genuinely interesting approach.
+The MIN strategy produces 80%+ drawdowns — essentially confirming that buying BTC at new
+N-day lows repeatedly during bear markets (2018: BTC −84%; 2022: BTC −77%) is dangerous.
+The strategy's apparent OOS success is driven almost entirely by the MAX component (which
+avoids bear markets by never hitting a new high during sustained declines). The MIN
+component is a liability.
+
+### 4. Lookback optimization (mild data mining)
+
+Testing 5 lookback periods and selecting the best (10-day) is mild in-sample fitting.
+The authors' own finding — "shorter lookback is better for both strategies" — could reflect
+Bitcoin's high-momentum regime during the sample period. In a less momentum-driven market,
+a 10-day breakout would produce more whipsaws.
+
+### 5. OOS regime luck
+
+The OOS period (Feb 2022 – Aug 2024) happened to align with one of BTC's sharpest
+drawdown-and-recovery cycles. The MAX strategy would have stayed in cash during most of
+the 2022 crash (no new 10-day highs during a -77% decline) and then would have entered
+on the breakout to new highs in 2023–2024. This is a favorable OOS regime for any
+trend-following signal on BTC, not a generic stress test.
+
+### 6. No short-selling in the MIN strategy
+
+Buying at new lows without a corresponding short position in bear markets misses the
+obvious structural improvement. The strategy would be more complete (and more risky) if
+it went short at MIN and long at MAX.
+
+### 7. What would change my mind
+
+A peer-reviewed replication on multiple crypto assets (ETH, SOL, BNB) across multiple
+market cycles, with explicit net-of-fee Sharpe ratios (not just Ret/Vol), and a year-by-year
+performance breakdown showing the strategy adds value in years other than the 2023–2024
+bull run.
 
 ## Strengths / Weaknesses
 
 **Strengths:**
-- OOS stress test (Feb 2022–Aug 2024) covers the most severe recent crypto bear market
-- Simple, transparent signal (n-day high/low) — easily replicable
-- Multiple lookback periods tested — robustness evidence for the "shorter is better" finding
-- Dramatic drawdown reduction vs. B&H Bitcoin (−12% OOS vs. −83% B&H full period)
-- Quantpedia's institutional reputation for reproducible research adds credibility to the
-  methodology even without independent peer review
+- Extremely simple rules, easily reproducible (no indicator software required)
+- Logical economic mechanism for MAX component (momentum / breakout)
+- MAX strategy demonstrably avoided the 2022 crash (−12% OOS drawdown vs. BTC −77%+)
+- Lower volatility (47.75%) and lower drawdown (−37.67%) vs. BTC B&H — honest
+  risk-adjusted improvement reported
+- OOS period is a genuine stress test (2022 bear market)
+- Predecessor paper (2022) provides additional historical context
 
 **Weaknesses:**
-- SSRN working paper only — no journal peer review
-- Exit conditions NOT CONFIRMED from accessible sources — strategy cannot be fully replicated
-- Transaction costs not modeled
-- MIN strategy's mean-reversion rationale is weak in sustained bear markets
-- All metrics are CLAIMED, UNVERIFIED from search summaries; full paper inaccessible (HTTP 403)
-- Only Bitcoin tested; not diversified across altcoins or asset classes
+- MIN strategy is theoretically weak and empirically produces 80%+ drawdowns
+- Long-only only; no downside hedge
+- No stop-loss or position sizing
+- Transaction costs not modeled in accessible summaries
+- Not peer-reviewed; house publication by a subscription-focused research aggregator
+- Single-asset (BTC only); no multi-asset or multi-exchange replication
+- Sharpe ratio not reported explicitly (Ret/Vol ratio given instead)
+- 10-day lookback finding may reflect mild in-sample optimization
 
 ## Confidence Score
 
-| Dimension | Weight | Score (0–10) | Product | Notes |
-|-----------|--------|--------------|---------|-------|
-| Logical/economic soundness (falsifiable) | 3 | 6 | 18 | MAX mechanism sound (BTC momentum at new highs); MIN weaker (falling knife risk); failure conditions specified; "shorter is better" adds robustness |
-| Transparency & reproducibility | 2 | 5 | 10 | Entry signal fully described; exit conditions and sizing NOT CONFIRMED from accessible sources |
-| Evidence auditability | 2 | 3 | 6 | Quantpedia working paper (SSRN); no peer review; no open code; all primary sources 403; OOS framing is methodologically sound |
-| Risk management quality | 2 | 4 | 8 | Implicit cash-when-flat protection; no explicit stop-loss; MIN strategy structurally vulnerable in sustained bear markets |
-| Cost & capacity realism | 2 | 4 | 8 | BTC is liquid; costs not modeled but manageable for low-frequency signals; capacity not a concern |
-| Honest treatment of drawdowns / failure | 1.5 | 6 | 9 | OOS max DD ~−12% reported; B&H comparison stated; 2022 bear market covered in OOS; honest about drawdown reduction claim |
-| Robustness (OOS / walk-forward / multi-market) | 1.5 | 4 | 6 | One genuine OOS period covering stress (2022–2024); 5 lookback periods tested; BTC-only |
-| Survived independent scrutiny | 1 | 3 | 3 | Quantpedia reputation; no independent academic replication; no community forum discussion |
+**Dimension breakdown:**
 
-**Weighted sum:** 18 + 10 + 6 + 8 + 8 + 9 + 6 + 3 = 68
-**Max possible:** 15 × 10 = 150
-**Latent score:** round(68/150 × 100) = **45**
-**Evidence auditability = 3 → cap at 59**
-**Capped confidence: min(45, 59) = 45**
+| Dimension | Score | Weight | Weighted |
+|-----------|-------|--------|----------|
+| Logical/economic soundness (falsifiable) | 6 | 3 | 18 |
+| Transparency & reproducibility | 8 | 2 | 16 |
+| Evidence auditability | 3 | 2 | 6 |
+| Risk management quality | 2 | 2 | 4 |
+| Cost & capacity realism | 2 | 2 | 4 |
+| Honest treatment of drawdowns/failure | 6 | 1.5 | 9 |
+| Robustness (OOS/walk-forward) | 5 | 1.5 | 7.5 |
+| Survived independent scrutiny | 3 | 1 | 3 |
 
-`latent 45 (capped to 45 pending verification: SSRN working paper only; exit conditions NOT CONFIRMED; transaction costs not modeled; full metrics unavailable due to HTTP 403 blockade)`
+**Total weighted: 67.5 / 150**
+**Latent score: round(67.5/150 × 100) = 45**
+**Evidence auditability = 3 (≤4) → Verification cap: 59**
+**Confidence: min(45, 59) = 45 — EXPERIMENTAL**
 
-**Band: 45 — EXPERIMENTAL**
+*latent 45 (capped to 45 pending verification: Quantpedia working paper; no peer review;
+no open code; all performance claims CLAIMED, UNVERIFIED; HTTP 403 on primary sources)*
+
+**Mandatory scrutiny trigger — MAX drawdown <5%?** No — stated max DD is -37.67% (combined)
+and -12% (OOS). No automatic trigger crossed.
 
 ## Complexity / Scalability / Automation Feasibility
 
-- **Complexity:** Very low — n-day rolling max/min is a single-line operation in Python/pandas
-- **Scalability:** Excellent — BTC spot/futures can accommodate large retail and small
-  institutional AUM; strategy logic does not depend on order size
-- **Automation:** Highly feasible — daily lookback signal, straightforward execution via
-  Coinbase, Binance, or any BTC-enabled brokerage API
+**Complexity:** Very low. Two lines of code (rolling max/min comparison). No specialized
+libraries needed.
+
+**Automation:** Easily automated via any daily data source (Binance API, Yahoo Finance).
+Signal checked once per day at close. Minimal execution complexity.
+
+**Scalability:** BTC market is deep at typical retail sizes. Scaling to $1M+ would have
+negligible market impact.
 
 ## MQL5 / Python / Pine Feasibility
 
-- **Python:** Trivially feasible — `pandas.DataFrame.rolling(n).max()` / `.min()`; 
-  < 30 lines of logic
-- **Pine Script:** Trivially feasible — `ta.highest(close, n)` / `ta.lowest(close, n)`;
-  implementable in TradingView for BTC/USD charts
-- **MQL5:** Feasible — BTC/USD is available as a CFD on MT4/MT5; `iHigh` / `iLow` period-
-  based indicators; straightforward implementation
+- **Python:** Trivial — 10 lines of pandas code.
+- **Pine Script (TradingView):** Trivial — `ta.highest()` / `ta.lowest()` built-in.
+- **MQL5:** Straightforward — custom indicator with rolling high/low comparison.
 
 ## Similar Strategies
 
-- `catching-crypto-trends-donchian-ensemble` (score 64) — Uses Donchian channels (n-day
-  high/low) on BTC + altcoins with 9 lookbacks simultaneously, with BOTH long (breakout
-  above n-day high) and short (breakdown below n-day low) positions. The MAX strategy is
-  similar to the Donchian long signal. The KEY DISTINCTION: Donchian goes SHORT at n-day
-  lows (trend-following) while this paper's MIN strategy goes LONG at n-day lows
-  (mean-reversion). Both cannot simultaneously be right — unresolved empirical question.
-- `adaptivetrend-crypto` (score 41) — Different mechanism (6-hour MACD-based trend on
-  150+ Binance perpetual pairs); no n-day high/low signal
+- `catching-crypto-trends-donchian-ensemble` — Donchian channel ensemble (9 lookback periods
+  5–360d) on crypto; similar momentum-breakout mechanism on daily timeframe; score 64
+- `adaptivetrend-crypto` — Multi-component crypto trend-following with Sharpe-weighted
+  asset selection; H6 timeframe; score 41
 
 ## Red Flags
 
-- **Exit conditions unknown** — critical missing piece; strategy cannot be fully replicated
-- **MIN strategy: falling knife risk** — buying new n-day lows in sustained bear markets
-- **Transaction costs not modeled** — especially relevant if signal frequency is high
-- **SSRN working paper only** — no peer review; Quantpedia-internal research
-- **All primary sources 403** — full metrics unavailable; evidence limited to search summaries
-- **Single asset (BTC) tested** — no generalizability beyond Bitcoin
+- No transaction costs documented in accessible evidence
+- MIN strategy produces 80%+ drawdowns — structurally problematic in bear markets
+- House publication by subscription-oriented aggregator (Quantpedia) — commercial motivation
+- No peer review; no independent replication
+- 98.43% annualized return is extraordinary; primarily reflects BTC bull-market beta,
+  not a pure timing alpha
+- Only one lookback period selected post-optimization from a menu of 5
 
 ## Source Links
 
-| Source | Retrieved | Notes |
-|--------|-----------|-------|
-| [SSRN 4955617](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4955617) | 2026-05-29 | Primary (2024 update); HTTP 403 blocked |
-| [Quantpedia: Revisiting trend-following and mean-reversion in Bitcoin](https://quantpedia.com/revisiting-trend-following-and-mean-reversion-strategies-in-bitcoin/) | 2026-05-29 | Key search summary source; HTTP 403 blocked |
-| [Quantpedia: Original trend-following and mean-reversion in Bitcoin](https://quantpedia.com/trend-following-and-mean-reversion-in-bitcoin/) | 2026-05-29 | Original 2022 paper overview; HTTP 403 blocked |
-| [SSRN 4081000](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4081000) | 2026-05-29 | Predecessor paper (Padysak & Vojtko 2022); HTTP 403 blocked |
-| [Quantpedia Medium](https://quantpedia.medium.com/revisiting-trend-following-and-mean-reversion-strategies-in-bitcoin-c21e190ca69e) | 2026-05-29 | Practitioner writeup; HTTP 403 blocked |
-
-All primary sources returned HTTP 403. All evidence from search engine summaries only.
+| Source | Retrieval Date |
+|--------|---------------|
+| [SSRN 4955617 — Revisiting Trend-following and Mean-Reversion Strategies in Bitcoin (Beluška/Vojtko, Sep 2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4955617) | 2026-05-29 |
+| [Quantpedia article — Revisiting Trend-following and Mean-reversion Strategies in Bitcoin](https://quantpedia.com/revisiting-trend-following-and-mean-reversion-strategies-in-bitcoin/) | 2026-05-29 (HTTP 403) |
+| [Quantpedia article — Trend-following and Mean-reversion in Bitcoin (original 2022)](https://quantpedia.com/trend-following-and-mean-reversion-in-bitcoin/) | 2026-05-29 (HTTP 403) |
+| [Quantpedia Medium post — Revisiting Trend-following](https://quantpedia.medium.com/revisiting-trend-following-and-mean-reversion-strategies-in-bitcoin-c21e190ca69e) | 2026-05-29 (HTTP 403) |
+| [SSRN 4081000 — Seasonality, Trend-following, and Mean reversion in Bitcoin (Padysak/Vojtko, 2022)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4081000) | 2026-05-29 |
 
 ## Analyst Notes
 
-**FACTS (from search summaries):**
-- 2024 paper: "Revisiting Trend-following and Mean-Reversion Strategies in Bitcoin"
-- Authors: Soňa Beluška, Radovan Vojtko (Quantpedia); SSRN 4955617 (Sep 12, 2024)
-- Predecessor: Padysak & Vojtko (2022), SSRN 4081000
-- Full period: November 2015 – August 2024
-- OOS stress test: February 2022 – August 2024
-- Lookbacks: 10, 20, 30, 40, 50 days; shorter is better; 10 preferred
-- MAX strategy OOS: >35% return, approximately −12% max drawdown (CLAIMED, UNVERIFIED)
-- BTC B&H: volatility 74.35%, max drawdown −83.65% (CLAIMED, UNVERIFIED)
-- "When BTC is at local maxima, it tends to continue trending upwards" — supporting MAX
-- "BTC tends to mean-revert and bounce back" at local minima — supporting MIN
-- Both strategies lower volatility/drawdown than B&H Bitcoin (CLAIMED, UNVERIFIED)
-- MAX strategy "remains alive and well" in OOS (CLAIMED, UNVERIFIED)
+**FACTS (from sources):**
+- Combined MAX+MIN 10-day strategy: Annualized return 98.43%, vol 47.75%, MDD -37.67%, Ret/Vol 2.06
+- BTC B&H same period: vol 74.35%, MDD -83.65%
+- OOS (Feb 2022 – Aug 2024): combined strategy >35% return, ~-12% max DD
+- Shorter lookback periods (10-day) outperform longer (20, 30, 40, 50-day)
+- MIN strategy alone has drawdowns >80%
+- OOS period described as "a perfect stress test" given BTC's decline from Feb 2022 ATH
 
 **ANALYSIS (my reasoning):**
-- The OOS MAX claim (>35% return, ~−12% DD over Feb 2022–Aug 2024) is internally plausible:
-  BTC net return over this period was approximately +60% (from ~$40k to ~$65k) but with a
-  −60% intermediate drawdown; a strategy that sat out the bear phase and entered on
-  breakout-continuation could plausibly achieve +35% with −12% DD
-- The MIN strategy's OOS behavior during 2022 is the critical unknown — if it repeatedly
-  bought new lows during the bear, it would have dragged combined performance significantly
-- The tension between MAX (momentum) and MIN (mean reversion) strategies at the same lookback
-  suggests these are being tested independently, not as simultaneous positions
+- Implied Sharpe ≈ 2.06 for combined strategy (Ret/Vol with zero risk-free rate) is high
+  in absolute terms but 1.9× BTC's own risk-adjusted return — this is the real claim
+- BTC buy-and-hold estimated ≈ 80% annualized over Nov 2015 – Aug 2024 (from $300 to
+  ~$60K ≈ 200× in 9 years ≈ 80% CAGR). The combined strategy's 98.43% annualized thus
+  slightly exceeds B&H absolute return AND has lower risk — claims are internally consistent
+  and not as extreme as the headline number suggests
+- The 2022 OOS performance is the most compelling evidence: staying ~flat during a -77% crash
+  while catching the 2023–2024 recovery is a genuine out-of-sample achievement for a simple rule
+- The MIN component adds little value and introduces extreme tail risk; future research should
+  evaluate MAX-only performance separately
 
-**ASSUMPTIONS (flagged):**
-- ASSUMED: Positions are 100% long/flat (no partial sizing or leverage)
-- ASSUMED: Exit is a fixed short holding period (1–5 days) based on "next few days" language
-- ASSUMED: The OOS >35% MAX return covers the full Feb 2022–Aug 2024 window, not just the recovery
-- ASSUMED: Transaction costs were NOT modeled in the SSRN paper (consistent with Quantpedia style)
+**ASSUMPTIONS (not confirmed):**
+- Strategy is evaluated on Bitstamp or similar; exact exchange and data source NOT REPORTED
+- "Annualized return" likely CAGR, not arithmetic average (not confirmed)
+- No leverage assumed
 
 ## Future Research Needed
 
-1. Access SSRN 4955617 to obtain: exact hold period, exact exit conditions, position sizing,
-   transaction cost assumptions, Sharpe ratio, full-period CAGR, and MIN strategy standalone
-   OOS performance (was it positive or negative during 2022?)
-2. Implement 10-day MAX strategy in Python with explicit cost modeling and compare to
-   `catching-crypto-trends-donchian-ensemble` on the same BTC data
-3. Test whether MIN strategy (buy at n-day lows) is actually profitable net of costs across
-   the 2022 bear market, or whether the combined MAX+MIN performance is primarily driven by
-   the MAX component
-4. Extend to altcoins to test generalizability beyond BTC
-5. Compare to a simple 10-day Donchian long-only strategy (close when price falls below
-   n-day high) to establish whether the MIN component adds or detracts value
+1. Obtain full strategy file from Quantpedia or SSRN — confirm exact exit rules and whether
+   costs are modeled
+2. Evaluate MAX-only strategy performance in isolation (vs. combined MIN+MAX)
+3. Replicate on ETH, SOL, BNB to test multi-asset generalizability
+4. Compute year-by-year return breakdown to identify regime dependency
+5. Add explicit transaction cost modeling (0.1% roundtrip Binance) to gross returns
+6. Test on 2024–2026 extended OOS period

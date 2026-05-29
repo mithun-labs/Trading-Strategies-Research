@@ -4,11 +4,13 @@ Last updated: 2026-05-29 (run 12)
 
 ## Pending
 
-_(none)_
+- `bitcoin-multitf-trend` — Multi-Timeframe Trend Strategy on Bitcoin (SSRN 5748642, Mesíček/Vojtko, Nov 2025); daily + hourly (D1H1) BTC trend-following; MACD extended with higher-TF filter and adaptive exits ("D1H1 STOP"); Gemini Exchange data Dec 2018+; evolution from single to multi-TF
+- `crypto-ts-xs-momentum-realistic` — Time-Series and Cross-Sectional Momentum in Crypto under Realistic Assumptions (SSRN 4675565, Han/Kang/Ryu, Dec 2023); realistic transaction costs; TS momentum Sharpe 1.51 at 28-day lookback / 5-day hold; XS momentum weak after costs; ~50 Binance coins
+- `mean-reversion-currencies-quantpedia` — How to Build Mean Reversion Strategies in Currencies (SSRN 5002058, Beluška/Vojtko); FX mean reversion systematic approach; Quantpedia working paper; likely daily/weekly timeframe
 
 ## Researching
 
-_(none)_
+*(none currently)*
 
 ## Completed
 
@@ -32,7 +34,7 @@ _(none)_
 - `graph-clustering-pairs-trading` — score 49 (Experimental) — 2026-05-29 — arXiv:2406.10695 + SSRN:4849095; graph clustering + ML classifier (top 10% filter) + Kelly criterion; 17-year OOS (2006–2022) survivorship-corrected; IR > SPY at 1% significance; specific Sharpe/max DD NOT REPORTED
 - `vix-cmf-ml-walkforward` — score 45 (Experimental) — 2026-05-29 — PLOS One April 2024 (peer-reviewed); 7 ML models on VIX CMF term structure; μt + Δroll features; C-MVO IR 0.623; 11-year walk-forward; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed; daily costs unknown
 - `hmm-rl-regime-taa` — score 44 (Experimental) — 2026-05-29 — arXiv:2605.27848 preprint (May 2026) + related practitioner open code (2-state HMM); SPY/TLT/GLD ETF rotation; Sharpe 1.22 / CAGR 19.41% / Max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled; no OOS
-- `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024, Quantpedia); n-day high (MAX, trend) and n-day low (MIN, mean-rev) on BTC; OOS Feb 2022–Aug 2024 MAX: >35% / ~−12% max DD CLAIMED; exit conditions NOT CONFIRMED; costs not modeled; no peer review
+- `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024); combined MAX+MIN 10-day lookback; return 98.43% / vol 47.75% / MDD −37.67% / Ret/Vol 2.06 (full sample); OOS (2022–2024) −12% MDD; MIN component weak (80%+ DD); no costs; not peer-reviewed; latent 45 = tied with vix-cmf-ml-walkforward
 
 ## Rejected
 
