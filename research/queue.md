@@ -25,6 +25,7 @@ _(none)_
 - `regime-switching-jump-model-equity` — score 68 (Worth Researching) — 2026-05-29 — Peer-reviewed (Journal of Asset Management 2024); open code (jumpmodels PyPI); implementation candidate
 - `network-momentum-trend-following` — score 52 (Experimental) — 2026-05-29 — Pre-print; lead-lag network signal; 28 futures OOS 2005-2024; net Sharpe > MACD; no peer review; no code
 - `omega-model-intraday-nasdaq` — score 55 (Experimental) — 2026-05-29 — Peer-reviewed PLOS One; NASDAQ-100 outperforms all 3 periods; S&P 500 only COVID; authors: not suitable long-term
+- `fx-mean-reversion-futures-monthly` — score 46 (Experimental) — 2026-05-29 — Linear Sharpe 0.12 = null result; exponential better but unverified; SSRN working paper (Quantpedia)
 
 ## Rejected
 
