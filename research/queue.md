@@ -4,7 +4,9 @@ Last updated: 2026-05-30 (run 13)
 
 ## Pending
 
-- `mean-reversion-currencies-quantpedia` — How to Build Mean Reversion Strategies in Currencies (SSRN 5002058, Beluška/Vojtko); FX mean reversion systematic approach; Quantpedia working paper; likely daily/weekly timeframe
+- `fx-carry-value-momentum-200yr` — FX Carry + Value + Momentum Strategies over Their 200+ Year History (Quantpedia, Joseph Chen); carry/value/momentum tested over 200 years of FX data; long bond carry robust; currency momentum limited support; G10 FX
+- `mining-gold-regimes` — Mining Gold for Regimes (SSRN 5247471, Suvak/Johnson/Bhansali/Chang/Holdom, Nov 2024); regime identification applied to gold; published in Journal of Alternative Investments (Vol 28 No 1); potentially peer-reviewed; different from Dujava cross-asset approach
+
 
 ## Researching
 
@@ -35,7 +37,8 @@ Last updated: 2026-05-30 (run 13)
 - `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024); combined MAX+MIN 10-day lookback; return 98.43% / vol 47.75% / MDD −37.67% / Ret/Vol 2.06 (full sample); OOS (2022–2024) −12% MDD; MIN component weak (80%+ DD); no costs; not peer-reviewed; latent 45 = tied with vix-cmf-ml-walkforward
 - `bitcoin-multitf-trend` — score 33 (Low Confidence) — 2026-05-30 — SSRN 5748642 (Mesíček/Vojtko, Nov 2025); D1H1 STOP Sharpe 1.07 / Calmar 0.87; costs NOT modeled (presumptive invalidation at ~143 trades/yr × Gemini fees); long-only in structural BTC bull market; no OOS; SSRN working paper only
 - `crypto-ts-xs-momentum-realistic` — score 55 (Experimental) — 2026-05-30 — SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); TS momentum Sharpe 1.51 (market 0.84) at 28-day/5-day CLAIMED; 15bps costs modeled; XS momentum fails after costs; ~471 coins; no OOS; SSRN working paper only
+- `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
 
 ## Rejected
 
-_(none yet)_
+- `mean-reversion-currencies-quantpedia` — DUPLICATE of `fx-mean-reversion-futures-monthly` — same paper (SSRN 5002058, Beluška/Vojtko, Oct 2024); already fully researched 2026-05-29 with score 46
