@@ -4,7 +4,6 @@ Last updated: 2026-05-30 (run 13)
 
 ## Pending
 
-- `crypto-ts-xs-momentum-realistic` — Time-Series and Cross-Sectional Momentum in Crypto under Realistic Assumptions (SSRN 4675565, Han/Kang/Ryu, Dec 2023); realistic transaction costs; TS momentum Sharpe 1.51 at 28-day lookback / 5-day hold; XS momentum weak after costs; ~50 Binance coins
 - `mean-reversion-currencies-quantpedia` — How to Build Mean Reversion Strategies in Currencies (SSRN 5002058, Beluška/Vojtko); FX mean reversion systematic approach; Quantpedia working paper; likely daily/weekly timeframe
 
 ## Researching
@@ -35,6 +34,7 @@ Last updated: 2026-05-30 (run 13)
 - `hmm-rl-regime-taa` — score 44 (Experimental) — 2026-05-29 — arXiv:2605.27848 preprint (May 2026) + related practitioner open code (2-state HMM); SPY/TLT/GLD ETF rotation; Sharpe 1.22 / CAGR 19.41% / Max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled; no OOS
 - `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024); combined MAX+MIN 10-day lookback; return 98.43% / vol 47.75% / MDD −37.67% / Ret/Vol 2.06 (full sample); OOS (2022–2024) −12% MDD; MIN component weak (80%+ DD); no costs; not peer-reviewed; latent 45 = tied with vix-cmf-ml-walkforward
 - `bitcoin-multitf-trend` — score 33 (Low Confidence) — 2026-05-30 — SSRN 5748642 (Mesíček/Vojtko, Nov 2025); D1H1 STOP Sharpe 1.07 / Calmar 0.87; costs NOT modeled (presumptive invalidation at ~143 trades/yr × Gemini fees); long-only in structural BTC bull market; no OOS; SSRN working paper only
+- `crypto-ts-xs-momentum-realistic` — score 55 (Experimental) — 2026-05-30 — SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); TS momentum Sharpe 1.51 (market 0.84) at 28-day/5-day CLAIMED; 15bps costs modeled; XS momentum fails after costs; ~471 coins; no OOS; SSRN working paper only
 
 ## Rejected
 
