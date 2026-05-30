@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 12)
+Last updated: 2026-05-30 (run 13)
 
 ## About This Index
 
@@ -38,6 +38,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `vix-cmf-ml-walkforward` | Daily ML prediction of VIX CMF next-day returns via term structure features (μt + Δroll) + C-MVO portfolio \| μt (VIX CMF mean level) + Δroll (roll yield change) + 7 ML models \| Daily \| VIX Constant Maturity Futures (CBOE) | 45 | Experimental | 2026-05-29 | PLOS One 2024 (peer-reviewed, open access); 11-year walk-forward; C-MVO IR 0.623; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed in accessible summaries |
 | `hmm-rl-regime-taa` | 2-or-3-state HMM (VIX change) + RL policy → SPY/TLT/GLD daily rotation \| Gaussian HMM on Δ VIX + RL policy (paper) \| Daily \| Multi-Asset ETF (SPY + TLT + GLD) | 44 | Experimental | 2026-05-29 | arXiv preprint (May 2026); open practitioner code (2-state); Sharpe 1.22 / CAGR 19.41% / max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled |
 | `bitcoin-max-min-trendrev` | Rolling N-day MAX price triggers long (trend continuation) + rolling N-day MIN price triggers long (mean reversion); combined or standalone \| N-day rolling MAX/MIN price \| Daily \| Bitcoin (BTC/USD) | 45 | Experimental | 2026-05-29 | Quantpedia working paper (SSRN 4955617); not peer-reviewed; combined 10-day strategy: return 98.43%, vol 47.75%, MDD −37.67%, Ret/Vol 2.06; OOS (2022–2024) −12% MDD; MIN component structurally weak (80%+ drawdowns); no costs modeled |
+| `bitcoin-multitf-trend` | H1 MACD crossover entry filtered by D1 MACD trend direction + trailing stop exit (Elder D1H1 multi-TF approach) \| MACD (H1 + D1) + trailing stop \| H1 entry / D1 filter \| Bitcoin (BTC/USD) | 33 | Low Confidence | 2026-05-30 | Quantpedia working paper (SSRN 5748642, Nov 2025); not peer-reviewed; D1H1 STOP Sharpe 1.07 / Calmar 0.87 CLAIMED; costs not modeled (presumptive invalidation at ~143 trades/yr); long-only bull-market window |
 
 ---
 
