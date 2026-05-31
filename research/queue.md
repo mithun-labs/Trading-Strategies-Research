@@ -4,7 +4,7 @@ Last updated: 2026-05-31 (run 14)
 
 ## Pending
 
-*(none currently)*
+- `currency-basis-momentum-fan` — Currency Basis Momentum (Fan/Han/Li/Liu, European Financial Management 2025; SSRN 4925173); BM signal = change in forward basis decomposed into carry + momentum components; BM-3 (3-month formation) best variant; costs explicitly modeled; sample Nov 1983–Dec 2020; peer-reviewed EFM; conflicting metrics across versions (Sharpe 0.52 vs 1.05) — needs full-paper access to resolve; no OOS test confirmed
 
 ## Researching
 
