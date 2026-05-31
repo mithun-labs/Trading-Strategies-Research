@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-29 (run 12)
+Last updated: 2026-05-31 (run 13)
 
 ## Pending
 
@@ -35,6 +35,7 @@ Last updated: 2026-05-29 (run 12)
 - `vix-cmf-ml-walkforward` — score 45 (Experimental) — 2026-05-29 — PLOS One April 2024 (peer-reviewed); 7 ML models on VIX CMF term structure; μt + Δroll features; C-MVO IR 0.623; 11-year walk-forward; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed; daily costs unknown
 - `hmm-rl-regime-taa` — score 44 (Experimental) — 2026-05-29 — arXiv:2605.27848 preprint (May 2026) + related practitioner open code (2-state HMM); SPY/TLT/GLD ETF rotation; Sharpe 1.22 / CAGR 19.41% / Max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled; no OOS
 - `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024); combined MAX+MIN 10-day lookback; return 98.43% / vol 47.75% / MDD −37.67% / Ret/Vol 2.06 (full sample); OOS (2022–2024) −12% MDD; MIN component weak (80%+ DD); no costs; not peer-reviewed; latent 45 = tied with vix-cmf-ml-walkforward
+- `ict-silver-bullet-forex` — score 34 (Low Confidence) — 2026-05-31 — YouTube / ICT (Michael Huddleston); killzone-timed (3 windows/day) liquidity sweep + MSS + FVG entry; 70–80% WR CLAIMED but creator blew audited public accounts (2016, 2024); MSS identification subjective; fraud allegations; session-timing element independently supported; latent 34
 
 ## Rejected
 

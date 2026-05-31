@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-29 (run 12)
+Last updated: 2026-05-31 (run 13)
 
 ## About This Index
 
@@ -38,6 +38,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `vix-cmf-ml-walkforward` | Daily ML prediction of VIX CMF next-day returns via term structure features (μt + Δroll) + C-MVO portfolio \| μt (VIX CMF mean level) + Δroll (roll yield change) + 7 ML models \| Daily \| VIX Constant Maturity Futures (CBOE) | 45 | Experimental | 2026-05-29 | PLOS One 2024 (peer-reviewed, open access); 11-year walk-forward; C-MVO IR 0.623; Sharpe/max DD NOT REPORTED; Volmageddon tail risk unaddressed in accessible summaries |
 | `hmm-rl-regime-taa` | 2-or-3-state HMM (VIX change) + RL policy → SPY/TLT/GLD daily rotation \| Gaussian HMM on Δ VIX + RL policy (paper) \| Daily \| Multi-Asset ETF (SPY + TLT + GLD) | 44 | Experimental | 2026-05-29 | arXiv preprint (May 2026); open practitioner code (2-state); Sharpe 1.22 / CAGR 19.41% / max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled |
 | `bitcoin-max-min-trendrev` | Rolling N-day MAX price triggers long (trend continuation) + rolling N-day MIN price triggers long (mean reversion); combined or standalone \| N-day rolling MAX/MIN price \| Daily \| Bitcoin (BTC/USD) | 45 | Experimental | 2026-05-29 | Quantpedia working paper (SSRN 4955617); not peer-reviewed; combined 10-day strategy: return 98.43%, vol 47.75%, MDD −37.67%, Ret/Vol 2.06; OOS (2022–2024) −12% MDD; MIN component structurally weak (80%+ drawdowns); no costs modeled |
+| `ict-silver-bullet-forex` | Killzone-timed (3 one-hour windows/day) liquidity sweep → Market Structure Shift → Fair Value Gap entry on 1–3 min chart \| Price action only (no indicators) \| 1–3 min intraday \| Forex (EURUSD, GBPUSD); also XAUUSD/indices | 34 | Low Confidence | 2026-05-31 | YouTube / community (Michael Huddleston / ICT); creator failed 2016 and 2024 audited public trading challenges; 70–80% WR CLAIMED, UNVERIFIED; MSS identification subjective; no independent academic study; fraud allegations documented |
 
 ---
 
