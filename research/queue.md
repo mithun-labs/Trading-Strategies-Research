@@ -1,11 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-30 (run 13)
+Last updated: 2026-05-31 (run 14)
 
 ## Pending
 
-- `fx-carry-value-momentum-200yr` — FX Carry + Value + Momentum Strategies over Their 200+ Year History (Quantpedia, Joseph Chen); carry/value/momentum tested over 200 years of FX data; long bond carry robust; currency momentum limited support; G10 FX
-
+- `currency-momentum-factor-menkhoff` — Currency Momentum Factor (Menkhoff/Sarno/Schmeling/Schrimpf, JFE 2012 / BIS WP 366); cross-sectional momentum on 48 currencies; 1-month formation, 1-month holding; Sharpe ~0.95; partly eroded by costs; peer-reviewed JFE; G10 + emerging markets
 
 ## Researching
 
@@ -38,6 +37,7 @@ Last updated: 2026-05-30 (run 13)
 - `crypto-ts-xs-momentum-realistic` — score 55 (Experimental) — 2026-05-30 — SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); TS momentum Sharpe 1.51 (market 0.84) at 28-day/5-day CLAIMED; 15bps costs modeled; XS momentum fails after costs; ~471 coins; no OOS; SSRN working paper only
 - `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
 - `mining-gold-regimes` — score 46 (Experimental) — 2026-05-30 — Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed, Bhansali/Suvak et al.); PCA + k-means (k=3) regime identification → gold TAA; 3 regimes (stable currency / inflation hedge / low-rate); TAA outperforms benchmarks CLAIMED; all metrics paywalled; no open code; regime 3 first Dec 2008
+- `fx-carry-value-momentum-200yr` — score 51 (Experimental) — 2026-05-31 — SSRN working paper (Joseph Chen, revised 2024); carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ yr CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; yield-curve flattening most robust; no cost modeling; not peer-reviewed
 
 ## Rejected
 

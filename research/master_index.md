@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-30 (run 13)
+Last updated: 2026-05-31 (run 14)
 
 ## About This Index
 
@@ -42,6 +42,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `crypto-ts-xs-momentum-realistic` | Long market when J-day momentum positive (TS, long-only) vs rank-and-hold long-short XS momentum; 15bps transaction costs modeled \| J-day rolling return (28-day best) \| Daily (5-day hold) \| Crypto (~471 Binance coins, market cap + volume filtered) | 55 | Experimental | 2026-05-30 | SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); not peer-reviewed; TS Sharpe 1.51 (market 0.84) CLAIMED; XS fails after costs; 15bps modeled; no OOS; no open code |
 | `gold-cross-asset-regimes` | Long GLD when BOTH GLD and IEF 12-month total return > 0; otherwise cash; monthly rebalancing \| 12-month rolling return (GLD + IEF) \| Monthly \| Gold (GLD ETF / XAUUSD) | 51 | Experimental | 2026-05-30 | Quantpedia blog (Dujava, Dec 2025); independently replicated by Allocate Smartly; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026); underperforms B&H gold absolute return; no peer review; no OOS documented |
 | `mining-gold-regimes` | PCA + k-means (k=3) regime identification on macro features → regime-conditional gold TAA allocation \| PCA-reduced macro features (NOT REPORTED) + k-means 3-regime clustering \| Monthly (inferred) \| Gold (GLD/XAUUSD) | 46 | Experimental | 2026-05-30 | Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed); LongTail Alpha (Bhansali et al.); TAA outperforms benchmarks CLAIMED; specific metrics paywalled; no open code; regime 3 first appeared Dec 2008 |
+| `fx-carry-value-momentum-200yr` | Long high-carry currencies / short low-carry currencies (monthly rank by rate differential); momentum and reversal variants also tested \| Short-term rate differential (carry) + 1-month return (momentum) + PPP deviation (value) + yield curve slope \| Monthly \| G10 FX / Developed Market Currencies | 51 | Experimental | 2026-05-31 | SSRN working paper (Joseph Chen, revised 2024); not peer-reviewed; carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ year history CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; cross-currency yield-curve flattening most robust; no cost modeling; all sources HTTP 403 |
 
 ---
 
