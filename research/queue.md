@@ -4,7 +4,7 @@ Last updated: 2026-05-31 (run 14)
 
 ## Pending
 
-- `currency-momentum-factor-menkhoff` — Currency Momentum Factor (Menkhoff/Sarno/Schmeling/Schrimpf, JFE 2012 / BIS WP 366); cross-sectional momentum on 48 currencies; 1-month formation, 1-month holding; Sharpe ~0.95; partly eroded by costs; peer-reviewed JFE; G10 + emerging markets
+*(none currently)*
 
 ## Researching
 
@@ -38,6 +38,7 @@ Last updated: 2026-05-31 (run 14)
 - `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
 - `mining-gold-regimes` — score 46 (Experimental) — 2026-05-30 — Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed, Bhansali/Suvak et al.); PCA + k-means (k=3) regime identification → gold TAA; 3 regimes (stable currency / inflation hedge / low-rate); TAA outperforms benchmarks CLAIMED; all metrics paywalled; no open code; regime 3 first Dec 2008
 - `fx-carry-value-momentum-200yr` — score 51 (Experimental) — 2026-05-31 — SSRN working paper (Joseph Chen, revised 2024); carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ yr CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; yield-curve flattening most robust; no cost modeling; not peer-reviewed
+- `currency-momentum-factor-menkhoff` — score 59 (Experimental) — 2026-05-31 — Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010); OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022); G10 momentum stopped post-GFC; publication effect documented; latent 59 = highest in Experimental band; basis-momentum (Fan 2025) noted as evolution candidate
 
 ## Rejected
 
