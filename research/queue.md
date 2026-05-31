@@ -1,12 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-31 (run 13)
+Last updated: 2026-05-31 (run 14)
 
 ## Pending
 
-- `bitcoin-multitf-trend` — Multi-Timeframe Trend Strategy on Bitcoin (SSRN 5748642, Mesíček/Vojtko, Nov 2025); daily + hourly (D1H1) BTC trend-following; MACD extended with higher-TF filter and adaptive exits ("D1H1 STOP"); Gemini Exchange data Dec 2018+; evolution from single to multi-TF
-- `crypto-ts-xs-momentum-realistic` — Time-Series and Cross-Sectional Momentum in Crypto under Realistic Assumptions (SSRN 4675565, Han/Kang/Ryu, Dec 2023); realistic transaction costs; TS momentum Sharpe 1.51 at 28-day lookback / 5-day hold; XS momentum weak after costs; ~50 Binance coins
-- `mean-reversion-currencies-quantpedia` — How to Build Mean Reversion Strategies in Currencies (SSRN 5002058, Beluška/Vojtko); FX mean reversion systematic approach; Quantpedia working paper; likely daily/weekly timeframe
+- `currency-basis-momentum-fan` — Currency Basis Momentum (Fan/Han/Li/Liu, European Financial Management 2025; SSRN 4925173); BM signal = change in forward basis decomposed into carry + momentum components; BM-3 (3-month formation) best variant; costs explicitly modeled; sample Nov 1983–Dec 2020; peer-reviewed EFM; conflicting metrics across versions (Sharpe 0.52 vs 1.05) — needs full-paper access to resolve; no OOS test confirmed
 
 ## Researching
 
@@ -36,7 +34,13 @@ Last updated: 2026-05-31 (run 13)
 - `hmm-rl-regime-taa` — score 44 (Experimental) — 2026-05-29 — arXiv:2605.27848 preprint (May 2026) + related practitioner open code (2-state HMM); SPY/TLT/GLD ETF rotation; Sharpe 1.22 / CAGR 19.41% / Max DD −19.54% CLAIMED but full-sample HMM = in-sample optimism; 2022 bond-equity correlation break unaddressed; costs not modeled; no OOS
 - `bitcoin-max-min-trendrev` — score 45 (Experimental) — 2026-05-29 — SSRN 4955617 (Beluška/Vojtko, Sep 2024); combined MAX+MIN 10-day lookback; return 98.43% / vol 47.75% / MDD −37.67% / Ret/Vol 2.06 (full sample); OOS (2022–2024) −12% MDD; MIN component weak (80%+ DD); no costs; not peer-reviewed; latent 45 = tied with vix-cmf-ml-walkforward
 - `ict-silver-bullet-forex` — score 34 (Low Confidence) — 2026-05-31 — YouTube / ICT (Michael Huddleston); killzone-timed (3 windows/day) liquidity sweep + MSS + FVG entry; 70–80% WR CLAIMED but creator blew audited public accounts (2016, 2024); MSS identification subjective; fraud allegations; session-timing element independently supported; latent 34
+- `bitcoin-multitf-trend` — score 33 (Low Confidence) — 2026-05-30 — SSRN 5748642 (Mesíček/Vojtko, Nov 2025); D1H1 STOP Sharpe 1.07 / Calmar 0.87; costs NOT modeled (presumptive invalidation at ~143 trades/yr × Gemini fees); long-only in structural BTC bull market; no OOS; SSRN working paper only
+- `crypto-ts-xs-momentum-realistic` — score 55 (Experimental) — 2026-05-30 — SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); TS momentum Sharpe 1.51 (market 0.84) at 28-day/5-day CLAIMED; 15bps costs modeled; XS momentum fails after costs; ~471 coins; no OOS; SSRN working paper only
+- `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
+- `mining-gold-regimes` — score 46 (Experimental) — 2026-05-30 — Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed, Bhansali/Suvak et al.); PCA + k-means (k=3) regime identification → gold TAA; 3 regimes (stable currency / inflation hedge / low-rate); TAA outperforms benchmarks CLAIMED; all metrics paywalled; no open code; regime 3 first Dec 2008
+- `fx-carry-value-momentum-200yr` — score 51 (Experimental) — 2026-05-31 — SSRN working paper (Joseph Chen, revised 2024); carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ yr CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; yield-curve flattening most robust; no cost modeling; not peer-reviewed
+- `currency-momentum-factor-menkhoff` — score 59 (Experimental) — 2026-05-31 — Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010); OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022); G10 momentum stopped post-GFC; publication effect documented; latent 59 = highest in Experimental band; basis-momentum (Fan 2025) noted as evolution candidate
 
 ## Rejected
 
-_(none yet)_
+- `mean-reversion-currencies-quantpedia` — DUPLICATE of `fx-mean-reversion-futures-monthly` — same paper (SSRN 5002058, Beluška/Vojtko, Oct 2024); already fully researched 2026-05-29 with score 46
