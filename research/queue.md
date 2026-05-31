@@ -5,7 +5,6 @@ Last updated: 2026-05-30 (run 13)
 ## Pending
 
 - `fx-carry-value-momentum-200yr` — FX Carry + Value + Momentum Strategies over Their 200+ Year History (Quantpedia, Joseph Chen); carry/value/momentum tested over 200 years of FX data; long bond carry robust; currency momentum limited support; G10 FX
-- `mining-gold-regimes` — Mining Gold for Regimes (SSRN 5247471, Suvak/Johnson/Bhansali/Chang/Holdom, Nov 2024); regime identification applied to gold; published in Journal of Alternative Investments (Vol 28 No 1); potentially peer-reviewed; different from Dujava cross-asset approach
 
 
 ## Researching
@@ -38,6 +37,7 @@ Last updated: 2026-05-30 (run 13)
 - `bitcoin-multitf-trend` — score 33 (Low Confidence) — 2026-05-30 — SSRN 5748642 (Mesíček/Vojtko, Nov 2025); D1H1 STOP Sharpe 1.07 / Calmar 0.87; costs NOT modeled (presumptive invalidation at ~143 trades/yr × Gemini fees); long-only in structural BTC bull market; no OOS; SSRN working paper only
 - `crypto-ts-xs-momentum-realistic` — score 55 (Experimental) — 2026-05-30 — SSRN 4675565 (Han/Kang/Ryu, Dec 2023, Sungkyunkwan); TS momentum Sharpe 1.51 (market 0.84) at 28-day/5-day CLAIMED; 15bps costs modeled; XS momentum fails after costs; ~471 coins; no OOS; SSRN working paper only
 - `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
+- `mining-gold-regimes` — score 46 (Experimental) — 2026-05-30 — Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed, Bhansali/Suvak et al.); PCA + k-means (k=3) regime identification → gold TAA; 3 regimes (stable currency / inflation hedge / low-rate); TAA outperforms benchmarks CLAIMED; all metrics paywalled; no open code; regime 3 first Dec 2008
 
 ## Rejected
 
