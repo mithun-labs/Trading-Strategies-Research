@@ -1,10 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-31 (run 14)
+Last updated: 2026-05-31 (run 15)
 
 ## Pending
 
-- `currency-basis-momentum-fan` — Currency Basis Momentum (Fan/Han/Li/Liu, European Financial Management 2025; SSRN 4925173); BM signal = change in forward basis decomposed into carry + momentum components; BM-3 (3-month formation) best variant; costs explicitly modeled; sample Nov 1983–Dec 2020; peer-reviewed EFM; conflicting metrics across versions (Sharpe 0.52 vs 1.05) — needs full-paper access to resolve; no OOS test confirmed
+- `fx-news-sentiment-xgboost` — arXiv 2505.16136 (Zhang et al., May 2025); XGBoost + FinBERT sentiment on GDELT news feed; EUR/USD, USD/JPY, 10Y Treasuries; 5-fold expanding OOS 2017-Apr 2025; claimed Sharpe 5.87 (EUR/USD), 4.65 (USD/JPY), CAGR >50% FX / 22% bonds; costs claimed adjusted; AUTOMATIC SCRUTINY REQUIRED — Sharpe >3 triggers mandatory review; extreme values suggest data leakage, overfitting, or look-ahead in FinBERT training; arXiv preprint only; no peer review
 
 ## Researching
 
@@ -39,7 +39,8 @@ Last updated: 2026-05-31 (run 14)
 - `gold-cross-asset-regimes` — score 51 (Experimental) — 2026-05-30 — Quantpedia blog (Dujava, Dec 2025); long GLD when BOTH GLD and IEF 12M return positive; CAGR 8.5% / Sharpe 0.71 / Max DD -33.7% (1992-2026 Allocate Smartly); independently replicated; underperforms B&H gold absolute return; no peer review; no OOS documented
 - `mining-gold-regimes` — score 46 (Experimental) — 2026-05-30 — Journal of Alternative Investments Vol 28 No 1 Summer 2025 (peer-reviewed, Bhansali/Suvak et al.); PCA + k-means (k=3) regime identification → gold TAA; 3 regimes (stable currency / inflation hedge / low-rate); TAA outperforms benchmarks CLAIMED; all metrics paywalled; no open code; regime 3 first Dec 2008
 - `fx-carry-value-momentum-200yr` — score 51 (Experimental) — 2026-05-31 — SSRN working paper (Joseph Chen, revised 2024); carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ yr CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; yield-curve flattening most robust; no cost modeling; not peer-reviewed
-- `currency-momentum-factor-menkhoff` — score 59 (Experimental) — 2026-05-31 — Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010); OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022); G10 momentum stopped post-GFC; publication effect documented; latent 59 = highest in Experimental band; basis-momentum (Fan 2025) noted as evolution candidate
+- `currency-momentum-factor-menkhoff` — score 59 (Experimental) — 2026-05-31 — Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010); OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022); G10 momentum stopped post-GFC; publication effect documented; latent 59 = highest in Experimental band; basis-momentum (Fan 2025) researched as evolution candidate — see currency-basis-momentum-fan
+- `currency-basis-momentum-fan` — score 39 (Low Confidence) — 2026-05-31 — Peer-reviewed EFM 2025 (Fan/Han/Li/Liu; SSRN 4925173); BM-3 Sharpe 0.52 CLAIMED; paradoxically lower than standalone carry (0.63) and momentum (0.79); dominant components are known decayed factors; no OOS test; 48 currencies (G10+EM); bid-ask costs modeled; sub-period 3 (2011–2020) unconfirmed; all sources HTTP 403; latent 39
 
 ## Rejected
 
