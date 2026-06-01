@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-05-31 (run 15, run 14, run 13)
+Last updated: 2026-06-01 (run 16, run 15, run 14, run 13)
 
 ## About This Index
 
@@ -46,6 +46,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `fx-carry-value-momentum-200yr` | Long high-carry currencies / short low-carry currencies (monthly rank by rate differential); momentum and reversal variants also tested \| Short-term rate differential (carry) + 1-month return (momentum) + PPP deviation (value) + yield curve slope \| Monthly \| G10 FX / Developed Market Currencies | 51 | Experimental | 2026-05-31 | SSRN working paper (Joseph Chen, revised 2024); not peer-reviewed; carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ year history CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; cross-currency yield-curve flattening most robust; no cost modeling; all sources HTTP 403 |
 | `currency-momentum-factor-menkhoff` | Monthly quintile cross-sectional momentum: long top quintile (past winners), short bottom quintile (past losers) by f-month return; f = 1, 3, 6, 9, 12 months; best = MOM(1,1) \| f-month return rank (1–12 months) \| Monthly (1-month hold) \| ~48 Currencies (G10 + EM, USD-based) | 59 | Experimental | 2026-05-31 | Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010) AUDITABLE; OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022, peer-reviewed); G10 stopped working post-2008 GFC; publication effect documented; latent 59 = highest Experimental |
 | `currency-basis-momentum-fan` | Quintile long-short sort on BM signal (difference in f-month momentum between 1st- and 2nd-nearby forward contracts); BM decomposed into carry (FD) + momentum (EC) + spot (SC) + 2nd forward discount (FD2) components \| Forward contract excess returns (1st and 2nd nearby, f=1–12 months) \| Monthly (best: BM-3, 3-month formation) \| 48 Currencies (G10 + EM, USD-based) | 39 | Low Confidence | 2026-05-31 | Peer-reviewed EFM Vol 2025 (Fan/Han/Li/Liu); SSRN 4925173; BM-3 Sharpe 0.52 CLAIMED; below standalone carry (0.63) and momentum (0.79); dominant components are known decayed factors; no OOS test; sub-period 3 (2011–2020) unconfirmed; no open code; all sources HTTP 403 |
+| `fx-news-sentiment-xgboost` | GDELT news → FinBERT daily sentiment indices (mean tone, dispersion, event impact) → XGBoost binary direction classifier + 5-fold expanding-window CV \| FinBERT sentiment + Goldstein scale momentum + article count spike \| Daily \| Forex (EUR/USD, USD/JPY) + 10Y Treasury futures (ZN) | 30 | Low Confidence | 2026-06-01 | arXiv 2505.16136 (Zhang, May 2025); Sharpe 5.87/4.65/4.65 CLAIMED; CAGR >50% FX CLAIMED; both automatic scrutiny triggers fired; FinBERT temporal leakage + CV hyperparameter overfitting most likely explanation; no peer review; single-author preprint; reproduction results pending (jandrews65/zhang2025) |
 
 ---
 
@@ -73,3 +74,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 
 - Initialized: 2026-05-28 (first run)
 - Repository structure created: 2026-05-28
+- Run 16 (2026-06-01): Added fx-news-sentiment-xgboost; total strategies = 30
