@@ -1,10 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-05-31 (run 15)
+Last updated: 2026-06-01 (run 16)
 
 ## Pending
 
-- `fx-news-sentiment-xgboost` — arXiv 2505.16136 (Zhang et al., May 2025); XGBoost + FinBERT sentiment on GDELT news feed; EUR/USD, USD/JPY, 10Y Treasuries; 5-fold expanding OOS 2017-Apr 2025; claimed Sharpe 5.87 (EUR/USD), 4.65 (USD/JPY), CAGR >50% FX / 22% bonds; costs claimed adjusted; AUTOMATIC SCRUTINY REQUIRED — Sharpe >3 triggers mandatory review; extreme values suggest data leakage, overfitting, or look-ahead in FinBERT training; arXiv preprint only; no peer review
+*(none)*
 
 ## Researching
 
@@ -41,6 +41,7 @@ Last updated: 2026-05-31 (run 15)
 - `fx-carry-value-momentum-200yr` — score 51 (Experimental) — 2026-05-31 — SSRN working paper (Joseph Chen, revised 2024); carry Sharpe 0.391 (short rates) / 0.361 (long bonds) over 200+ yr CLAIMED; momentum only works latter half of sample; reversal only post-Bretton Woods; yield-curve flattening most robust; no cost modeling; not peer-reviewed
 - `currency-momentum-factor-menkhoff` — score 59 (Experimental) — 2026-05-31 — Peer-reviewed JFE Vol 106 (2012), Menkhoff/Sarno/Schmeling/Schrimpf; BIS WP 366; in-sample Sharpe 0.95 (MOM(1,1), 1976–2010); OOS Sharpe −0.32 post-publication (Hutchinson et al. IRFA 2022); G10 momentum stopped post-GFC; publication effect documented; latent 59 = highest in Experimental band; basis-momentum (Fan 2025) researched as evolution candidate — see currency-basis-momentum-fan
 - `currency-basis-momentum-fan` — score 39 (Low Confidence) — 2026-05-31 — Peer-reviewed EFM 2025 (Fan/Han/Li/Liu; SSRN 4925173); BM-3 Sharpe 0.52 CLAIMED; paradoxically lower than standalone carry (0.63) and momentum (0.79); dominant components are known decayed factors; no OOS test; 48 currencies (G10+EM); bid-ask costs modeled; sub-period 3 (2011–2020) unconfirmed; all sources HTTP 403; latent 39
+- `fx-news-sentiment-xgboost` — score 30 (Low Confidence) — 2026-06-01 — arXiv 2505.16136 (Zhang, May 2025); GDELT+FinBERT+XGBoost; Sharpe 5.87/4.65/4.65 CLAIMED; CAGR >50% FX CLAIMED; automatic scrutiny triggers fired (Sharpe >3, CAGR >50%); FinBERT temporal leakage + CV hyperparameter overfitting most likely explanation; no peer review; no independent replication; code on GitHub but reproduction results pending; latent 30
 
 ## Rejected
 
