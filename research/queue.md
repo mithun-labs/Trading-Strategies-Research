@@ -4,7 +4,7 @@ Last updated: 2026-06-02 (run 17)
 
 ## Pending
 
-- `trendfollios-fixed-income` — Fixed income momentum/trend ETF strategy (Lu/Rojas/Yeung/Convery, arXiv 2506.09330, June 2025); 6.48% annual excess returns over Bloomberg US Agg since inception; 22+ years
+*(none)*
 
 ## Researching
 
@@ -47,6 +47,7 @@ Last updated: 2026-06-02 (run 17)
 - `drift-regime-factor-singha` — score 21 (Low Confidence) — 2026-06-01 — arXiv 2511.12490 (Singha, Nov 2025); Sharpe 13 / CAGR 158.6% / max DD -11.9% CLAIMED; both scrutiny triggers fired (Sharpe >3, CAGR >50%); no transaction costs; survivorship bias; single non-finance author; randomization test inadequate; no peer review; latent 21
 - `gold-bitcoin-dual-momentum` — score 49 (Experimental) — 2026-06-02 — Quantpedia blog (Dujava, Apr 2026); X-week dual momentum GLD+IBIT; vol-capped composite: 12.01% CAGR / Sharpe 1.37 / MDD -12.27% CLAIMED; uncapped 8-wk: 79.91% CAGR / Sharpe 1.64 (CAGR >50% triggers scrutiny); 10 lookbacks tested without OOS; IBIT proxy pre-2024; regime luck (BTC 2020-2021 bull); latent 49
 - `tsmom-china-commodity-futures` — score 60 (Worth Researching) — 2026-06-02 — Journal of Futures Markets 2025 (Zheng/Zhang/Lien/Yu, peer-reviewed); 64 Chinese commodity futures 2003–2023; robust after costs (JFoM); basic Sharpe 0.07 / enhanced Sharpe 0.75 (Liu et al. 2023, CLAIMED); non-positive risk-return in China; China accessibility constraint; latent 60 = implementation candidate (TSMOM formula inspectable from Moskowitz 2012)
+- `trendfollios-fixed-income` — score 40 (Experimental) — 2026-06-02 — arXiv 2506.09330 (Lu/Rojas/Yeung/Convery, June 2025); not peer-reviewed; Sharpe 0.33 (inception) / 0.04 (3Y) / 0.65 (1Y) CLAIMED; 5.89% excess/yr vs Bloomberg US Agg CLAIMED; 17-19% vol inconsistent with pure fixed income; proprietary "line-based/curve-based" signals; 3Y Sharpe 0.04 in 2022 rate shock; commercial-pitch-on-arXiv; latent 40
 
 ## Rejected
 
