@@ -1,10 +1,11 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-01 (run 16)
+Last updated: 2026-06-02 (run 17)
 
 ## Pending
 
-*(none)*
+- `tsmom-china-commodity-futures` — TSMOM in Chinese commodity futures (Zheng/Zhang/Lien/Yu, Journal of Futures Markets 2025, peer-reviewed); 64 futures 2003-2023; robust after costs; 1-month lookback best
+- `trendfollios-fixed-income` — Fixed income momentum/trend ETF strategy (Lu/Rojas/Yeung/Convery, arXiv 2506.09330, June 2025); 6.48% annual excess returns over Bloomberg US Agg since inception; 22+ years
 
 ## Researching
 
@@ -45,6 +46,7 @@ Last updated: 2026-06-01 (run 16)
 - `vix-etn-dual-approach` — score 48 (Experimental) — 2026-06-01 — SSRN 5316487 (Zarattini/Aziz/Mele; Swiss Finance Institute WP 25-91; June 2025); CAGR 16.3% / Sharpe 1.0 / equity correlation ~15% CLAIMED; realistic costs stated; 2008–2025 (17 yrs); max drawdown NOT REPORTED; Volmageddon 2018 handling critical unknown; SVXY structural break post-2018; not peer-reviewed; latent 48
 - `industry-trend-century` — score 64 (Worth Researching) — 2026-06-01 — SSRN 4857230 (Zarattini/Antonacci; CMT Award 2025; June 2024); CAGR 18.2% / Sharpe 1.39 / max DD 33%; 98-year backtest (48 Fama-French industries); ETF OOS (20 yr) by authors; walk-forward "persistent challenges" (arXiv 2412.14361) — magnitude NOT QUANTIFIED; SSRN working paper; implementation candidate (Ken French + SPDR ETFs); latent 64
 - `drift-regime-factor-singha` — score 21 (Low Confidence) — 2026-06-01 — arXiv 2511.12490 (Singha, Nov 2025); Sharpe 13 / CAGR 158.6% / max DD -11.9% CLAIMED; both scrutiny triggers fired (Sharpe >3, CAGR >50%); no transaction costs; survivorship bias; single non-finance author; randomization test inadequate; no peer review; latent 21
+- `gold-bitcoin-dual-momentum` — score 49 (Experimental) — 2026-06-02 — Quantpedia blog (Dujava, Apr 2026); X-week dual momentum GLD+IBIT; vol-capped composite: 12.01% CAGR / Sharpe 1.37 / MDD -12.27% CLAIMED; uncapped 8-wk: 79.91% CAGR / Sharpe 1.64 (CAGR >50% triggers scrutiny); 10 lookbacks tested without OOS; IBIT proxy pre-2024; regime luck (BTC 2020-2021 bull); latent 49
 
 ## Rejected
 

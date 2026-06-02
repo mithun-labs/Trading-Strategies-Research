@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-01 (run 16, run 15, run 14, run 13)
+Last updated: 2026-06-02 (run 17, run 16, run 15, run 14)
 
 ## About This Index
 
@@ -50,6 +50,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `vix-etn-dual-approach` | VRP signal (VIX vs. short-term realized vol) + VIX term structure slope (contango/backwardation) → dynamic sizing of short/long VIX ETN position \| VIX + realized vol (rolling) + VIX M1/M2 futures slope \| Daily \| VIX ETNs (VXX, UVXY, SVXY/SVIX) | 48 | Experimental | 2026-06-01 | SSRN 5316487 (Zarattini/Aziz/Mele; Swiss Finance Institute WP 25-91; June 2025); CAGR 16.3% / Sharpe 1.0 / equity correlation ~15% over 2008–2025 CLAIMED; realistic costs stated included; max drawdown NOT REPORTED; Volmageddon Feb 2018 handling unverified; not peer-reviewed; SVXY structural break |
 | `industry-trend-century` | Long-only Donchian (20-day high / 40-day low) + Keltner Channel (20-day EMA ± 1.4×ATR) breakout on 48 Fama-French US industries + T-bill fallback + vol-based sizing \| Donchian + Keltner Channel + ATR \| Daily \| US Equities — 48 industry portfolios / 31 SPDR sector ETFs | 64 | Worth Researching | 2026-06-01 | SSRN 4857230 (Zarattini/Antonacci; CMT Award 2025; June 2024); CAGR 18.2% / Sharpe 1.39 / max DD 33% CLAIMED; 98-year backtest; ETF OOS (20 yr, cost-adjusted) by authors; walk-forward "persistent challenges" (arXiv 2412.14361); SSRN working paper; implementation candidate |
 | `drift-regime-factor-singha` | Per-stock drift regime filter (>60% positive days / 63-day window) → value + short-term reversal signals activated only during regime \| Drift regime (rolling positive-day count) + value + reversal (specs NOT REPORTED) \| Daily \| US Equities (S&P 500 long-short cross-sectional) | 21 | Low Confidence | 2026-06-01 | arXiv 2511.12490 (Singha, Nov 2025); Sharpe 13 / CAGR 158.6% / max DD -11.9% CLAIMED; both scrutiny triggers fired; no transaction costs modeled; S&P 500 survivorship bias; single non-finance author; randomization test weak; no peer review |
+| `gold-bitcoin-dual-momentum` | X-week relative + absolute momentum between GLD and IBIT (competing stores of value); weekly rebalance; 20% vol cap \| X-week return (X=1–28 weeks; best=8-wk); 12-week rolling vol \| Weekly \| Alternatives (Gold ETF + Bitcoin ETF) | 49 | Experimental | 2026-06-02 | Quantpedia blog (Dujava, Apr 2026); Antonacci dual momentum framework; 8-wk CAGR 79.91% / Sharpe 1.64 (CLAIMED); vol-capped composite: 12.01% CAGR / Sharpe 1.37 / MDD -12.27% (CLAIMED); data Dec 2018–Apr 2026; 10 lookbacks tested without OOS; IBIT proxy pre-2024; regime luck (BTC bull run); latent 49 |
 
 ---
 
@@ -81,3 +82,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 16 continued (2026-06-01): Added vix-etn-dual-approach; total strategies = 31
 - Run 16 continued (2026-06-01): Added industry-trend-century; total strategies = 32
 - Run 16 continued (2026-06-01): Added drift-regime-factor-singha; total strategies = 33
+- Run 17 (2026-06-02): Added gold-bitcoin-dual-momentum; total strategies = 34
