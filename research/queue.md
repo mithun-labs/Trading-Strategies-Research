@@ -4,7 +4,7 @@ Last updated: 2026-06-03 (run 18)
 
 ## Pending
 
-- `commodity-intramarket-correlation-momentum` — Commodity momentum regime filter via 20-day vs 250-day correlation (Vojtko/Pauchlyová SSRN 4964417, Sep 2024); 4 ETFs: DBA/DBB/DBE/DBP
+*(none)*
 
 ## Researching
 
@@ -50,6 +50,7 @@ Last updated: 2026-06-03 (run 18)
 - `trendfollios-fixed-income` — score 40 (Experimental) — 2026-06-02 — arXiv 2506.09330 (Lu/Rojas/Yeung/Convery, June 2025); not peer-reviewed; Sharpe 0.33 (inception) / 0.04 (3Y) / 0.65 (1Y) CLAIMED; 5.89% excess/yr vs Bloomberg US Agg CLAIMED; 17-19% vol inconsistent with pure fixed income; proprietary "line-based/curve-based" signals; 3Y Sharpe 0.04 in 2022 rate shock; commercial-pitch-on-arXiv; latent 40
 - `ml-btc-hourly-cost-aware` — score 46 (Experimental) — 2026-06-03 — arXiv 2606.00060 (Bysik/Ślepaczuk, Jun 2026); 27-fold walk-forward; 10bps costs explicitly modeled; naive sign strategies fail after costs; CAGR >65%/Sharpe >1 (long-only XGBoost, CLAIMED); CAGR >50% triggers scrutiny (BTC bull market); max drawdown NOT REPORTED; no open code; latent 46
 - `em-us-momentum-taa` — score 49 (Experimental) — 2026-06-03 — Quantpedia blog (Vojtko/Dujava, Apr 2026); SPY/EEM monthly SMA/ROC; long-short SMA composite CAR 7.13%/Sharpe 0.564/MDD -20.31% CLAIMED; US dominance regime dominates sample (2010-2026); pre-2003 data synthetic; ETF borrowing costs not modeled; no OOS; no peer review; latent 49
+- `commodity-intramarket-correlation-momentum` — score 45 (Experimental) — 2026-06-03 — Vojtko/Pauchlyová (SSRN 4964417, Sep 2024); 4 commodity ETFs (DBA/DBB/DBE/DBP) 2007-2024; 20-day vs 200-day correlation switches between momentum and reversal; "nearly doubles" standalone returns CLAIMED but baseline was weak; specific Sharpe/CAGR/drawdown all NOT REPORTED; tiny universe (4 ETFs); no OOS test; not peer-reviewed; latent 45
 
 ## Rejected
 
