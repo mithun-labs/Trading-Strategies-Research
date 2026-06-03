@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-02 (run 17, run 16, run 15, run 14)
+Last updated: 2026-06-03 (run 18, run 17, run 16, run 15, run 14)
 
 ## About This Index
 
@@ -53,6 +53,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `gold-bitcoin-dual-momentum` | X-week relative + absolute momentum between GLD and IBIT (competing stores of value); weekly rebalance; 20% vol cap \| X-week return (X=1–28 weeks; best=8-wk); 12-week rolling vol \| Weekly \| Alternatives (Gold ETF + Bitcoin ETF) | 49 | Experimental | 2026-06-02 | Quantpedia blog (Dujava, Apr 2026); Antonacci dual momentum framework; 8-wk CAGR 79.91% / Sharpe 1.64 (CLAIMED); vol-capped composite: 12.01% CAGR / Sharpe 1.37 / MDD -12.27% (CLAIMED); data Dec 2018–Apr 2026; 10 lookbacks tested without OOS; IBIT proxy pre-2024; regime luck (BTC bull run); latent 49 |
 | `tsmom-china-commodity-futures` | Sign of past 1-month return → long or short; vol-managed position sizing inversely to realized vol; 4 enhanced strategies developed \| 1-month return sign + realized vol \| Monthly \| Chinese Commodity Futures (64 contracts: SHFE + DCE + CZCE) | 60 | Worth Researching | 2026-06-02 | Zheng/Zhang/Lien/Yu (Journal of Futures Markets 2025, peer-reviewed); 64 futures 2003–2023; "high returns" robust after costs (metrics paywalled); related Liu et al. 2023 (Economic Modelling): Sharpe 0.07 basic / 0.75 enhanced (CLAIMED); non-positive risk-return relationship; China accessibility constraint; latent 60 |
 | `trendfollios-fixed-income` | Combined line-based momentum + curve-based trend signals on fixed income ETFs (inflation/duration/credit/currency); bi-weekly rebalancing; inverse-vol weighting \| Multi-timeframe return signals + tracking error \| Bi-weekly \| Fixed Income ETFs (Bloomberg US Agg universe + factors) | 40 | Experimental | 2026-06-02 | Lu/Rojas/Yeung/Convery (arXiv 2506.09330, June 2025); not peer-reviewed; Sharpe 0.33 (inception) / 0.04 (3Y) / 0.65 (1Y) CLAIMED; 5.89% excess/yr over Bloomberg US Agg CLAIMED; 17–19% vol inconsistent with pure fixed income; proprietary signals; 3Y Sharpe 0.04 in 2022 rate shock; latent 40 |
+| `ml-btc-hourly-cost-aware` | ML models (XGBoost/LSTM/iTransformer) forecasting BTC hourly returns + cost-aware execution filter (trade only when \|predicted return\| > 10bps) \| Technical indicators + EGARCH features \| Hourly (H1) \| Bitcoin (BTC-USDT) | 46 | Experimental | 2026-06-03 | Bysik/Ślepaczuk (arXiv 2606.00060, Jun 2026); 27-fold walk-forward; costs explicitly 10bps modeled; naive sign strategies fail after costs; CAGR >65%/Sharpe >1 (long-only XGBoost, CLAIMED); CAGR >50% triggers scrutiny (BTC bull market); max drawdown NOT REPORTED; no open code; latent 46 |
 
 ---
 
@@ -87,3 +88,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 17 (2026-06-02): Added gold-bitcoin-dual-momentum; total strategies = 34
 - Run 17 continued (2026-06-02): Added tsmom-china-commodity-futures; total strategies = 35
 - Run 17 continued (2026-06-02): Added trendfollios-fixed-income; total strategies = 36
+- Run 18 (2026-06-03): Added ml-btc-hourly-cost-aware; total strategies = 37
