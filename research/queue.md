@@ -1,10 +1,11 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-02 (run 17)
+Last updated: 2026-06-03 (run 18)
 
 ## Pending
 
-*(none)*
+- `em-us-momentum-taa` — EM vs US Tactical Allocation (Momentum-Based), Quantpedia Apr 2026 blog (Vojtko/Dujava); SPY/EEM, 6-12M SMA/ROC; CAR ~7-8%, Sharpe ~0.5-0.56
+- `commodity-intramarket-correlation-momentum` — Commodity momentum regime filter via 20-day vs 250-day correlation (Vojtko/Pauchlyová SSRN 4964417, Sep 2024); 4 ETFs: DBA/DBB/DBE/DBP
 
 ## Researching
 
@@ -48,6 +49,7 @@ Last updated: 2026-06-02 (run 17)
 - `gold-bitcoin-dual-momentum` — score 49 (Experimental) — 2026-06-02 — Quantpedia blog (Dujava, Apr 2026); X-week dual momentum GLD+IBIT; vol-capped composite: 12.01% CAGR / Sharpe 1.37 / MDD -12.27% CLAIMED; uncapped 8-wk: 79.91% CAGR / Sharpe 1.64 (CAGR >50% triggers scrutiny); 10 lookbacks tested without OOS; IBIT proxy pre-2024; regime luck (BTC 2020-2021 bull); latent 49
 - `tsmom-china-commodity-futures` — score 60 (Worth Researching) — 2026-06-02 — Journal of Futures Markets 2025 (Zheng/Zhang/Lien/Yu, peer-reviewed); 64 Chinese commodity futures 2003–2023; robust after costs (JFoM); basic Sharpe 0.07 / enhanced Sharpe 0.75 (Liu et al. 2023, CLAIMED); non-positive risk-return in China; China accessibility constraint; latent 60 = implementation candidate (TSMOM formula inspectable from Moskowitz 2012)
 - `trendfollios-fixed-income` — score 40 (Experimental) — 2026-06-02 — arXiv 2506.09330 (Lu/Rojas/Yeung/Convery, June 2025); not peer-reviewed; Sharpe 0.33 (inception) / 0.04 (3Y) / 0.65 (1Y) CLAIMED; 5.89% excess/yr vs Bloomberg US Agg CLAIMED; 17-19% vol inconsistent with pure fixed income; proprietary "line-based/curve-based" signals; 3Y Sharpe 0.04 in 2022 rate shock; commercial-pitch-on-arXiv; latent 40
+- `ml-btc-hourly-cost-aware` — score 46 (Experimental) — 2026-06-03 — arXiv 2606.00060 (Bysik/Ślepaczuk, Jun 2026); 27-fold walk-forward; 10bps costs explicitly modeled; naive sign strategies fail after costs; CAGR >65%/Sharpe >1 (long-only XGBoost, CLAIMED); CAGR >50% triggers scrutiny (BTC bull market); max drawdown NOT REPORTED; no open code; latent 46
 
 ## Rejected
 
