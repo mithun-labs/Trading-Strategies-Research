@@ -4,7 +4,7 @@ Last updated: 2026-06-04 (run 19)
 
 ## Pending
 
-- `dynamic-factor-allocation-regime-shu-mulvey` — "Dynamic Factor Allocation Leveraging Regime-Switching Signals" (Shu/Mulvey, JPM 2025, arXiv 2410.14841); peer-reviewed; sparse jump model + Black-Litterman for US equity factors
+*(none)*
 
 ## Researching
 
@@ -51,7 +51,8 @@ Last updated: 2026-06-04 (run 19)
 - `ml-btc-hourly-cost-aware` — score 46 (Experimental) — 2026-06-03 — arXiv 2606.00060 (Bysik/Ślepaczuk, Jun 2026); 27-fold walk-forward; 10bps costs explicitly modeled; naive sign strategies fail after costs; CAGR >65%/Sharpe >1 (long-only XGBoost, CLAIMED); CAGR >50% triggers scrutiny (BTC bull market); max drawdown NOT REPORTED; no open code; latent 46
 - `em-us-momentum-taa` — score 49 (Experimental) — 2026-06-03 — Quantpedia blog (Vojtko/Dujava, Apr 2026); SPY/EEM monthly SMA/ROC; long-short SMA composite CAR 7.13%/Sharpe 0.564/MDD -20.31% CLAIMED; US dominance regime dominates sample (2010-2026); pre-2003 data synthetic; ETF borrowing costs not modeled; no OOS; no peer review; latent 49
 - `commodity-intramarket-correlation-momentum` — score 45 (Experimental) — 2026-06-03 — Vojtko/Pauchlyová (SSRN 4964417, Sep 2024); 4 commodity ETFs (DBA/DBB/DBE/DBP) 2007-2024; 20-day vs 200-day correlation switches between momentum and reversal; "nearly doubles" standalone returns CLAIMED but baseline was weak; specific Sharpe/CAGR/drawdown all NOT REPORTED; tiny universe (4 ETFs); no OOS test; not peer-reviewed; latent 45
-- `commodity-basis-reversal-futures` — score 54 (Experimental) — 2026-06-04 — Rossi/Zhang/Zhu (SSRN 5250499, May 2025); weekly M1-M2 spread reversal on 39 commodity futures; Sharpe 1.42 (paper) / 0.92 (independent impl.) CLAIMED; pre-cost qualifier; performance gap unexplained; no open code; not peer-reviewed; latent 54; higher latent than sector-rotation-tsx60 (latent 54 > 54 tie — see note); latent note: this is a true tie with sector-rotation-tsx60 at capped 54 both; future verification of basis reversal (peer review + costs) could separate them
+- `commodity-basis-reversal-futures` — score 54 (Experimental) — 2026-06-04 — Rossi/Zhang/Zhu (SSRN 5250499, May 2025); weekly M1-M2 spread reversal on 39 commodity futures; Sharpe 1.42 (paper) / 0.92 (independent impl.) CLAIMED; pre-cost qualifier; performance gap unexplained; no open code; not peer-reviewed; latent 54; this is a true tie with sector-rotation-tsx60 at capped 54; future verification of basis reversal (peer review + costs) could separate them
+- `dynamic-factor-allocation-regime-shu-mulvey` — score 61 (Worth Researching) — 2026-06-04 — Shu/Mulvey (JPM 2025, arXiv 2410.14841); peer-reviewed; SJM + Black-Litterman for US equity factor timing; IR 0.05→0.4 CLAIMED; absolute Sharpe/CAGR/drawdown paywalled; jumpmodels engine open; implementation candidate (latent 61 ≥ 60 AND inspectable/codeable); related to but distinct from regime-switching-jump-model-equity (market timing vs. factor rotation)
 
 ## Rejected
 
