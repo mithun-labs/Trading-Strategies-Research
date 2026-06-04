@@ -4,7 +4,8 @@ Last updated: 2026-06-04 (run 19)
 
 ## Pending
 
-*(none)*
+- `dynamic-asset-allocation-regime-forecasts-shu` — "Dynamic Asset Allocation with Asset-Specific Regime Forecasts" (Shu/Yu/Mulvey, arXiv 2406.09578, SSRN 4864358); same Princeton SJM group; multi-asset TAA (equities + bonds + gold?); third paper in the Mulvey regime-switching program
+- `commodity-futures-curve-dynamics-ns` — "Exploiting the dynamics of commodity futures curves" (arXiv 2308.00383, Bianchi et al.); Nelson-Siegel framework on 21 commodity futures; NS slope Sharpe 0.44–1.04 depending on costs; related to but different from today's commodity-basis-reversal strategy
 
 ## Researching
 
