@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-03 (run 18, run 17, run 16, run 15, run 14)
+Last updated: 2026-06-04 (run 19, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -56,6 +56,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `ml-btc-hourly-cost-aware` | ML models (XGBoost/LSTM/iTransformer) forecasting BTC hourly returns + cost-aware execution filter (trade only when \|predicted return\| > 10bps) \| Technical indicators + EGARCH features \| Hourly (H1) \| Bitcoin (BTC-USDT) | 46 | Experimental | 2026-06-03 | Bysik/Ślepaczuk (arXiv 2606.00060, Jun 2026); 27-fold walk-forward; costs explicitly 10bps modeled; naive sign strategies fail after costs; CAGR >65%/Sharpe >1 (long-only XGBoost, CLAIMED); CAGR >50% triggers scrutiny (BTC bull market); max drawdown NOT REPORTED; no open code; latent 46 |
 | `em-us-momentum-taa` | Monthly SMA/ROC timing signal on EEM-SPY spread → long winner, short loser; blend of 6/9/12-month horizons \| N-month ROC or SMA on EEM and SPY \| Monthly \| Global Equities — Emerging Markets (EEM) vs US (SPY) | 49 | Experimental | 2026-06-03 | Quantpedia blog (Vojtko/Dujava, Apr 2026); no peer review; long-short SMA composite: CAR 7.13%/Sharpe 0.564/MDD -20.31% CLAIMED; US dominance regime dominates sample (2010-2026); pre-2003 data synthetic; ETF borrowing costs omitted; no OOS test; latent 49 |
 | `commodity-intramarket-correlation-momentum` | 20-day vs 200-day pairwise correlation filter switches between momentum (top 2 long/short bottom 2) and reversal (bottom 2 long/short top 2) on 4 sector commodity ETFs \| N-month return rank + short-term vs long-term correlation ratio \| Monthly \| Commodities (DBA, DBB, DBE, DBP sector ETFs) | 45 | Experimental | 2026-06-03 | Vojtko/Pauchlyová (SSRN 4964417, Sep 2024); Quantpedia blog; 4 ETFs 2007–2024; "nearly doubles" standalone momentum returns CLAIMED but baseline was weak; all specific metrics NOT REPORTED; no OOS test; not peer-reviewed; tiny universe (4 ETFs); latent 45 |
+| `commodity-basis-reversal-futures` | Weekly M1-M2 spread-return rank reversal on 39 commodity futures (long 4 most-negative, short 4 most-positive prior-week spread return) \| M1−M2 weekly spread return \| Weekly \| Commodity Futures (Agriculture, Energy, Metals — 39 contracts, Norgate Data) | 54 | Experimental | 2026-06-04 | Rossi/Zhang/Zhu (SSRN 5250499, May 2025, Georgetown); not peer-reviewed; Sharpe 1.42 (paper) / 0.92 (independent impl. 2007–2025) CLAIMED; pre-cost qualifier in community summaries; performance gap paper vs. impl. unexplained; no open code; latent 54 |
 
 ---
 
@@ -93,3 +94,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 18 (2026-06-03): Added ml-btc-hourly-cost-aware; total strategies = 37
 - Run 18 continued (2026-06-03): Added em-us-momentum-taa; total strategies = 38
 - Run 18 continued (2026-06-03): Added commodity-intramarket-correlation-momentum; total strategies = 39
+- Run 19 (2026-06-04): Added commodity-basis-reversal-futures; total strategies = 40
