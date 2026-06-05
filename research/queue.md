@@ -1,10 +1,9 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-04 (run 19)
+Last updated: 2026-06-05 (run 20)
 
 ## Pending
 
-- `dynamic-asset-allocation-regime-forecasts-shu` — "Dynamic Asset Allocation with Asset-Specific Regime Forecasts" (Shu/Yu/Mulvey, arXiv 2406.09578, SSRN 4864358); same Princeton SJM group; multi-asset TAA (equities + bonds + gold?); third paper in the Mulvey regime-switching program
 - `commodity-futures-curve-dynamics-ns` — "Exploiting the dynamics of commodity futures curves" (arXiv 2308.00383, Bianchi et al.); Nelson-Siegel framework on 21 commodity futures; NS slope Sharpe 0.44–1.04 depending on costs; related to but different from today's commodity-basis-reversal strategy
 
 ## Researching
@@ -54,6 +53,7 @@ Last updated: 2026-06-04 (run 19)
 - `commodity-intramarket-correlation-momentum` — score 45 (Experimental) — 2026-06-03 — Vojtko/Pauchlyová (SSRN 4964417, Sep 2024); 4 commodity ETFs (DBA/DBB/DBE/DBP) 2007-2024; 20-day vs 200-day correlation switches between momentum and reversal; "nearly doubles" standalone returns CLAIMED but baseline was weak; specific Sharpe/CAGR/drawdown all NOT REPORTED; tiny universe (4 ETFs); no OOS test; not peer-reviewed; latent 45
 - `commodity-basis-reversal-futures` — score 54 (Experimental) — 2026-06-04 — Rossi/Zhang/Zhu (SSRN 5250499, May 2025); weekly M1-M2 spread reversal on 39 commodity futures; Sharpe 1.42 (paper) / 0.92 (independent impl.) CLAIMED; pre-cost qualifier; performance gap unexplained; no open code; not peer-reviewed; latent 54; this is a true tie with sector-rotation-tsx60 at capped 54; future verification of basis reversal (peer review + costs) could separate them
 - `dynamic-factor-allocation-regime-shu-mulvey` — score 61 (Worth Researching) — 2026-06-04 — Shu/Mulvey (JPM 2025, arXiv 2410.14841); peer-reviewed; SJM + Black-Litterman for US equity factor timing; IR 0.05→0.4 CLAIMED; absolute Sharpe/CAGR/drawdown paywalled; jumpmodels engine open; implementation candidate (latent 61 ≥ 60 AND inspectable/codeable); related to but distinct from regime-switching-jump-model-equity (market timing vs. factor rotation)
+- `multi-asset-regime-taa-shu` — score 55 (Experimental) — 2026-06-05 — Shu/Yu/Mulvey (AOR 2025, arXiv 2406.09578); peer-reviewed; SJM + GBDT + MVO for 12-asset multi-class TAA; 1991–2023; outperforms HMM + B&H across multiple portfolio models; specific metrics paywalled; GBDT pipeline code not open; latent 55 = NOT an implementation candidate (latent < 60); higher latent than the tied strategies at score 55 (same rank); access full paper to unlock further
 
 ## Rejected
 
