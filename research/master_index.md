@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-04 (run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-05 (run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -58,6 +58,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `commodity-intramarket-correlation-momentum` | 20-day vs 200-day pairwise correlation filter switches between momentum (top 2 long/short bottom 2) and reversal (bottom 2 long/short top 2) on 4 sector commodity ETFs \| N-month return rank + short-term vs long-term correlation ratio \| Monthly \| Commodities (DBA, DBB, DBE, DBP sector ETFs) | 45 | Experimental | 2026-06-03 | Vojtko/Pauchlyová (SSRN 4964417, Sep 2024); Quantpedia blog; 4 ETFs 2007–2024; "nearly doubles" standalone momentum returns CLAIMED but baseline was weak; all specific metrics NOT REPORTED; no OOS test; not peer-reviewed; tiny universe (4 ETFs); latent 45 |
 | `commodity-basis-reversal-futures` | Weekly M1-M2 spread-return rank reversal on 39 commodity futures (long 4 most-negative, short 4 most-positive prior-week spread return) \| M1−M2 weekly spread return \| Weekly \| Commodity Futures (Agriculture, Energy, Metals — 39 contracts, Norgate Data) | 54 | Experimental | 2026-06-04 | Rossi/Zhang/Zhu (SSRN 5250499, May 2025, Georgetown); not peer-reviewed; Sharpe 1.42 (paper) / 0.92 (independent impl. 2007–2025) CLAIMED; pre-cost qualifier in community summaries; performance gap paper vs. impl. unexplained; no open code; latent 54 |
 | `dynamic-factor-allocation-regime-shu-mulvey` | SJM per-factor bull/bear regime → Black-Litterman long-only factor allocation across 6 US equity style factors \| Factor active returns + market regime features + SJM \| Monthly (inferred) \| US Equity Factor Indices (value, size, momentum, quality, low vol, growth) | 61 | Worth Researching | 2026-06-04 | Shu/Mulvey (JPM Vol. 51 No. 3, 2025; arXiv 2410.14841; SSRN 4960484); peer-reviewed; IR improved 0.05→0.4 CLAIMED; absolute Sharpe/CAGR/drawdown paywalled; jumpmodels engine open-source; full allocation code not confirmed open; latent 61 |
+| `multi-asset-regime-taa-shu` | Asset-specific SJM regime identification + GBDT regime forecasting + MVO allocation \| SJM regime labels + gradient-boosted decision tree + regime-conditional return/risk forecasts \| Monthly (inferred) \| Multi-Asset (12 global equity, bond, REIT, commodity indices) | 55 | Experimental | 2026-06-05 | Shu/Yu/Mulvey (Annals of Operations Research vol. 346(1), pp. 285-318, 2025; arXiv 2406.09578; SSRN 4864358); peer-reviewed; 1991–2023; outperforms HMM + B&H across min-var/mean-var/naive; specific metrics paywalled; GBDT pipeline code not open; latent 55 |
 
 ---
 
@@ -97,3 +98,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 18 continued (2026-06-03): Added commodity-intramarket-correlation-momentum; total strategies = 39
 - Run 19 (2026-06-04): Added commodity-basis-reversal-futures; total strategies = 40
 - Run 19 continued (2026-06-04): Added dynamic-factor-allocation-regime-shu-mulvey; total strategies = 41
+- Run 20 (2026-06-05): Added multi-asset-regime-taa-shu; total strategies = 42
