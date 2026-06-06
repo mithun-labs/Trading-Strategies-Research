@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-05 (run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-06 (run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -60,6 +60,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `dynamic-factor-allocation-regime-shu-mulvey` | SJM per-factor bull/bear regime → Black-Litterman long-only factor allocation across 6 US equity style factors \| Factor active returns + market regime features + SJM \| Monthly (inferred) \| US Equity Factor Indices (value, size, momentum, quality, low vol, growth) | 61 | Worth Researching | 2026-06-04 | Shu/Mulvey (JPM Vol. 51 No. 3, 2025; arXiv 2410.14841; SSRN 4960484); peer-reviewed; IR improved 0.05→0.4 CLAIMED; absolute Sharpe/CAGR/drawdown paywalled; jumpmodels engine open-source; full allocation code not confirmed open; latent 61 |
 | `multi-asset-regime-taa-shu` | Asset-specific SJM regime identification + GBDT regime forecasting + MVO allocation \| SJM regime labels + gradient-boosted decision tree + regime-conditional return/risk forecasts \| Monthly (inferred) \| Multi-Asset (12 global equity, bond, REIT, commodity indices) | 55 | Experimental | 2026-06-05 | Shu/Yu/Mulvey (Annals of Operations Research vol. 346(1), pp. 285-318, 2025; arXiv 2406.09578; SSRN 4864358); peer-reviewed; 1991–2023; outperforms HMM + B&H across min-var/mean-var/naive; specific metrics paywalled; GBDT pipeline code not open; latent 55 |
 | `commodity-futures-curve-dynamics-ns` | NS slope/level/curvature change momentum → daily or monthly long-short on commodity futures cross-section \| Nelson-Siegel level + slope + curvature parameter changes \| Daily or Monthly \| Commodity Futures (~21 contracts; energy, metals, agriculture) | 62 | Worth Researching | 2026-06-05 | Bianchi/Fan/Miffre/Zhang (Journal of Banking & Finance, Vol. 154, Sep 2023; arXiv 2308.00383; SSRN 3749061); peer-reviewed; slope Sharpe 1.41 pre-cost CLAIMED; 0.44–1.04 after costs (monthly); explicit cost modeling; turnover 1.36×/yr; sentiment-dependent; China extension (Zheng, JFoM); latent 62 |
+| `0dte-conditional-rules-spxw` | Logistic regression on 10:00 ET implied-state features → conditional entry in SPXW 0DTE multi-leg option structures \| IV level + skew proxy + term structure slope + lagged realized SPX moments + lagged strategy PnL \| Intraday (10:00–16:00 ET) \| US Equity Index Options (SPXW / SPX) | 66 | Worth Researching | 2026-06-06 | Vilkov (SSRN 4641356, Frankfurt School; last updated Feb 2026); not peer-reviewed; open Python code (GitHub vilkovgr/0dte-strategies); OOS net SR 0.82 (top-3 basket) / 0.93 (put ratio spread); Sep 2016–Jan 2026; three-tier cost modeling; latent 66 |
 
 ---
 
@@ -101,3 +102,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 19 continued (2026-06-04): Added dynamic-factor-allocation-regime-shu-mulvey; total strategies = 41
 - Run 20 (2026-06-05): Added multi-asset-regime-taa-shu; total strategies = 42
 - Run 20 continued (2026-06-05): Added commodity-futures-curve-dynamics-ns; total strategies = 43
+- Run 21 (2026-06-06): Added 0dte-conditional-rules-spxw; total strategies = 44
