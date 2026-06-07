@@ -1,14 +1,12 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-06 (run 21)
+Last updated: 2026-06-07 (run 22)
 
 ## Pending
 
 *(none currently)*
 
 ## Researching
-
-*(none currently)*
 
 *(none currently)*
 
@@ -58,6 +56,7 @@ Last updated: 2026-06-06 (run 21)
 - `multi-asset-regime-taa-shu` — score 55 (Experimental) — 2026-06-05 — Shu/Yu/Mulvey (AOR 2025, arXiv 2406.09578); peer-reviewed; SJM + GBDT + MVO for 12-asset multi-class TAA; 1991–2023; outperforms HMM + B&H across multiple portfolio models; specific metrics paywalled; GBDT pipeline code not open; latent 55 = NOT an implementation candidate (latent < 60); higher latent than the tied strategies at score 55 (same rank); access full paper to unlock further
 - `commodity-futures-curve-dynamics-ns` — score 62 (Worth Researching) — 2026-06-05 — Bianchi/Fan/Miffre/Zhang (JBF 2023, arXiv 2308.00383); peer-reviewed; NS slope/level/curvature momentum on ~21 commodity futures; slope Sharpe 1.41 (pre-cost) CLAIMED; 0.44–1.04 net (monthly, 3 cost scenarios) CLAIMED; explicit cost modeling; turnover 1.36×/yr; sentiment-dependent; China extension (Zheng, JFoM); implementation candidate (latent 62 ≥ 60 AND NS model inspectable/codeable); max drawdown, CAGR paywalled
 - `0dte-conditional-rules-spxw` — score 66 (Worth Researching) — 2026-06-06 — Vilkov (SSRN 4641356, Frankfurt School; last updated Feb 2026); not peer-reviewed; open Python code (GitHub vilkovgr/0dte-strategies); conditional logistic rules on 10:00 ET SPXW implied state → multi-leg 0DTE entry; OOS net SR 0.82 (top-3 basket) / 0.93 (put ratio spread); Sep 2016–Jan 2026; three-tier cost modeling; implementation candidate (latent 66 ≥ 60 AND open Python code); raw data requires ThetaData/Cboe subscription
+- `regime-optimal-trend-zakamulin` — score 54 (Experimental) — 2026-06-07 — Zakamulin (SSRN 6376479, March 2026, University of Agder); not peer-reviewed; extends peer-reviewed Zakamulin/Giner JAM 2024; OPT regime-specific position sizing using regime Sharpe estimates; 2-regime avg OOS Sharpe 0.506 (vs TSM 0.208), 4-regime 0.628 (vs DSM 0.496) CLAIMED; 18 Ken French datasets 1998–2025; costs NOT REPORTED; drawdown NOT REPORTED; NOT implementation candidate (latent 54 < 60)
 
 ## Rejected
 
