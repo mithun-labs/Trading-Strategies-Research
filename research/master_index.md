@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-06 (run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-07 (run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -61,6 +61,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `multi-asset-regime-taa-shu` | Asset-specific SJM regime identification + GBDT regime forecasting + MVO allocation \| SJM regime labels + gradient-boosted decision tree + regime-conditional return/risk forecasts \| Monthly (inferred) \| Multi-Asset (12 global equity, bond, REIT, commodity indices) | 55 | Experimental | 2026-06-05 | Shu/Yu/Mulvey (Annals of Operations Research vol. 346(1), pp. 285-318, 2025; arXiv 2406.09578; SSRN 4864358); peer-reviewed; 1991–2023; outperforms HMM + B&H across min-var/mean-var/naive; specific metrics paywalled; GBDT pipeline code not open; latent 55 |
 | `commodity-futures-curve-dynamics-ns` | NS slope/level/curvature change momentum → daily or monthly long-short on commodity futures cross-section \| Nelson-Siegel level + slope + curvature parameter changes \| Daily or Monthly \| Commodity Futures (~21 contracts; energy, metals, agriculture) | 62 | Worth Researching | 2026-06-05 | Bianchi/Fan/Miffre/Zhang (Journal of Banking & Finance, Vol. 154, Sep 2023; arXiv 2308.00383; SSRN 3749061); peer-reviewed; slope Sharpe 1.41 pre-cost CLAIMED; 0.44–1.04 after costs (monthly); explicit cost modeling; turnover 1.36×/yr; sentiment-dependent; China extension (Zheng, JFoM); latent 62 |
 | `0dte-conditional-rules-spxw` | Logistic regression on 10:00 ET implied-state features → conditional entry in SPXW 0DTE multi-leg option structures \| IV level + skew proxy + term structure slope + lagged realized SPX moments + lagged strategy PnL \| Intraday (10:00–16:00 ET) \| US Equity Index Options (SPXW / SPX) | 66 | Worth Researching | 2026-06-06 | Vilkov (SSRN 4641356, Frankfurt School; last updated Feb 2026); not peer-reviewed; open Python code (GitHub vilkovgr/0dte-strategies); OOS net SR 0.82 (top-3 basket) / 0.93 (put ratio spread); Sep 2016–Jan 2026; three-tier cost modeling; latent 66 |
+| `regime-optimal-trend-zakamulin` | Regime-conditional position sizing via analytically-derived Sharpe allocations using EMA/MACD regime detection (2-state: Bull/Bear; 4-state: Bull/Correction/Bear/Rebound) \| EMA + MACD trend signal + expanding-window regime Sharpe estimates \| Monthly \| US Equity Portfolios / Equity Indices (Ken French library; 18 datasets) | 54 | Experimental | 2026-06-07 | Zakamulin (SSRN 6376479, March 2026, University of Agder); not peer-reviewed; extends peer-reviewed Zakamulin/Giner JAM 2024; 2-regime OPT avg OOS Sharpe 0.506 (vs TSM 0.208) / 4-regime 0.628 (vs DSM 0.496) CLAIMED; 18 Ken French datasets; OOS 1998–2025; costs NOT REPORTED; drawdown NOT REPORTED; latent 54 |
 
 ---
 
@@ -103,3 +104,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 20 (2026-06-05): Added multi-asset-regime-taa-shu; total strategies = 42
 - Run 20 continued (2026-06-05): Added commodity-futures-curve-dynamics-ns; total strategies = 43
 - Run 21 (2026-06-06): Added 0dte-conditional-rules-spxw; total strategies = 44
+- Run 22 (2026-06-07): Added regime-optimal-trend-zakamulin; total strategies = 45
