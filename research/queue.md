@@ -1,10 +1,11 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-07 (run 22)
+Last updated: 2026-06-08 (run 23)
 
 ## Pending
 
-*(none currently)*
+- `systematic-reversal-industry-momentum` — Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); individual stocks exhibit short-term reversal, industry portfolios show short-term momentum; builds on same group's peer-reviewed Management Science 2024 paper; 403 access on primary source
+- `commodity-momentum-reversal-flow-decomp` — Zhao/Ding/Yu/Kang (SSRN 6425598, March 2026); short-term commodity futures momentum/reversal separated by flow (speculator position changes) vs. non-flow component; unique investor position data; 403 access on primary source
 
 ## Researching
 
@@ -57,6 +58,7 @@ Last updated: 2026-06-07 (run 22)
 - `commodity-futures-curve-dynamics-ns` — score 62 (Worth Researching) — 2026-06-05 — Bianchi/Fan/Miffre/Zhang (JBF 2023, arXiv 2308.00383); peer-reviewed; NS slope/level/curvature momentum on ~21 commodity futures; slope Sharpe 1.41 (pre-cost) CLAIMED; 0.44–1.04 net (monthly, 3 cost scenarios) CLAIMED; explicit cost modeling; turnover 1.36×/yr; sentiment-dependent; China extension (Zheng, JFoM); implementation candidate (latent 62 ≥ 60 AND NS model inspectable/codeable); max drawdown, CAGR paywalled
 - `0dte-conditional-rules-spxw` — score 66 (Worth Researching) — 2026-06-06 — Vilkov (SSRN 4641356, Frankfurt School; last updated Feb 2026); not peer-reviewed; open Python code (GitHub vilkovgr/0dte-strategies); conditional logistic rules on 10:00 ET SPXW implied state → multi-leg 0DTE entry; OOS net SR 0.82 (top-3 basket) / 0.93 (put ratio spread); Sep 2016–Jan 2026; three-tier cost modeling; implementation candidate (latent 66 ≥ 60 AND open Python code); raw data requires ThetaData/Cboe subscription
 - `regime-optimal-trend-zakamulin` — score 54 (Experimental) — 2026-06-07 — Zakamulin (SSRN 6376479, March 2026, University of Agder); not peer-reviewed; extends peer-reviewed Zakamulin/Giner JAM 2024; OPT regime-specific position sizing using regime Sharpe estimates; 2-regime avg OOS Sharpe 0.506 (vs TSM 0.208), 4-regime 0.628 (vs DSM 0.496) CLAIMED; 18 Ken French datasets 1998–2025; costs NOT REPORTED; drawdown NOT REPORTED; NOT implementation candidate (latent 54 < 60)
+- `spxw-put-write-kelly-vix-hybrid` — score 42 (Experimental) — 2026-06-08 — Wysocki (arXiv 2508.16598, August 2025); systematic put-writing SPXW 0–5 DTE with Kelly/VIX/hybrid sizing; CAGR ~20–25% (optimal params, CLAIMED); Sharpe/max DD NOT REPORTED; 1-min bid-ask costs modeled; broad parameter grid = overfitting risk; single-author arXiv preprint; NOT implementation candidate (latent 42 < 60)
 
 ## Rejected
 
