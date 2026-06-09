@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-09 (run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-09 (run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -64,6 +64,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `regime-optimal-trend-zakamulin` | Regime-conditional position sizing via analytically-derived Sharpe allocations using EMA/MACD regime detection (2-state: Bull/Bear; 4-state: Bull/Correction/Bear/Rebound) \| EMA + MACD trend signal + expanding-window regime Sharpe estimates \| Monthly \| US Equity Portfolios / Equity Indices (Ken French library; 18 datasets) | 54 | Experimental | 2026-06-07 | Zakamulin (SSRN 6376479, March 2026, University of Agder); not peer-reviewed; extends peer-reviewed Zakamulin/Giner JAM 2024; 2-regime OPT avg OOS Sharpe 0.506 (vs TSM 0.208) / 4-regime 0.628 (vs DSM 0.496) CLAIMED; 18 Ken French datasets; OOS 1998–2025; costs NOT REPORTED; drawdown NOT REPORTED; latent 54 |
 | `spxw-put-write-kelly-vix-hybrid` | Always-on SPXW systematic put-writing (0–5 DTE, ~2% OTM) with dynamic position sizing via Kelly criterion, VIX-based scaling, or hybrid; harvests Volatility Risk Premium \| Garman-Klass realized vol (63-day) + VIX level + Kelly fraction \| Intraday/daily (0–1 DTE) \| US Equity Index Options (SPXW / SPX) | 42 | Experimental | 2026-06-08 | Wysocki (arXiv 2508.16598, August 2025); not peer-reviewed; single author; CAGR ~20–25% (optimal params, CLAIMED); Sharpe/max DD NOT REPORTED; bid-ask costs modeled via 1-min CBOE data; broad parameter grid = overfitting risk; backtest period NOT REPORTED; latent 42 |
 | `fx-good-carry-bekaert-panayotov` | Dynamic G10 carry trade excluding pairs that impair rolling Sharpe (bad carry); retaining good carry with improved Sharpe and sometimes positive skewness \| Interest rate differential + rolling Sharpe contribution filter \| Monthly \| Forex G10 (AUD, CAD, CHF, EUR, GBP, JPY, NOK, NZD, SEK vs. USD) | 59 | Experimental | 2026-06-09 | Bekaert/Panayotov (JFQA Vol. 55(4) 2020; NBER WP 25420; SSRN 2600366); peer-reviewed (top-4 finance journal); ~5-year review; good carry higher Sharpe + sometimes positive skewness CLAIMED; specific Sharpe/DD/CAGR NOT REPORTED from accessible summaries; post-2015 OOS unknown; latent 59 |
+| `fx-carry-conditional-dupuy` | Conditional carry: long carry only when forward discount positive + global FX vol low + return dispersion low; exits during crashes and low-rate regimes \| Aggregate forward discount + global realized FX vol + cross-sectional return dispersion \| Monthly \| Forex G10 + EM (34–39 currencies) | 54 | Experimental | 2026-06-09 | Dupuy (JBF Vol. 129, 2021; peer-reviewed); conditional carry with macro regime gating; combined Sharpe 0.76→1.07 (34 currencies, 1999-2018) CLAIMED; skewness −0.76→+0.97 CLAIMED; G10-only improvement insignificant (0.45→0.53); EM signal improves G10 to 0.64; costs NOT confirmed modeled; max DD NOT REPORTED; no post-2018 OOS; latent 54 |
 
 ---
 
@@ -109,3 +110,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 22 (2026-06-07): Added regime-optimal-trend-zakamulin; total strategies = 45
 - Run 23 (2026-06-08): Added spxw-put-write-kelly-vix-hybrid; total strategies = 46
 - Run 24 (2026-06-09): Added fx-good-carry-bekaert-panayotov; total strategies = 47
+- Run 25 (2026-06-09): Added fx-carry-conditional-dupuy; total strategies = 48
