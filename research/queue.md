@@ -1,13 +1,13 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-09 (run 24 — FX-focused discovery pass)
+Last updated: 2026-06-09 (run 24)
 
 ## Pending
 
 - `systematic-reversal-industry-momentum` — Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); individual stocks exhibit short-term reversal, industry portfolios show short-term momentum; builds on same group's peer-reviewed Management Science 2024 paper; 403 access on primary source
 - `commodity-momentum-reversal-flow-decomp` — Zhao/Ding/Yu/Kang (SSRN 6425598, March 2026); short-term commodity futures momentum/reversal separated by flow (speculator position changes) vs. non-flow component; unique investor position data; 403 access on primary source
 - `fx-cointegration-pairs-trading` — Cointegration-based pairs trading (Journal of Asset Management 2025, peer-reviewed, DOI 10.1057/s41260-025-00416-0); z-score entry on cointegrated spreads; modest Sharpe 0.28–0.45 (ETF application); cointegration windows short-lived; directly portable to FX crosses (EURUSD/GBPUSD etc.); FX CANDIDATE — peer-reviewed, honest about limitations
-- `fx-carry-crash-risk-skewness` — Carry trade with crash-risk/global-skewness filter (Brunnermeier/Nagel/Pedersen NBER; Daniel/Hodrick/Lu Critical Finance Review 2017); high win rate but negative skew is the defining FX risk; candidate is the *risk-managed* variant (VIX/skewness-conditioned carry sizing); FX CANDIDATE — directly relevant to "high win rate" FX question
+- `fx-carry-conditional-dupuy` — Dupuy (Journal of Banking & Finance 2021, peer-reviewed); conditional carry: long only when (1) aggregate forward discount positive AND (2) global FX volatility low AND (3) return dispersion low; G10 Sharpe 0.45→0.64 (with EM signal), combined ~1.07 CLAIMED; skewness improved; FX CANDIDATE — simpler signals than good/bad carry, complementary approach
 
 ## Researching
 
@@ -61,6 +61,7 @@ Last updated: 2026-06-09 (run 24 — FX-focused discovery pass)
 - `0dte-conditional-rules-spxw` — score 66 (Worth Researching) — 2026-06-06 — Vilkov (SSRN 4641356, Frankfurt School; last updated Feb 2026); not peer-reviewed; open Python code (GitHub vilkovgr/0dte-strategies); conditional logistic rules on 10:00 ET SPXW implied state → multi-leg 0DTE entry; OOS net SR 0.82 (top-3 basket) / 0.93 (put ratio spread); Sep 2016–Jan 2026; three-tier cost modeling; implementation candidate (latent 66 ≥ 60 AND open Python code); raw data requires ThetaData/Cboe subscription
 - `regime-optimal-trend-zakamulin` — score 54 (Experimental) — 2026-06-07 — Zakamulin (SSRN 6376479, March 2026, University of Agder); not peer-reviewed; extends peer-reviewed Zakamulin/Giner JAM 2024; OPT regime-specific position sizing using regime Sharpe estimates; 2-regime avg OOS Sharpe 0.506 (vs TSM 0.208), 4-regime 0.628 (vs DSM 0.496) CLAIMED; 18 Ken French datasets 1998–2025; costs NOT REPORTED; drawdown NOT REPORTED; NOT implementation candidate (latent 54 < 60)
 - `spxw-put-write-kelly-vix-hybrid` — score 42 (Experimental) — 2026-06-08 — Wysocki (arXiv 2508.16598, August 2025); systematic put-writing SPXW 0–5 DTE with Kelly/VIX/hybrid sizing; CAGR ~20–25% (optimal params, CLAIMED); Sharpe/max DD NOT REPORTED; 1-min bid-ask costs modeled; broad parameter grid = overfitting risk; single-author arXiv preprint; NOT implementation candidate (latent 42 < 60)
+- `fx-good-carry-bekaert-panayotov` — score 59 (Experimental) — 2026-06-09 — Bekaert/Panayotov (JFQA 2020, NBER WP 25420, SSRN 2600366); peer-reviewed top-4 finance journal; dynamic exclusion of bad carry pairs (those impairing rolling Sharpe); good carry higher Sharpe + sometimes positive skewness CLAIMED; specific Sharpe/DD/CAGR NOT REPORTED from accessible summaries; post-2015 OOS unknown; selection criterion potentially endogenous with momentum; latent 59; NOT implementation candidate (latent 59 < 60)
 
 ## Rejected
 
