@@ -1,11 +1,13 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-08 (run 23)
+Last updated: 2026-06-09 (run 24 — FX-focused discovery pass)
 
 ## Pending
 
 - `systematic-reversal-industry-momentum` — Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); individual stocks exhibit short-term reversal, industry portfolios show short-term momentum; builds on same group's peer-reviewed Management Science 2024 paper; 403 access on primary source
 - `commodity-momentum-reversal-flow-decomp` — Zhao/Ding/Yu/Kang (SSRN 6425598, March 2026); short-term commodity futures momentum/reversal separated by flow (speculator position changes) vs. non-flow component; unique investor position data; 403 access on primary source
+- `fx-cointegration-pairs-trading` — Cointegration-based pairs trading (Journal of Asset Management 2025, peer-reviewed, DOI 10.1057/s41260-025-00416-0); z-score entry on cointegrated spreads; modest Sharpe 0.28–0.45 (ETF application); cointegration windows short-lived; directly portable to FX crosses (EURUSD/GBPUSD etc.); FX CANDIDATE — peer-reviewed, honest about limitations
+- `fx-carry-crash-risk-skewness` — Carry trade with crash-risk/global-skewness filter (Brunnermeier/Nagel/Pedersen NBER; Daniel/Hodrick/Lu Critical Finance Review 2017); high win rate but negative skew is the defining FX risk; candidate is the *risk-managed* variant (VIX/skewness-conditioned carry sizing); FX CANDIDATE — directly relevant to "high win rate" FX question
 
 ## Researching
 
