@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-10 (run 26 continued, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-10 (run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -67,6 +67,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `fx-carry-conditional-dupuy` | Conditional carry: long carry only when forward discount positive + global FX vol low + return dispersion low; exits during crashes and low-rate regimes \| Aggregate forward discount + global realized FX vol + cross-sectional return dispersion \| Monthly \| Forex G10 + EM (34–39 currencies) | 54 | Experimental | 2026-06-09 | Dupuy (JBF Vol. 129, 2021; peer-reviewed); conditional carry with macro regime gating; combined Sharpe 0.76→1.07 (34 currencies, 1999-2018) CLAIMED; skewness −0.76→+0.97 CLAIMED; G10-only improvement insignificant (0.45→0.53); EM signal improves G10 to 0.64; costs NOT confirmed modeled; max DD NOT REPORTED; no post-2018 OOS; latent 54 |
 | `systematic-reversal-industry-momentum` | Industry momentum (long top / short bottom past-return quintile of industries) + hedge of residual-to-systematic reversal effect (idiosyncratic portfolio return negatively predicts future systematic returns) \| Trailing industry return + factor-model idiosyncratic component \| Monthly \| US Equities (industry portfolios; classification NOT REPORTED) | 36 | Low Confidence | 2026-06-10 | Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); not peer-reviewed; primary paper HTTP 403; Sharpe 0.56→1.11 after hedging CLAIMED from secondary summaries; hedge construction NOT REPORTED; latent 36 |
 | `commodity-momentum-reversal-flow-decomp` | Orthogonal decomposition of commodity futures weekly returns into flow (Q = speculator net trading) and non-flow (R_nonQ = residual) components; Q predicts reversal, R_nonQ predicts momentum; enhanced intermediate momentum aggregates weekly R_nonQ signals \| Weekly speculator net position change (Q) + orthogonal return residual (R_nonQ) \| Weekly (short-term) / Monthly (intermediate) \| Commodity Futures (exchange NOT REPORTED; likely Chinese SHFE/DCE/CZCE or CFTC) | 34 | Low Confidence | 2026-06-10 | Zhao/Ding/Yu/Kang (SSRN 6425598, March 2026); not peer-reviewed; primary paper HTTP 403; 5.2%→9.9% annual return improvement CLAIMED (no Sharpe reported); Q formula NOT REPORTED; data access barrier; latent 34 |
+| `fx-cointegration-pairs-trading` | Monthly rolling Engle-Granger cointegration test on ETF pairs (trailing 12 months) → z-score entry when spread deviates ≥ threshold; dynamic exit when cointegration breaks; FX cross application is ANALYST ANALYSIS (paper tests ETFs only) \| Cointegrating coefficient β + spread z-score \| Daily execution; monthly reassessment \| US Equity ETFs (30 pairs; 2000–2024); potential FX crosses | 58 | Experimental | 2026-06-10 | Chen/Alexiou (Journal of Asset Management Vol. 26 No. 5, 2025; peer-reviewed); portfolio Sharpe ~0.28 (z=2) CLAIMED; SPY-IVV best pair Sharpe ~1.5 is degenerate; "overall profitability is limited" (authors' own conclusion); cointegration windows short-lived; ETF data public; latent 58 |
 
 ---
 
@@ -115,3 +116,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 25 (2026-06-09): Added fx-carry-conditional-dupuy; total strategies = 48
 - Run 26 (2026-06-10): Added systematic-reversal-industry-momentum; total strategies = 49
 - Run 26 continued (2026-06-10): Added commodity-momentum-reversal-flow-decomp; total strategies = 50
+- Run 26 continued (2026-06-10): Added fx-cointegration-pairs-trading; total strategies = 51
