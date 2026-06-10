@@ -1,10 +1,9 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-09 (run 25)
+Last updated: 2026-06-10 (run 26)
 
 ## Pending
 
-- `systematic-reversal-industry-momentum` — Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); individual stocks exhibit short-term reversal, industry portfolios show short-term momentum; builds on same group's peer-reviewed Management Science 2024 paper; 403 access on primary source
 - `commodity-momentum-reversal-flow-decomp` — Zhao/Ding/Yu/Kang (SSRN 6425598, March 2026); short-term commodity futures momentum/reversal separated by flow (speculator position changes) vs. non-flow component; unique investor position data; 403 access on primary source
 - `fx-cointegration-pairs-trading` — Cointegration-based pairs trading (Journal of Asset Management 2025, peer-reviewed, DOI 10.1057/s41260-025-00416-0); z-score entry on cointegrated spreads; modest Sharpe 0.28–0.45 (ETF application); cointegration windows short-lived; directly portable to FX crosses (EURUSD/GBPUSD etc.); FX CANDIDATE — peer-reviewed, honest about limitations
 
@@ -62,6 +61,7 @@ Last updated: 2026-06-09 (run 25)
 - `spxw-put-write-kelly-vix-hybrid` — score 42 (Experimental) — 2026-06-08 — Wysocki (arXiv 2508.16598, August 2025); systematic put-writing SPXW 0–5 DTE with Kelly/VIX/hybrid sizing; CAGR ~20–25% (optimal params, CLAIMED); Sharpe/max DD NOT REPORTED; 1-min bid-ask costs modeled; broad parameter grid = overfitting risk; single-author arXiv preprint; NOT implementation candidate (latent 42 < 60)
 - `fx-good-carry-bekaert-panayotov` — score 59 (Experimental) — 2026-06-09 — Bekaert/Panayotov (JFQA 2020, NBER WP 25420, SSRN 2600366); peer-reviewed top-4 finance journal; dynamic exclusion of bad carry pairs (those impairing rolling Sharpe); good carry higher Sharpe + sometimes positive skewness CLAIMED; specific Sharpe/DD/CAGR NOT REPORTED from accessible summaries; post-2015 OOS unknown; selection criterion potentially endogenous with momentum; latent 59; NOT implementation candidate (latent 59 < 60)
 - `fx-carry-conditional-dupuy` — score 54 (Experimental) — 2026-06-09 — Dupuy (JBF 2021, Vol. 129, peer-reviewed); conditional carry: long only when forward discount positive + global FX vol low + return dispersion low; combined Sharpe 0.76→1.07 (34 currencies, 1999-2018), skewness −0.76→+0.97 CLAIMED; G10-only improvement insignificant (0.45→0.53); requires EM signal for G10 improvement (0.64); costs NOT confirmed modeled; max DD NOT REPORTED; no post-2018 OOS; latent 54; NOT implementation candidate (latent 54 < 60)
+- `systematic-reversal-industry-momentum` — score 36 (Low Confidence) — 2026-06-10 — Gao/Li/Yuan/Zhou (SSRN 6371558, March 2026); not peer-reviewed; industry momentum hedging of residual-to-systematic reversal; Sharpe 0.56→1.11 after hedging CLAIMED from secondary summaries; primary paper HTTP 403; hedge construction NOT REPORTED; latent 36; NOT implementation candidate (latent 36 < 60)
 
 ## Rejected
 
