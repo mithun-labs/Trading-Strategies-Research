@@ -1,9 +1,12 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-12 (run 27)
+Last updated: 2026-06-12 (run 28)
 
 ## Pending
 
+- `structural-limits-ohlcv-mnq` — arXiv 2605.04004 (Mesfin, May 2026); falsification study on 14 OHLCV signal families in MNQ futures; all fail after costs; NAS100 scope
+- `fast-alphas-intraday-overlay` — SSRN 6391638 (Zarattini/Pagani, March 2026); short-horizon mean-reversion as execution overlay for intraday trend on SPY 5-min data
+- `intraday-fx-mean-reversion-bhatti` — SSRN 6087107 (Bhatti, January 2026); regime-conditioned mean reversion in intraday FX; Z-score + multi-TF momentum filter; MQL5 prototype
 
 ## Researching
 
@@ -64,6 +67,7 @@ Last updated: 2026-06-12 (run 27)
 - `fx-cointegration-pairs-trading` — score 58 (Experimental) — 2026-06-10 — Chen/Alexiou (JAM 2025, peer-reviewed); 30 ETF pairs 2000–2024; rolling 12-month cointegration + z-score entry; portfolio Sharpe ~0.28 (z=2) CLAIMED; authors' own conclusion is "limited profitability"; SPY-IVV best pair (Sharpe ~1.5) is degenerate; cointegration windows short-lived; FX portability is ANALYST ANALYSIS; latent 58; NOT implementation candidate (latent 58 < 60)
 - `factor-timing-momentum-regime-tai` — score 34 (Low Confidence) — 2026-06-12 — Tai/Leung/Jimenez (SSRN 6224058, Feb 2026); z-score momentum regime for 5 US equity factors; Sharpe 0.66 vs 0.59 EW; CAGR 13.0% vs 11.3%; 1998-2025; max DD NOT REPORTED; costs NOT MODELED; Dichtl 2019 cautionary precedent; NOT implementation candidate (latent 34 < 60)
 - `fractional-momentum-smoothing` — score 52 (Experimental) — 2026-06-12 — Chitsiripanich/Paolella/Polak/Walker (SSRN 4280465 2022 + SSRN 4955388 2024; SFI RP); NOT peer-reviewed (3+ years on SSRN); fractional d blending momentum + reversal; path-dependent turnover reduction 95-99%; max DD 22-49% vs 76-99%; costs explicitly modeled; absolute Sharpe NOT REPORTED; optimal d NOT REPORTED; NOT implementation candidate (latent 52 < 60)
+- `crypto-vwts-momentum` — score 28 (Low Confidence) — 2026-06-12 — Huang/Sangiorgi/Urquhart (SSRN 4825389, December 2024); volume-weighted TSMOM for crypto; Sharpe 2.17 CLAIMED; 0.94%/day CLAIMED; costs NOT CONFIRMED modeled; exact formula NOT ACCESSIBLE; 18 months on SSRN without peer review; NOT implementation candidate (latent 28 < 60)
 
 ## Rejected
 
