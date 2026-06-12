@@ -1,6 +1,6 @@
-# Strategy Rankings — 2026-06-12 (Run 28)
+# Strategy Rankings — 2026-06-12 (Runs 28–29)
 
-## All Researched Strategies (sorted by confidence score) — Run 28 (1 strategy added: crypto-vwts-momentum; 54 total)
+## All Researched Strategies (sorted by confidence score) — Run 29 final (2 strategies added today post-run27: crypto-vwts-momentum + structural-limits-ohlcv-mnq; 55 total)
 
 | Rank | Slug | Score | Band | Asset Class | Timeframe | Last Updated |
 |------|------|-------|------|-------------|-----------|--------------|
@@ -47,17 +47,18 @@
 | 40 | `trendfollios-fixed-income` | 40 | Experimental | Fixed Income ETFs (Bloomberg US Agg universe + factors) | Bi-weekly | 2026-06-02 |
 | 41 | `currency-basis-momentum-fan` | 39 | Low Confidence | 48 Currencies (G10 + EM) | Monthly | 2026-05-31 |
 | 42 | `forecast-to-fill-gold-futures` | 37 | Low Confidence | Gold Futures | Daily | 2026-05-29 |
-| 43 | `systematic-reversal-industry-momentum` | 36 | Low Confidence | US Equities (industry portfolios) | Monthly | 2026-06-10 |
-| 44 | `commodity-momentum-reversal-flow-decomp` | 34 | Low Confidence | Commodity Futures (exchange NOT REPORTED) | Weekly / Monthly | 2026-06-10 |
-| 44 | `ict-silver-bullet-forex` | 34 | Low Confidence | Forex (EURUSD, GBPUSD) | 1–3 min intraday | 2026-05-31 |
-| 44 | `factor-timing-momentum-regime-tai` | 34 | Low Confidence | US Equity Factor Indices (Value, Size, Momentum, Quality, Growth) | Monthly (implied) | 2026-06-12 |
-| 47 | `bitcoin-multitf-trend` | 33 | Low Confidence | Bitcoin (BTC/USD) | H1 entry / D1 filter | 2026-05-30 |
-| 48 | `fx-news-sentiment-xgboost` | 30 | Low Confidence | Forex (EUR/USD, USD/JPY) + Treasuries (ZN) | Daily | 2026-06-01 |
-| 49 | `crypto-vwts-momentum` | 28 | Low Confidence | Cryptocurrency (Binance implied) | Daily (hold NOT REPORTED) | 2026-06-12 |
-| 50 | `quantevolve-multi-agent-strategy` | 24 | Low Confidence | 6 equities + 2 futures (NOT REPORTED) | NOT REPORTED | 2026-05-29 |
-| 50 | `options-wheel-llm-bayesian` | 24 | Low Confidence | US Equities Options | Options-expiry driven | 2026-05-29 |
-| 52 | `drift-regime-factor-singha` | 21 | Low Confidence | US Equities (S&P 500 long-short) | Daily | 2026-06-01 |
-| 53 | `causal-inference-directional-trading` | 15 | Low Confidence | US Equities (3 stocks) | Intraday | 2026-05-29 |
+| 42 | `structural-limits-ohlcv-mnq` | 37 | Low Confidence *(NULL RESULT)* | NAS100 / MNQ Futures | 5-min intraday | 2026-06-12 |
+| 44 | `systematic-reversal-industry-momentum` | 36 | Low Confidence | US Equities (industry portfolios) | Monthly | 2026-06-10 |
+| 45 | `commodity-momentum-reversal-flow-decomp` | 34 | Low Confidence | Commodity Futures (exchange NOT REPORTED) | Weekly / Monthly | 2026-06-10 |
+| 45 | `ict-silver-bullet-forex` | 34 | Low Confidence | Forex (EURUSD, GBPUSD) | 1–3 min intraday | 2026-05-31 |
+| 45 | `factor-timing-momentum-regime-tai` | 34 | Low Confidence | US Equity Factor Indices (Value, Size, Momentum, Quality, Growth) | Monthly (implied) | 2026-06-12 |
+| 48 | `bitcoin-multitf-trend` | 33 | Low Confidence | Bitcoin (BTC/USD) | H1 entry / D1 filter | 2026-05-30 |
+| 49 | `fx-news-sentiment-xgboost` | 30 | Low Confidence | Forex (EUR/USD, USD/JPY) + Treasuries (ZN) | Daily | 2026-06-01 |
+| 50 | `crypto-vwts-momentum` | 28 | Low Confidence | Cryptocurrency (Binance implied) | Daily (hold NOT REPORTED) | 2026-06-12 |
+| 51 | `quantevolve-multi-agent-strategy` | 24 | Low Confidence | 6 equities + 2 futures (NOT REPORTED) | NOT REPORTED | 2026-05-29 |
+| 51 | `options-wheel-llm-bayesian` | 24 | Low Confidence | US Equities Options | Options-expiry driven | 2026-05-29 |
+| 53 | `drift-regime-factor-singha` | 21 | Low Confidence | US Equities (S&P 500 long-short) | Daily | 2026-06-01 |
+| 54 | `causal-inference-directional-trading` | 15 | Low Confidence | US Equities (3 stocks) | Intraday | 2026-05-29 |
 
 ## Band Distribution
 
@@ -65,11 +66,12 @@
 - High Potential (75–89): 1
 - Worth Researching (60–74): 8
 - Experimental (40–59): 32
-- Low Confidence (0–39): 13 (+1 from run 27)
+- Low Confidence (0–39): 14 (+2 from runs 28–29)
 
-## New This Run (Run 28)
+## New This Run (Runs 28–29)
 
 - `crypto-vwts-momentum` (28, Low Confidence) — Huang/Sangiorgi/Urquhart SSRN 4825389; volume-weighted TSMOM for crypto; Sharpe 2.17 CLAIMED but costs not confirmed modeled; exact formula not accessible; 18 months on SSRN without peer review; not an implementation candidate (latent 28 < 60)
+- `structural-limits-ohlcv-mnq` (37, Low Confidence — NULL RESULT) — Mesfin arXiv 2605.04004; 14 OHLCV signal families in MNQ futures all fail after 2-pt costs; mean reversion actively negative; falsification study confirms no edge in NAS100 intraday OHLCV signals; not an implementation candidate (null result)
 
 ## Crypto Strategies in Archive (all 6)
 

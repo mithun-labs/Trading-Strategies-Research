@@ -4,7 +4,6 @@ Last updated: 2026-06-12 (run 28)
 
 ## Pending
 
-- `structural-limits-ohlcv-mnq` — arXiv 2605.04004 (Mesfin, May 2026); falsification study on 14 OHLCV signal families in MNQ futures; all fail after costs; NAS100 scope
 - `fast-alphas-intraday-overlay` — SSRN 6391638 (Zarattini/Pagani, March 2026); short-horizon mean-reversion as execution overlay for intraday trend on SPY 5-min data
 - `intraday-fx-mean-reversion-bhatti` — SSRN 6087107 (Bhatti, January 2026); regime-conditioned mean reversion in intraday FX; Z-score + multi-TF momentum filter; MQL5 prototype
 
@@ -68,6 +67,7 @@ Last updated: 2026-06-12 (run 28)
 - `factor-timing-momentum-regime-tai` — score 34 (Low Confidence) — 2026-06-12 — Tai/Leung/Jimenez (SSRN 6224058, Feb 2026); z-score momentum regime for 5 US equity factors; Sharpe 0.66 vs 0.59 EW; CAGR 13.0% vs 11.3%; 1998-2025; max DD NOT REPORTED; costs NOT MODELED; Dichtl 2019 cautionary precedent; NOT implementation candidate (latent 34 < 60)
 - `fractional-momentum-smoothing` — score 52 (Experimental) — 2026-06-12 — Chitsiripanich/Paolella/Polak/Walker (SSRN 4280465 2022 + SSRN 4955388 2024; SFI RP); NOT peer-reviewed (3+ years on SSRN); fractional d blending momentum + reversal; path-dependent turnover reduction 95-99%; max DD 22-49% vs 76-99%; costs explicitly modeled; absolute Sharpe NOT REPORTED; optimal d NOT REPORTED; NOT implementation candidate (latent 52 < 60)
 - `crypto-vwts-momentum` — score 28 (Low Confidence) — 2026-06-12 — Huang/Sangiorgi/Urquhart (SSRN 4825389, December 2024); volume-weighted TSMOM for crypto; Sharpe 2.17 CLAIMED; 0.94%/day CLAIMED; costs NOT CONFIRMED modeled; exact formula NOT ACCESSIBLE; 18 months on SSRN without peer review; NOT implementation candidate (latent 28 < 60)
+- `structural-limits-ohlcv-mnq` — score 37 (Low Confidence) — 2026-06-12 — Mesfin (arXiv 2605.04004, May 2026); NULL RESULT: 14 OHLCV intraday signal families in MNQ futures all fail after 2-pt round-trip costs; gross edge 0.07–1.50 pts; mean reversion shows negative T-stats; arXiv preprint; single author; NOT implementation candidate (null result — no edge demonstrated)
 
 ## Rejected
 
