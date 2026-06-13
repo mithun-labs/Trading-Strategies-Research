@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-12 (run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-13 (run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -73,6 +73,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `crypto-vwts-momentum` | Volume-weighted winner minus loser portfolios in TSMOM framework using volume-weighted market return as signal \| Daily return per coin + daily trading volume (volume-weighted signal formula NOT REPORTED) \| Daily (hold period NOT REPORTED) \| Cryptocurrency (Binance implied) | 28 | Low Confidence | 2026-06-12 | Huang/Sangiorgi/Urquhart (SSRN 4825389, December 2024); not peer-reviewed; 18 months on SSRN; Sharpe 2.17 CLAIMED; 0.94%/day CLAIMED; costs NOT CONFIRMED MODELED; max DD NOT REPORTED; exact formula NOT ACCESSIBLE; latent 28 |
 | `structural-limits-ohlcv-mnq` | NULL RESULT: 14 OHLCV intraday signal families (ORB, gap, volume, cross-session, liquidity grab, vol-conditioned, news-driven, mean reversion) tested in MNQ futures — all fail after 2-pt round-trip cost \| OHLCV 5-min bars + rolling volume baseline \| 5-min intraday \| NAS100 / MNQ Futures | 37 | Low Confidence | 2026-06-12 | Mesfin (arXiv 2605.04004, May 2026); arXiv preprint; gross edge 0.07–1.50 pts < 2-pt round-trip; mean reversion shows strongly negative T-stats; NULL RESULT; latent 37 |
 | `fast-alphas-intraday-overlay` | Short-horizon streak-based mean-reversion overlay on ATR-based intraday trend signal \| Price streaks + ATR + 5-min candle direction \| 5-min intraday \| US Equities (SPY ETF) | 55 | Experimental | 2026-06-12 | Zarattini/Pagani (SSRN 6391638, March 2026); not peer-reviewed; standalone fast alpha CAGR ~31.9%/Sharpe >2 (gross, fails after costs); overlay raises Sharpe 0.87→0.99; CAGR +~200bps; parameters NOT REPORTED; max DD NOT REPORTED; single instrument; no confirmed OOS; latent 55 |
+| `intraday-fx-mean-reversion-bhatti` | Regime-conditioned Z-score mean reversion: higher-TF momentum filter gates entry; volatility-normalized Z-score signals entry; vol-adjusted sizing \| Z-score (lookback NOT REPORTED) + multi-TF momentum filter (indicator NOT REPORTED) \| Intraday (exact TF NOT REPORTED) \| Forex (pairs NOT SPECIFIED) | 28 | Low Confidence | 2026-06-13 | Bhatti (SSRN 6087107, January 2026); SSRN preprint; paper explicitly declines to make performance claims ("methodological contribution"); no performance metrics reported; no peer review; no open code; no community scrutiny; intraday FX retail costs likely invalidate any gross edge; latent 28 |
 
 ---
 
@@ -127,3 +128,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 28 (2026-06-12): Added crypto-vwts-momentum; total strategies = 54
 - Run 29 (2026-06-12): Added structural-limits-ohlcv-mnq (null result); total strategies = 55
 - Run 30 (2026-06-12): Added fast-alphas-intraday-overlay; total strategies = 56
+- Run 31 (2026-06-13): Added intraday-fx-mean-reversion-bhatti (methodological contribution, no performance data); total strategies = 57
