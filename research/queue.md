@@ -1,10 +1,10 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-12 (run 30)
+Last updated: 2026-06-13 (run 31)
 
 ## Pending
 
-- `intraday-fx-mean-reversion-bhatti` — SSRN 6087107 (Bhatti, January 2026); regime-conditioned mean reversion in intraday FX; Z-score + multi-TF momentum filter; MQL5 prototype
+*(none)*
 
 ## Researching
 
@@ -68,6 +68,7 @@ Last updated: 2026-06-12 (run 30)
 - `crypto-vwts-momentum` — score 28 (Low Confidence) — 2026-06-12 — Huang/Sangiorgi/Urquhart (SSRN 4825389, December 2024); volume-weighted TSMOM for crypto; Sharpe 2.17 CLAIMED; 0.94%/day CLAIMED; costs NOT CONFIRMED modeled; exact formula NOT ACCESSIBLE; 18 months on SSRN without peer review; NOT implementation candidate (latent 28 < 60)
 - `structural-limits-ohlcv-mnq` — score 37 (Low Confidence) — 2026-06-12 — Mesfin (arXiv 2605.04004, May 2026); NULL RESULT: 14 OHLCV intraday signal families in MNQ futures all fail after 2-pt round-trip costs; gross edge 0.07–1.50 pts; mean reversion shows negative T-stats; arXiv preprint; single author; NOT implementation candidate (null result — no edge demonstrated)
 - `fast-alphas-intraday-overlay` — score 55 (Experimental) — 2026-06-12 — Zarattini/Pagani (SSRN 6391638, March 2026); ATR-based intraday trend + streak mean-reversion overlay on SPY 5-min; overlay raises Sharpe 0.87→0.99; standalone fast alpha fails after costs; parameters NOT REPORTED; max DD NOT REPORTED; single instrument; no confirmed OOS; NOT implementation candidate (latent 55 < 60 AND parameters not disclosed)
+- `intraday-fx-mean-reversion-bhatti` — score 28 (Low Confidence) — 2026-06-13 — Bhatti (SSRN 6087107, January 2026); Z-score + multi-TF momentum regime filter; paper explicitly declines to make performance claims ("methodological contribution"); no metrics reported; no peer review; no open code; intraday FX retail costs likely invalidate any gross edge; NOT implementation candidate (score 28 AND parameters undisclosed)
 
 ## Rejected
 
