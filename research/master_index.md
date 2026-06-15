@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-15 (run 33, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-15 (run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -17,6 +17,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 
 | Slug | Fingerprint | Score | Band | Last Updated | Status |
 |------|-------------|-------|------|--------------|--------|
+| `cta-trend-bayesian-reanalysis` | Bayesian graphical / Kalman state-space decomposition of SG Trend Index returns into short-term trend + long-term trend + market beta factors \| Bayesian state-space model (Kalman filter); SG Trend Index replication \| Daily/monthly (multi-horizon CTA signals) \| CTA / Diversified Futures | 40 | Experimental | 2026-06-15 | METHODOLOGY PAPER: no tradeable strategy; replication correlation 0.80 to SG Trend; no peer review; metrics NOT REPORTED |
 | `enhanced-momentum-transformers` | Attention-LSTM hybrid extending Momentum Transformer (Wood 2021) to US equities; daily TSMOM signal → continuous position weights \| Multi-head attention + LSTM + 21-day lookback \| Daily \| US Equities | 22 | Low Confidence | 2026-06-15 | Low confidence — data leakage detected/corrected; 7-page preprint; cost model opaque; no peer review |
 | `orb-stocks-in-play` | Opening range breakout on high-volume news-driven stocks \| Relative volume + ATR + 5-min candle color \| 5-min intraday \| US Equities | 78 | High Potential | 2026-05-28 | Active |
 | `catching-crypto-trends-donchian-ensemble` | Multi-period Donchian channel ensemble with volatility-based sizing \| Donchian channels (9 lookbacks: 5–360d) + realized vol \| Daily \| Crypto (BTC + altcoins) | 64 | Worth Researching | 2026-05-28 | Active |
