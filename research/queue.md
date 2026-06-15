@@ -1,10 +1,9 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-14 (run 32)
+Last updated: 2026-06-15 (run 33)
 
 ## Pending
 
-- `enhanced-momentum-transformers` — arXiv 2412.12516 (Moraes et al., Dec 2024); attention+LSTM hybrid extending momentum transformers to US equities; Sharpe 1.12 average, returns 4.14%; transaction costs accounted; modest absolute performance
 - `cta-trend-bayesian-reanalysis` — arXiv 2507.15876 (Benhamou et al., Jul 2025); Bayesian graphical model decomposing CTA returns into short-term trend, long-term trend, and market beta; methodology paper rather than new strategy; could inform trend-following horizon selection
 
 ## Researching
@@ -12,6 +11,8 @@ Last updated: 2026-06-14 (run 32)
 *(none)*
 
 ## Completed
+
+- `enhanced-momentum-transformers` — score 22 (Low Confidence) — 2026-06-15 — arXiv preprint (7 pages, no peer review); attention+LSTM extension of Wood et al. 2021 to US equities; Sharpe 1.12 / return 4.14% CLAIMED post-leakage-correction; data leakage detected and corrected; computational scope reduced; max DD NOT REPORTED; cost model opaque; no open code; 18 months on arXiv with zero citations
 
 - `cmm-daily-return-weighted-momentum` — score 54 (Experimental) — 2026-06-14 — JBF peer-reviewed; ML sparse weighting favoring EA-day returns; net Sharpe 0.77 after bid-ask; max DD −27.6%; OOS 1983–2022; bid-ask-only costs insufficient; no open code; PEAD decay risk
 
