@@ -4,13 +4,15 @@ Last updated: 2026-06-15 (run 33)
 
 ## Pending
 
-- `cta-trend-bayesian-reanalysis` — arXiv 2507.15876 (Benhamou et al., Jul 2025); Bayesian graphical model decomposing CTA returns into short-term trend, long-term trend, and market beta; methodology paper rather than new strategy; could inform trend-following horizon selection
+*(none)*
 
 ## Researching
 
 *(none)*
 
 ## Completed
+
+- `cta-trend-bayesian-reanalysis` — score 40 (Experimental) — 2026-06-15 — METHODOLOGY PAPER: no new tradeable strategy; Bayesian/Kalman decomposition of SG Trend Index into short-term trend, long-term trend, market beta; replication correlation 0.80 CLAIMED; live window Jun 2020–Jun 2025; no peer review; performance metrics of replication strategy NOT REPORTED; latent 40; finding (blend horizons) is conventional CTA wisdom
 
 - `enhanced-momentum-transformers` — score 22 (Low Confidence) — 2026-06-15 — arXiv preprint (7 pages, no peer review); attention+LSTM extension of Wood et al. 2021 to US equities; Sharpe 1.12 / return 4.14% CLAIMED post-leakage-correction; data leakage detected and corrected; computational scope reduced; max DD NOT REPORTED; cost model opaque; no open code; 18 months on arXiv with zero citations
 
