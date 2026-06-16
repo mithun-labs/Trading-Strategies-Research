@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-15 (run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-16 (run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -77,6 +77,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `fast-alphas-intraday-overlay` | Short-horizon streak-based mean-reversion overlay on ATR-based intraday trend signal \| Price streaks + ATR + 5-min candle direction \| 5-min intraday \| US Equities (SPY ETF) | 55 | Experimental | 2026-06-12 | Zarattini/Pagani (SSRN 6391638, March 2026); not peer-reviewed; standalone fast alpha CAGR ~31.9%/Sharpe >2 (gross, fails after costs); overlay raises Sharpe 0.87→0.99; CAGR +~200bps; parameters NOT REPORTED; max DD NOT REPORTED; single instrument; no confirmed OOS; latent 55 |
 | `intraday-fx-mean-reversion-bhatti` | Regime-conditioned Z-score mean reversion: higher-TF momentum filter gates entry; volatility-normalized Z-score signals entry; vol-adjusted sizing \| Z-score (lookback NOT REPORTED) + multi-TF momentum filter (indicator NOT REPORTED) \| Intraday (exact TF NOT REPORTED) \| Forex (pairs NOT SPECIFIED) | 28 | Low Confidence | 2026-06-13 | Bhatti (SSRN 6087107, January 2026); SSRN preprint; paper explicitly declines to make performance claims ("methodological contribution"); no performance metrics reported; no peer review; no open code; no community scrutiny; intraday FX retail costs likely invalidate any gross edge; latent 28 |
 | `cmm-daily-return-weighted-momentum` | ML sparse weighting of formation period daily returns (EA-day emphasis) → cross-sectional long-short US equity momentum \| Earnings announcement day returns + market jump day indicators + large individual returns \| Daily weighting / monthly rebalancing \| US Equities (cross-sectional long-short) | 54 | Experimental | 2026-06-14 | Wiedemann/Beckmeyer (JBF Vol. 181, 2025; SSRN 5702162; CC BY 4.0); peer-reviewed; net Sharpe 0.77 (after bid-ask) / gross 1.47; max DD −27.6% vs −80.3% standard momentum; OOS 1983–2022 claimed; 2 of 231 days get 30% weight (extreme sparsity); commissions/market impact NOT confirmed modeled; no open code; PEAD decay risk; latent 54 |
+| `crypto-drl-pairs-slepaczuk` | Cointegration + Hurst exponent pair filtering ("Filter-then-Rank") → PPO+LSTM execution agent ("Fixed Risk, Adaptive Mean") on 1-hour crypto perpetual futures pairs \| Hurst exponent (R/S analysis) + cointegration test + PPO+LSTM policy \| 1-hour \| Cryptocurrency Perpetual Futures (Binance USD-M) | 35 | Low Confidence | 2026-06-16 | arXiv preprint (Jun 2026); all specific metrics NOT REPORTED (primary PDF 403); "substantially outperforms baseline at 10% level" CLAIMED; IS/OOS each 1 year only; DRL overfitting risk; no open code; no peer review |
 
 ---
 
@@ -132,3 +133,6 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 29 (2026-06-12): Added structural-limits-ohlcv-mnq (null result); total strategies = 55
 - Run 30 (2026-06-12): Added fast-alphas-intraday-overlay; total strategies = 56
 - Run 31 (2026-06-13): Added intraday-fx-mean-reversion-bhatti (methodological contribution, no performance data); total strategies = 57
+- Run 32 (2026-06-14): Added cmm-daily-return-weighted-momentum; total strategies = 58
+- Run 33 (2026-06-15): Added enhanced-momentum-transformers + cta-trend-bayesian-reanalysis; total strategies = 60
+- Run 34 (2026-06-16): Added crypto-drl-pairs-slepaczuk; total strategies = 61
