@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-16 (run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-17 (run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -78,6 +78,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `intraday-fx-mean-reversion-bhatti` | Regime-conditioned Z-score mean reversion: higher-TF momentum filter gates entry; volatility-normalized Z-score signals entry; vol-adjusted sizing \| Z-score (lookback NOT REPORTED) + multi-TF momentum filter (indicator NOT REPORTED) \| Intraday (exact TF NOT REPORTED) \| Forex (pairs NOT SPECIFIED) | 28 | Low Confidence | 2026-06-13 | Bhatti (SSRN 6087107, January 2026); SSRN preprint; paper explicitly declines to make performance claims ("methodological contribution"); no performance metrics reported; no peer review; no open code; no community scrutiny; intraday FX retail costs likely invalidate any gross edge; latent 28 |
 | `cmm-daily-return-weighted-momentum` | ML sparse weighting of formation period daily returns (EA-day emphasis) → cross-sectional long-short US equity momentum \| Earnings announcement day returns + market jump day indicators + large individual returns \| Daily weighting / monthly rebalancing \| US Equities (cross-sectional long-short) | 54 | Experimental | 2026-06-14 | Wiedemann/Beckmeyer (JBF Vol. 181, 2025; SSRN 5702162; CC BY 4.0); peer-reviewed; net Sharpe 0.77 (after bid-ask) / gross 1.47; max DD −27.6% vs −80.3% standard momentum; OOS 1983–2022 claimed; 2 of 231 days get 30% weight (extreme sparsity); commissions/market impact NOT confirmed modeled; no open code; PEAD decay risk; latent 54 |
 | `crypto-drl-pairs-slepaczuk` | Cointegration + Hurst exponent pair filtering ("Filter-then-Rank") → PPO+LSTM execution agent ("Fixed Risk, Adaptive Mean") on 1-hour crypto perpetual futures pairs \| Hurst exponent (R/S analysis) + cointegration test + PPO+LSTM policy \| 1-hour \| Cryptocurrency Perpetual Futures (Binance USD-M) | 35 | Low Confidence | 2026-06-16 | arXiv preprint (Jun 2026); all specific metrics NOT REPORTED (primary PDF 403); "substantially outperforms baseline at 10% level" CLAIMED; IS/OOS each 1 year only; DRL overfitting risk; no open code; no peer review |
+| `intramonth-momentum-pretom` | Monthly WML timing overlay: standard cross-sectional momentum held only during 6-day PreTOM window (T-9 to T-4 before month-end); loser-driven dash-for-cash mechanism; T+1 settlement shift provides causal ID \| Past 12-1 month return (WML assumed) + PreTOM calendar filter \| Daily execution; 6-day monthly holding \| US Equities (CRSP; value-weighted; also 19 developed markets) | 61 | Worth Researching | 2026-06-17 | SSRN 6426026 (Nathan/Suominen/Tasa, March 2026; Quantpedia Awards 2026 2nd place); not peer-reviewed; $1→$18.78 PreTOM vs $2.37 non-PreTOM (1980-2025) CLAIMED; Sharpe/drawdown NOT REPORTED (full paper HTTP 403); Novy-Marx & Velikov costs modeled; 19 developed markets; T+1 shift causal ID; implementation candidate |
 
 ---
 
@@ -136,3 +137,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 32 (2026-06-14): Added cmm-daily-return-weighted-momentum; total strategies = 58
 - Run 33 (2026-06-15): Added enhanced-momentum-transformers + cta-trend-bayesian-reanalysis; total strategies = 60
 - Run 34 (2026-06-16): Added crypto-drl-pairs-slepaczuk; total strategies = 61
+- Run 35 (2026-06-17): Added intramonth-momentum-pretom; total strategies = 62
