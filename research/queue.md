@@ -1,16 +1,18 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-16 (run 34)
+Last updated: 2026-06-17 (run 35)
 
 ## Pending
 
-*(none)*
+- `maxing-out-reversal-max-stocks` — SSRN 4622831 (Chen/Cohen/Liang/Sun); **Journal of Empirical Finance Vol. 82, 2025** (peer-reviewed); weekly short-term reversal strategy filtered by MAX (highest recent daily return); high-MAX stocks earn 1.66% weekly vs 0.65% for low-MAX; mechanism: lottery-seeking investor overreaction; robust to microstructure biases; Sharpe NOT REPORTED; specific cost treatment NOT CONFIRMED from accessible sources. High priority: peer-reviewed, clear mechanism, novel filter.
 
 ## Researching
 
 *(none)*
 
 ## Completed
+
+- `intramonth-momentum-pretom` — score 61 (Worth Researching) — 2026-06-17 — Nathan/Suominen/Tasa (SSRN 6426026, March 2026, Quantpedia Awards 2026 2nd place); WML momentum held only during 6-day PreTOM window (T-9 to T-4 relative to last trading day); $1 → $18.78 over 1980-2025 PreTOM-only vs $2.37 non-PreTOM CLAIMED; loser-driven, not winner-driven; T+1 settlement shift (May 2024) provides causal ID; Sharpe/drawdown NOT REPORTED (full paper HTTP 403); costs modeled via Novy-Marx & Velikov (2016); 19 developed markets; not peer-reviewed; implementation candidate (latent 61 ≥ 60 AND PreTOM timing logic inspectable/codeable); latent 61 (no cap: evidence auditability 6/10)
 
 - `cta-trend-bayesian-reanalysis` — score 40 (Experimental) — 2026-06-15 — METHODOLOGY PAPER: no new tradeable strategy; Bayesian/Kalman decomposition of SG Trend Index into short-term trend, long-term trend, market beta; replication correlation 0.80 CLAIMED; live window Jun 2020–Jun 2025; no peer review; performance metrics of replication strategy NOT REPORTED; latent 40; finding (blend horizons) is conventional CTA wisdom
 
