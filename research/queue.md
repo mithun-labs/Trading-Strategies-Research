@@ -1,16 +1,18 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-17 (run 35)
+Last updated: 2026-06-18 (run 36)
 
 ## Pending
 
-- `maxing-out-reversal-max-stocks` — SSRN 4622831 (Chen/Cohen/Liang/Sun); **Journal of Empirical Finance Vol. 82, 2025** (peer-reviewed); weekly short-term reversal strategy filtered by MAX (highest recent daily return); high-MAX stocks earn 1.66% weekly vs 0.65% for low-MAX; mechanism: lottery-seeking investor overreaction; robust to microstructure biases; Sharpe NOT REPORTED; specific cost treatment NOT CONFIRMED from accessible sources. High priority: peer-reviewed, clear mechanism, novel filter.
+*(none)*
 
 ## Researching
 
 *(none)*
 
 ## Completed
+
+- `maxing-out-reversal-max-stocks` — score 44 (Experimental) — 2026-06-18 — Chen/Cohen/Liang/Sun (JEF Vol. 82, 2025, peer-reviewed); weekly short-term reversal filtered by MAX (highest daily return in week t−2); high-MAX reversal 1.66%/week vs low-MAX 0.65%/week CLAIMED; effective only in highest retail OIB quintile; costs NOT modeled; high-MAX stocks = small-cap lottery stocks with bid-ask costs likely exceeding gross return; short-selling constraints critical unknown; baseline reversal VW null (Hou/Xue/Zhang 2020); latent 44 (no cap; evidence auditability 6/10); NOT implementation candidate (latent 44 < 60)
 
 - `intramonth-momentum-pretom` — score 61 (Worth Researching) — 2026-06-17 — Nathan/Suominen/Tasa (SSRN 6426026, March 2026, Quantpedia Awards 2026 2nd place); WML momentum held only during 6-day PreTOM window (T-9 to T-4 relative to last trading day); $1 → $18.78 over 1980-2025 PreTOM-only vs $2.37 non-PreTOM CLAIMED; loser-driven, not winner-driven; T+1 settlement shift (May 2024) provides causal ID; Sharpe/drawdown NOT REPORTED (full paper HTTP 403); costs modeled via Novy-Marx & Velikov (2016); 19 developed markets; not peer-reviewed; implementation candidate (latent 61 ≥ 60 AND PreTOM timing logic inspectable/codeable); latent 61 (no cap: evidence auditability 6/10)
 
