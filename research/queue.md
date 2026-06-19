@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-18 (run 36)
+Last updated: 2026-06-19 (run 37)
 
 ## Pending
 
@@ -11,6 +11,8 @@ Last updated: 2026-06-18 (run 36)
 *(none)*
 
 ## Completed
+
+- `ath-breakout-stock-trend-following` — score 51 (Experimental) — 2026-06-19 — Zarattini/Pagani/Wilcox (SSRN 5084316, Jan 2025); long-only ATH breakout + 10-ATR trailing stop on survivorship-bias-free US stocks 1950–2024; CAGR 15.19% gross / Max DD 31.75% CLAIMED; net-of-cost Sharpe NOT REPORTED; Turnover Control algorithm proprietary (Concretum Group); 20-year OOS via 2005 Wilcox/Crittenden baseline; modest post-publication decay; NOT implementation candidate (latent 51 < 60 AND TC algorithm proprietary); latent 51 (no cap; evidence auditability 4/10; cap 59 does not bind)
 
 - `maxing-out-reversal-max-stocks` — score 44 (Experimental) — 2026-06-18 — Chen/Cohen/Liang/Sun (JEF Vol. 82, 2025, peer-reviewed); weekly short-term reversal filtered by MAX (highest daily return in week t−2); high-MAX reversal 1.66%/week vs low-MAX 0.65%/week CLAIMED; effective only in highest retail OIB quintile; costs NOT modeled; high-MAX stocks = small-cap lottery stocks with bid-ask costs likely exceeding gross return; short-selling constraints critical unknown; baseline reversal VW null (Hou/Xue/Zhang 2020); latent 44 (no cap; evidence auditability 6/10); NOT implementation candidate (latent 44 < 60)
 
