@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-19 (run 37)
+Last updated: 2026-06-20 (run 38)
 
 ## Pending
 
@@ -11,6 +11,8 @@ Last updated: 2026-06-19 (run 37)
 *(none)*
 
 ## Completed
+
+- `multi-asset-pullback-200ma` — score 42 (Experimental) — 2026-06-20 — Quantpedia blog (Beluska, Junior Quant Analyst, June 2026); 200-day SMA uptrend filter + N consecutive negative returns trigger → 1-day hold on 6 ETFs (SPY, EEM, IEF, FXE, GLD, DBC); Sharpe 0.78 / CAGR 8.5% / max DD -13.69% (3-day variant) CLAIMED; 600-test AI-assisted grid search; costs NOT modeled; Connors RSI(2) decay precedent; latent 42 (cap 59 not binding; evidence auditability 2/10); NOT implementation candidate (latent 42 < 60)
 
 - `ath-breakout-stock-trend-following` — score 51 (Experimental) — 2026-06-19 — Zarattini/Pagani/Wilcox (SSRN 5084316, Jan 2025); long-only ATH breakout + 10-ATR trailing stop on survivorship-bias-free US stocks 1950–2024; CAGR 15.19% gross / Max DD 31.75% CLAIMED; net-of-cost Sharpe NOT REPORTED; Turnover Control algorithm proprietary (Concretum Group); 20-year OOS via 2005 Wilcox/Crittenden baseline; modest post-publication decay; NOT implementation candidate (latent 51 < 60 AND TC algorithm proprietary); latent 51 (no cap; evidence auditability 4/10; cap 59 does not bind)
 
