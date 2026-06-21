@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-20 (run 38)
+Last updated: 2026-06-21 (run 39)
 
 ## Pending
 
@@ -11,6 +11,8 @@ Last updated: 2026-06-20 (run 38)
 *(none)*
 
 ## Completed
+
+- `dividend-reinvestment-market-timing` — score 57 (Experimental) — 2026-06-21 — Hartzmark/Solomon (AER Vol. 115 No. 9, September 2025, pp. 3171-3213); top quintile dividend payment days produce returns 4× bottom quintile; +3.2 bps per SD increase in payout (unconditional mean 4.1 bps); no reversal after payment; holds internationally; market-level price multiplier 1.9; no Sharpe/drawdown reported for trading strategy; post-publication arbitrage risk; CRSP data required; NOT implementation candidate (latent 57 < 60 AND Sharpe/DD NOT REPORTED)
 
 - `multi-asset-pullback-200ma` — score 42 (Experimental) — 2026-06-20 — Quantpedia blog (Beluska, Junior Quant Analyst, June 2026); 200-day SMA uptrend filter + N consecutive negative returns trigger → 1-day hold on 6 ETFs (SPY, EEM, IEF, FXE, GLD, DBC); Sharpe 0.78 / CAGR 8.5% / max DD -13.69% (3-day variant) CLAIMED; 600-test AI-assisted grid search; costs NOT modeled; Connors RSI(2) decay precedent; latent 42 (cap 59 not binding; evidence auditability 2/10); NOT implementation candidate (latent 42 < 60)
 

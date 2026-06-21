@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-20 (run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-21 (run 39, run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -82,6 +82,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `maxing-out-reversal-max-stocks` | Weekly cross-sectional reversal filtered by MAX (max daily return in week t−2); high-MAX stocks reversal 2.5× stronger than low-MAX; mechanism: lottery-seeking investor overreaction \| MAX (week-before-last daily high) + prior-week return sort \| Weekly \| US Equities (NYSE + AMEX + NASDAQ, CRSP; July 1963–Dec 2022) | 44 | Experimental | 2026-06-18 | JEF Vol. 82 2025 (peer-reviewed); high-MAX reversal 1.66%/week vs 0.65% CLAIMED; costs NOT modeled; effective only in highest retail OIB quintile; high-MAX = small-cap lottery stocks (illiquidity premium likely explanation); Hou/Xue/Zhang 2020 shows baseline VW reversal ≈ zero; Sharpe/drawdown NOT REPORTED; latent 44 |
 | `ath-breakout-stock-trend-following` | Long-only ATH (all-time high adjusted close) breakout entry + 10-ATR trailing stop exit; equal-weighted portfolio across all qualifying liquid US stocks; <7% of trades drive all profits (Pareto/power-law return distribution) \| All-time-high adjusted close breakout + ATR trailing stop \| Daily \| US Equities (NYSE + AMEX + NASDAQ, survivorship-bias-free; 1950–2024) | 51 | Experimental | 2026-06-19 | SSRN 5084316 (Zarattini/Pagani/Wilcox, Jan 2025); extends Wilcox/Crittenden 2005 white paper; CAGR 15.19% gross / Max DD 31.75% (CLAIMED); net-of-cost Sharpe NOT REPORTED; Turnover Control algorithm proprietary (core viability unverifiable); 20-year OOS (2005–2024) via 2005 publication; modest post-pub decay; latent 51 |
 | `multi-asset-pullback-200ma` | Short-term mean reversion in uptrend: 200-day SMA filter + N consecutive negative daily return trigger → 1-day hold; dynamic equal-weight allocation across simultaneous signals \| 200-day SMA + consecutive negative return count \| Daily (1-day hold) \| Multi-asset ETFs (SPY, EEM, IEF, FXE, GLD, DBC) | 42 | Experimental | 2026-06-20 | Quantpedia blog (Beluska, June 2026); 600-test AI-assisted grid search; no peer review; Sharpe 0.78 / CAGR 8.5% / max DD -13.69% (3-day variant) CLAIMED; costs not modeled; Connors RSI(2) decay precedent; latent 42 |
+| `dividend-reinvestment-market-timing` | Aggregate dividend payment day market-timing: long equity index scaled by quintile of daily payout yield → buy pressure from predictable dividend reinvestment flows \| Daily aggregate payout yield (CRSP) + quintile rank \| Daily (1-2 day hold) \| US Equity Index (S&P 500 / SPY / ES); international indices | 57 | Experimental | 2026-06-21 | Hartzmark/Solomon (AER Vol. 115 No. 9, Sep 2025, pp. 3171-3213); peer-reviewed top-5 econ journal; top quintile returns 4× bottom quintile CLAIMED (AUDITABLE methodology); no Sharpe/drawdown reported for trading strategy; costs not modeled; post-publication arbitrage risk; latent 57 (no cap: Evidence auditability 8) |
 
 ---
 
@@ -144,3 +145,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 36 (2026-06-18): Added maxing-out-reversal-max-stocks; total strategies = 63
 - Run 37 (2026-06-19): Added ath-breakout-stock-trend-following; total strategies = 64
 - Run 38 (2026-06-20): Added multi-asset-pullback-200ma; total strategies = 65
+- Run 39 (2026-06-21): Added dividend-reinvestment-market-timing; total strategies = 66
