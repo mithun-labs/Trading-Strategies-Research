@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-21 (run 39)
+Last updated: 2026-06-22 (run 40)
 
 ## Pending
 
@@ -11,6 +11,8 @@ Last updated: 2026-06-21 (run 39)
 *(none)*
 
 ## Completed
+
+- `reit-factor-momentum` — score 33 (Low Confidence) — 2026-06-22 — Dobrynskaya/Tomtosov/Rechmedina (SSRN 5631072, Oct 2025); monthly factor rotation within US REIT universe: long top-2/short bottom-2 of 4 REIT factors (value, size, momentum, profitability); Sharpe 1.35 / annual return 5.7% / alpha 5.9% (pre-costs) CLAIMED from secondary sources; formation period NOT REPORTED; max DD NOT REPORTED; costs NOT CONFIRMED modeled; 4-factor universe = essentially binary long/short bet; SSRN preprint only (not peer-reviewed); NOT implementation candidate (latent 33 < 60)
 
 - `dividend-reinvestment-market-timing` — score 57 (Experimental) — 2026-06-21 — Hartzmark/Solomon (AER Vol. 115 No. 9, September 2025, pp. 3171-3213); top quintile dividend payment days produce returns 4× bottom quintile; +3.2 bps per SD increase in payout (unconditional mean 4.1 bps); no reversal after payment; holds internationally; market-level price multiplier 1.9; no Sharpe/drawdown reported for trading strategy; post-publication arbitrage risk; CRSP data required; NOT implementation candidate (latent 57 < 60 AND Sharpe/DD NOT REPORTED)
 
