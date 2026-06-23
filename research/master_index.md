@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-22 (run 40, run 39, run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-23 (run 41, run 40, run 39, run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -84,6 +84,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `multi-asset-pullback-200ma` | Short-term mean reversion in uptrend: 200-day SMA filter + N consecutive negative daily return trigger → 1-day hold; dynamic equal-weight allocation across simultaneous signals \| 200-day SMA + consecutive negative return count \| Daily (1-day hold) \| Multi-asset ETFs (SPY, EEM, IEF, FXE, GLD, DBC) | 42 | Experimental | 2026-06-20 | Quantpedia blog (Beluska, June 2026); 600-test AI-assisted grid search; no peer review; Sharpe 0.78 / CAGR 8.5% / max DD -13.69% (3-day variant) CLAIMED; costs not modeled; Connors RSI(2) decay precedent; latent 42 |
 | `dividend-reinvestment-market-timing` | Aggregate dividend payment day market-timing: long equity index scaled by quintile of daily payout yield → buy pressure from predictable dividend reinvestment flows \| Daily aggregate payout yield (CRSP) + quintile rank \| Daily (1-2 day hold) \| US Equity Index (S&P 500 / SPY / ES); international indices | 57 | Experimental | 2026-06-21 | Hartzmark/Solomon (AER Vol. 115 No. 9, Sep 2025, pp. 3171-3213); peer-reviewed top-5 econ journal; top quintile returns 4× bottom quintile CLAIMED (AUDITABLE methodology); no Sharpe/drawdown reported for trading strategy; costs not modeled; post-publication arbitrage risk; latent 57 (no cap: Evidence auditability 8) |
 | `reit-factor-momentum` | Monthly rotation: long top-2 / short bottom-2 of 4 REIT factor portfolios (value, size, momentum, profitability) ranked by recent return \| Monthly factor returns (formation period NOT REPORTED) \| Monthly \| US REITs | 33 | Low Confidence | 2026-06-22 | SSRN 5631072 (Dobrynskaya/Tomtosov/Rechmedina, Oct 2025); not peer-reviewed; Sharpe 1.35 / annual return 5.7% / alpha 5.9% (pre-costs) CLAIMED; formation period NOT REPORTED; max DD NOT REPORTED; costs NOT CONFIRMED modeled; binary 4-factor universe; latent 33 |
+| `active-dual-momentum-gtaa` | Cross-sectional relative momentum ranking + absolute ROC trend filter on 9 multi-asset ETFs; dual-horizon blend (10-week + 25-week) at 50/50; weekly rebalance \| ROC (10-week + 25-week) + absolute trend filter (positive ROC) \| Weekly \| Multi-asset ETFs (SHY, IEF, UUP, GLD, USO, SPY, EFA, QQQ, EEM) | 30 | Low Confidence | 2026-06-23 | Quantpedia blog (Beluska, May 2026); Sharpe/Calmar ~0.9 CLAIMED; zero costs on weekly rebalancing = presumptive invalidity; full in-sample parameter grid; no peer review; no OOS; universe selection acknowledged as hidden parameter; latent 30 (cap 59 does not bind) |
 
 ---
 

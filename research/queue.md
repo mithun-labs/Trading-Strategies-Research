@@ -1,6 +1,6 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-22 (run 40)
+Last updated: 2026-06-23 (run 41)
 
 ## Pending
 
@@ -11,6 +11,8 @@ Last updated: 2026-06-22 (run 40)
 *(none)*
 
 ## Completed
+
+- `active-dual-momentum-gtaa` — score 30 (Low Confidence) — 2026-06-23 — Quantpedia blog (Beluska, May 2026); weekly-rebalanced dual momentum (10-week + 25-week ROC blend) on 9 multi-asset ETFs (SHY, IEF, UUP, GLD, USO, SPY, EFA, QQQ, EEM); Sharpe/Calmar ~0.9 CLAIMED; zero costs on weekly rebalancing = presumptive invalidity; full in-sample parameter grid (no OOS); universe selection = acknowledged hidden parameter; NOT implementation candidate (latent 30 < 60)
 
 - `reit-factor-momentum` — score 33 (Low Confidence) — 2026-06-22 — Dobrynskaya/Tomtosov/Rechmedina (SSRN 5631072, Oct 2025); monthly factor rotation within US REIT universe: long top-2/short bottom-2 of 4 REIT factors (value, size, momentum, profitability); Sharpe 1.35 / annual return 5.7% / alpha 5.9% (pre-costs) CLAIMED from secondary sources; formation period NOT REPORTED; max DD NOT REPORTED; costs NOT CONFIRMED modeled; 4-factor universe = essentially binary long/short bet; SSRN preprint only (not peer-reviewed); NOT implementation candidate (latent 33 < 60)
 
