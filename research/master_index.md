@@ -1,6 +1,6 @@
 # Master Strategy Index
 
-Last updated: 2026-06-29 (run 42, run 41, run 40, run 39, run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
+Last updated: 2026-06-29 (run 42 continued, run 42, run 41, run 40, run 39, run 38, run 37, run 36, run 35, run 34, run 33 x2, run 32, run 31, run 30, run 29, run 28, run 27, run 26 continued x2, run 26, run 25, run 24, run 23, run 22, run 21, run 20, run 19 continued, run 18, run 17, run 16, run 15)
 
 ## About This Index
 
@@ -86,6 +86,7 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 | `reit-factor-momentum` | Monthly rotation: long top-2 / short bottom-2 of 4 REIT factor portfolios (value, size, momentum, profitability) ranked by recent return \| Monthly factor returns (formation period NOT REPORTED) \| Monthly \| US REITs | 33 | Low Confidence | 2026-06-22 | SSRN 5631072 (Dobrynskaya/Tomtosov/Rechmedina, Oct 2025); not peer-reviewed; Sharpe 1.35 / annual return 5.7% / alpha 5.9% (pre-costs) CLAIMED; formation period NOT REPORTED; max DD NOT REPORTED; costs NOT CONFIRMED modeled; binary 4-factor universe; latent 33 |
 | `active-dual-momentum-gtaa` | Cross-sectional relative momentum ranking + absolute ROC trend filter on 9 multi-asset ETFs; dual-horizon blend (10-week + 25-week) at 50/50; weekly rebalance \| ROC (10-week + 25-week) + absolute trend filter (positive ROC) \| Weekly \| Multi-asset ETFs (SHY, IEF, UUP, GLD, USO, SPY, EFA, QQQ, EEM) | 30 | Low Confidence | 2026-06-23 | Quantpedia blog (Beluska, May 2026); Sharpe/Calmar ~0.9 CLAIMED; zero costs on weekly rebalancing = presumptive invalidity; full in-sample parameter grid; no peer review; no OOS; universe selection acknowledged as hidden parameter; latent 30 (cap 59 does not bind) |
 | `commodity-dual-momentum-sector-etf` | Relative momentum rank (X-month ROC top M) + absolute trend filter (price > X-month SMA) → cash if below; equal weight among qualifying ETFs; monthly rebalance \| X-month ROC rank + X-month SMA trend gate \| Monthly \| Commodities — 4 sector ETFs (DBA agriculture, DBB base metals, DBE energy, DBP precious metals) | 42 | Experimental | 2026-06-29 | Quantpedia blog (Beluska, Jun 2026); Sharpe 0.63 / Ann. Return 7.54% / Max DD -30.07% (best: X=3, M=3) CLAIMED; no costs modeled; all 12 combos in-sample only; no OOS; 4-ETF universe trivially small; latent 42 (cap 59 does not bind) |
+| `esg-state-dependent-momentum` | Latent 2-state ESG Markov regime (pro/anti-ESG) conditions biweekly long-short momentum on PCA-reduced factor portfolios; ESG-loser Sharpe > winner Sharpe in pro-ESG regimes \| ARMA(1,1)-GARCH(1,1) return forecasts + hidden Markov ESG regime + quantile ranking \| Biweekly (2-week formation / 2-week holding) \| US Equities (Russell 3000 via PCA; DJ30); Crypto (30 largest) | 31 | Low Confidence | 2026-06-29 | arXiv 2505.24250 (May 2025); Russell 3000 W-L Sharpe -0.316 (negative); Losers Sharpe 0.973 > Winners 0.657 CLAIMED; no costs; no CAGR; no max DD; PCA not individually implementable; Bloomberg data only; latent 31 (cap 59 does not bind) |
 
 ---
 
@@ -152,3 +153,4 @@ last-updated dates. Use it to detect duplicates and track strategy evolution.
 - Run 40 (2026-06-22): Added reit-factor-momentum; total strategies = 67
 - Run 41 (2026-06-23): Added active-dual-momentum-gtaa; total strategies = 68
 - Run 42 (2026-06-29): Added commodity-dual-momentum-sector-etf; total strategies = 69
+- Run 42 continued (2026-06-29): Added esg-state-dependent-momentum; total strategies = 70
