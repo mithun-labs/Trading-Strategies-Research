@@ -4,13 +4,15 @@ Last updated: 2026-06-29 (run 42)
 
 ## Pending
 
-- `esg-state-dependent-momentum` — arXiv 2505.24250 (May 2025); ESG-regime-conditioned long-short momentum on Russell 3000 / DJ30 / Crypto; counterintuitive finding: ESG losers > winners in pro-ESG regimes; 2-week formation/holding optimal; tail-risk metrics (STARR, Rachev) used; no CAGR/DD reported; no costs
+*(none)*
 
 ## Researching
 
 *(none)*
 
 ## Completed
+
+- `esg-state-dependent-momentum` — score 31 (Low Confidence) — 2026-06-29 — arXiv 2505.24250 (May 2025); latent 2-state ESG Markov regime conditions biweekly long-short momentum on PCA factor portfolios across Russell 3000 / DJ30 / 30 crypto; Russell 3000 W-L Sharpe = -0.316 (negative! classic momentum fails in sample); Losers Sharpe 0.973 > Winners 0.657 CLAIMED; no CAGR; no max DD; no costs ("frictionless upper bounds"); PCA-based (not directly stock-implementable); Bloomberg data only; short biased periods for DJ30/Crypto (Nov 2020 - Nov 2024 = COVID recovery); NOT implementation candidate (latent 31 < 60)
 
 - `commodity-dual-momentum-sector-etf` — score 42 (Experimental) — 2026-06-29 — Quantpedia blog (Beluska, Jun 2026); dual momentum (relative ROC rank + absolute SMA trend filter) on 4 commodity sector ETFs (DBA, DBB, DBE, DBP); best params X=3, M=3; Sharpe 0.63 / Ann. Return 7.54% / Max DD -30.07% CLAIMED; no costs modeled; all 12 combos in-sample only (Jan 2007–Feb 2026); 4-ETF universe trivially small; Antonacci dual momentum framework; NOT implementation candidate (latent 42 < 60)
 
