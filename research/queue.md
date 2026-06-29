@@ -1,16 +1,18 @@
 # Candidate Strategy Queue
 
-Last updated: 2026-06-23 (run 41)
+Last updated: 2026-06-29 (run 42)
 
 ## Pending
 
-*(none)*
+- `esg-state-dependent-momentum` — arXiv 2505.24250 (May 2025); ESG-regime-conditioned long-short momentum on Russell 3000 / DJ30 / Crypto; counterintuitive finding: ESG losers > winners in pro-ESG regimes; 2-week formation/holding optimal; tail-risk metrics (STARR, Rachev) used; no CAGR/DD reported; no costs
 
 ## Researching
 
 *(none)*
 
 ## Completed
+
+- `commodity-dual-momentum-sector-etf` — score 42 (Experimental) — 2026-06-29 — Quantpedia blog (Beluska, Jun 2026); dual momentum (relative ROC rank + absolute SMA trend filter) on 4 commodity sector ETFs (DBA, DBB, DBE, DBP); best params X=3, M=3; Sharpe 0.63 / Ann. Return 7.54% / Max DD -30.07% CLAIMED; no costs modeled; all 12 combos in-sample only (Jan 2007–Feb 2026); 4-ETF universe trivially small; Antonacci dual momentum framework; NOT implementation candidate (latent 42 < 60)
 
 - `active-dual-momentum-gtaa` — score 30 (Low Confidence) — 2026-06-23 — Quantpedia blog (Beluska, May 2026); weekly-rebalanced dual momentum (10-week + 25-week ROC blend) on 9 multi-asset ETFs (SHY, IEF, UUP, GLD, USO, SPY, EFA, QQQ, EEM); Sharpe/Calmar ~0.9 CLAIMED; zero costs on weekly rebalancing = presumptive invalidity; full in-sample parameter grid (no OOS); universe selection = acknowledged hidden parameter; NOT implementation candidate (latent 30 < 60)
 
